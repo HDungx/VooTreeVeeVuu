@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "RoomFacilities")
-public class RoomFacility {
+@Table(name= "room_images")
+public class RoomImage {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     Integer id;
-    @ManyToOne @JoinColumn(name = "roomId")
+    String path;
+    @ManyToOne @JoinColumn(name="room_Id")
     Room room;
-    @ManyToOne @JoinColumn(name = "fac_Id")
-    Facility facility;
+
 }

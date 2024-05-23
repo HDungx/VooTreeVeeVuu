@@ -23,13 +23,14 @@ public class Customer {
     String phoneNum;
     String gender;
     int age;
-    @OneToOne @JoinColumn(name = "account_Id")
+    @JsonIgnore
+    @OneToOne (mappedBy = ("customer"))
     Account account;
     @JsonIgnore
-    @OneToMany (mappedBy = "rating")
+    @OneToMany (mappedBy = "customer")
     List<Rating> listRating;
     @JsonIgnore
-    @OneToMany (mappedBy = "booking")
+    @OneToMany (mappedBy = "customer")
     List<Booking> listBooking;
 
 }

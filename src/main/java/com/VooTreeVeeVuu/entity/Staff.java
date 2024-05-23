@@ -25,7 +25,7 @@ public class Staff {
     @OneToMany (mappedBy = "staff")
     List<Hotel> hotels;
     @JsonIgnore
-    @OneToOne (mappedBy = "staff")
+    @OneToOne @JoinColumn(name = "email")
     Account account;
 
 }

@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -19,6 +20,7 @@ public class RoomType {
     @Id
     String type_Id;
     String type_Name;
+    @JsonIgnore
     @OneToMany (mappedBy = "roomType")
     List<Room> rooms;
 }

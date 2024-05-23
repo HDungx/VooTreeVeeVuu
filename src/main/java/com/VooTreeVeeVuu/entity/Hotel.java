@@ -1,16 +1,12 @@
 package com.VooTreeVeeVuu.entity;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +24,10 @@ public class Hotel {
 	int hotel_stars;
 	String hotel_description;
 	String status;
+	@Temporal(TemporalType.TIME)
+	LocalTime checkInTime;
+	@Temporal(TemporalType.TIME)
+	LocalTime checkOutTime;
 	@ManyToOne @JoinColumn(name="staff_Id")
 	Staff staff;
 	@ManyToOne @JoinColumn(name="type_Id")
@@ -41,4 +41,7 @@ public class Hotel {
 	List<Room> rooms;
 	@OneToMany (mappedBy = ("hotel"))
 	List<HotelFacility> hotel_Facilities;
+	@JsonIgnore
+	@OneToMany (mappedBy = "hotel")
+	List<Rating> listRating;
 }

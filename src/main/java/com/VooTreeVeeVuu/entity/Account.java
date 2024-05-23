@@ -19,12 +19,12 @@ public class Account {
     String password;
     String role;
     @JsonIgnore
-    @OneToOne @JoinColumn(name = "customer_Id")
+    @OneToOne (mappedBy = ("account"))
     Customer customer;
     @JsonIgnore
-    @OneToOne @JoinColumn(name = "partner_Id")
+    @OneToOne (mappedBy = ("account"))
     Partner partner;
     @JsonIgnore
-    @OneToOne @JoinColumn(name = "staff_Id")
+    @OneToOne (mappedBy = ("account"))
     Staff staff;
 }
