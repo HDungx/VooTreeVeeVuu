@@ -22,19 +22,16 @@ import lombok.NoArgsConstructor;
 @Table(name="Hotels")
 public class Hotel {
 	@Id
-	String hotelId;
+	String hotel_Id;
 	String address;
 	String hotel_phoneNum;
 	int hotel_stars;
 	String hotel_description;
 	String status;
-	@JsonIgnore
-	@OneToOne @JoinColumn(name="staff_Id")
-	Staff staff_Id;
-	@JsonIgnore
+	@ManyToOne @JoinColumn(name="staff_Id")
+	Staff staff;
 	@ManyToOne @JoinColumn(name="type_Id")
-	AccomodationType type_Id;
-	@JsonIgnore
+	AccommodationType accommodationType;
 	@ManyToOne @JoinColumn(name="partner_Id")
 	Partner partner;
 	@OneToMany (mappedBy = ("hotel"))
@@ -43,5 +40,5 @@ public class Hotel {
 	@OneToMany (mappedBy = ("hotel"))
 	List<Room> rooms;
 	@OneToMany (mappedBy = ("hotel"))
-	List<HotelFacility> hotel_Facilitys;
+	List<HotelFacility> hotel_Facilities;
 }

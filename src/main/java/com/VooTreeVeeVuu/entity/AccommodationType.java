@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.entity;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -14,11 +15,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table (name= "room_type")
-public class RoomType {
+@Table(name ="accommodation_type")
+public class AccommodationType {
     @Id
     String type_Id;
     String type_Name;
-    @OneToMany (mappedBy = "roomType")
-    List<Room> rooms;
+    @OneToMany( mappedBy = "accommodationType")
+    List<Hotel> hotels;
 }

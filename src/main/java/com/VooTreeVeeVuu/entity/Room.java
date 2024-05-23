@@ -1,15 +1,13 @@
 package com.VooTreeVeeVuu.entity;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -19,5 +17,23 @@ import lombok.NoArgsConstructor;
 public class Room {
 	@Id
 	String roomId;
-	
+	String image;
+	int capacity;
+	double price;
+	int quantity;
+	int room_size;
+	String description;
+	@JsonIgnore
+	@ManyToOne @JoinColumn(name ="type_id")
+	RoomType roomType;
+	@JsonIgnore
+	@ManyToOne @JoinColumn(name = "hotel_id")
+	Hotel hotel;
+	@JsonIgnore
+	@OneToMany (mappedBy = "room")
+	List<RoomFacility> room_Facilities;
+	@JsonIgnore
+	@OneToMany (mappedBy ="booking")
+	List<Booking> listBooking;
+
 }
