@@ -1,6 +1,7 @@
 package com.VooTreeVeeVuu.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,13 +10,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "RoomFacilities")
+@Table (name = "RoomFacilities")
 public class RoomFacility {
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
-    Integer id;
-    @ManyToOne @JoinColumn(name = "roomId")
-    Room room;
-    @ManyToOne @JoinColumn(name = "fac_Id")
-    Facility facility;
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	Integer id;
+	@NotBlank
+	@ManyToOne
+	@JoinColumn (name = "roomId")
+	Room room;
+	@NotBlank
+	@ManyToOne
+	@JoinColumn (name = "fac_Id")
+	Facility facility;
 }
