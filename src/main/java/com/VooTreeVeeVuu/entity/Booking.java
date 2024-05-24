@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
@@ -19,6 +21,7 @@ import java.time.LocalDate;
 @Table(name = "Bookings")
 public class Booking {
     @Id
+    //@Pattern(regexp = "^BKN[1-9]{4}$\n")
     String booking_Id;
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -39,6 +42,7 @@ public class Booking {
     Room room;
     @NotBlank
     @Column(columnDefinition = "nvarchar(50)")
+    @Enumerated(EnumType.STRING)
     Booking_status status;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Temporal(TemporalType.DATE)

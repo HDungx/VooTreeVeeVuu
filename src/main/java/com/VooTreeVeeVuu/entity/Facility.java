@@ -18,6 +18,7 @@ public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer fac_Id;
+    @Enumerated(EnumType.STRING)
     Fac_Type fac_Type;
     @NotBlank
     @Column(columnDefinition = "nvarchar(255)")

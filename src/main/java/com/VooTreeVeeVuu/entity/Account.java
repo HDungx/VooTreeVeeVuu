@@ -16,12 +16,13 @@ import org.hibernate.validator.constraints.Length;
 
 public class Account {
 	@Id
+	@Column(unique = true)
 	String username;
 	@Email
 	@Column (unique = true, nullable = false)
 	String email;
 	@NotBlank
-	@Size (min = 6, max = 20)
+	@Size (min = 6, max = 20, message = "Password must be between 6 and 20 characters long")
 	String password;
 	@Column (columnDefinition = "nvarchar(50)")
 	String role;

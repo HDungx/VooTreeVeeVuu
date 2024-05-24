@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 @Data
 @AllArgsConstructor
@@ -19,10 +20,11 @@ public class Rating {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	Integer id;
 	@NotNull
-	@Min(1) @Max(5)
+	@Min (1)
+	@Max (5)
 	int rate;
 	@NotBlank
-	@Column(columnDefinition = "nvarchar(255)")
+	@Column (columnDefinition = "nvarchar(255)")
 	String comment;
 	@ManyToOne
 	@JoinColumn (name = "customer_Id")

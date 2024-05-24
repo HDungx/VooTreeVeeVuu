@@ -8,6 +8,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ import java.util.List;
 @Table (name = "Customers")
 public class Customer {
 	@Id
+	//@Pattern(regexp = "^CUS[1-9]{4}$\n")
 	String customer_Id;
 	@NotBlank
 	@Column(columnDefinition = "nvarchar(200)")
@@ -32,12 +34,14 @@ public class Customer {
 	@NotBlank
 	@Size(min = 3, max = 10)
 	String phoneNum;
+	@Enumerated(EnumType.STRING)
 	Gender gender;
 	@NotNull
 	@Min(1) @Max(80)
 	int age;
 	@OneToOne
 	@JoinColumn (name = "username")
+	@Size(min = 6, max = 55)
 	Account account;
 	@JsonIgnore
 	@OneToMany (mappedBy = "customer")

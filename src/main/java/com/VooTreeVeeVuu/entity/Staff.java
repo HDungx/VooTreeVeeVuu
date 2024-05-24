@@ -1,6 +1,7 @@
 package com.VooTreeVeeVuu.entity;
 
 
+import com.VooTreeVeeVuu.utils.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -9,6 +10,7 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
 
@@ -30,6 +32,8 @@ public class Staff {
 	@Email
 	@Column (unique = true)
 	String email;
+	@Enumerated(EnumType.STRING)
+	Gender gender;
 	@NotBlank
 	@Size (min = 3, max = 10)
 	String phoneNum;

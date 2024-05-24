@@ -11,6 +11,7 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
@@ -33,6 +34,7 @@ public class Hotel {
 	@NotBlank
 	@Column(columnDefinition = "nvarchar(255)")
 	String hotel_description;
+	@Enumerated(EnumType.STRING)
 	Hotel_status status;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	@Temporal (TemporalType.TIME)
