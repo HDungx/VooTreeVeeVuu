@@ -23,8 +23,8 @@ public class Customer {
     String phoneNum;
     String gender;
     int age;
-    @JsonIgnore
-    @OneToOne (mappedBy = ("customer"))
+
+    @OneToOne @JoinColumn(name = "username")
     Account account;
     @JsonIgnore
     @OneToMany (mappedBy = "customer")

@@ -23,7 +23,7 @@ public class Partner {
     String gender;
     int age;
     @JsonIgnore
-    @OneToOne (mappedBy = "partner")
+    @OneToOne @JoinColumn(name = "username")
     Account account;
     @JsonIgnore
     @OneToMany(mappedBy = "partner")
