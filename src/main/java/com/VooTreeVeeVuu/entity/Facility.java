@@ -17,7 +17,7 @@ import java.util.List;
 public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    String fac_Id;
+    Integer fac_Id;
     Fac_Type fac_Type;
     @NotBlank
     @Column(columnDefinition = "nvarchar(255)")

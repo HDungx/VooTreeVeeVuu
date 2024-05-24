@@ -40,6 +40,6 @@ public class Staff {
 	@OneToOne
 	@JoinColumn (name = "username")
 	Account account;
-	@ManyToOne @JoinColumn(name = "id")
-	Logs log;
+	@OneToMany (mappedBy = "staff")
+	List<Logs> logsList;
 }
