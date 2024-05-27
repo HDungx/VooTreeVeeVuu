@@ -39,6 +39,7 @@ public class Customer {
 	@NotNull
 	@Min(1) @Max(80)
 	int age;
+	boolean status;
 	@OneToOne
 	@JoinColumn (name = "username")
 	@Size(min = 6, max = 55)
