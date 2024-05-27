@@ -53,6 +53,12 @@ public class Hotel {
 	Partner partner;
 	@OneToMany (mappedBy = ("hotel"))
 	List<HotelImage> hotel_Images;
+	@NotNull
+	@Min(1)
+	int num_of_room;
+	@NotNull
+	@Min(2)
+	int num_of_guest;
 	@JsonIgnore
 	@OneToMany (mappedBy = ("hotel"))
 	List<Room> rooms;
