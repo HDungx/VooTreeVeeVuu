@@ -42,7 +42,6 @@ public class Customer {
 	boolean status;
 	@OneToOne
 	@JoinColumn (name = "username")
-	@Size(min = 6, max = 55)
 	Account account;
 	@JsonIgnore
 	@OneToMany (mappedBy = "customer")

@@ -26,6 +26,9 @@ public class Hotel {
 	@Column(columnDefinition = "nvarchar(255)")
 	String address;
 	@NotBlank
+	@Column(columnDefinition = "nvarchar(50)")
+	String city;
+	@NotBlank
 	@Size(min = 3, max = 10)
 	String hotel_phoneNum;
 	@NotNull

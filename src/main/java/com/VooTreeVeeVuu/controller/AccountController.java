@@ -21,7 +21,7 @@ public class AccountController {
 		return new ResponseEntity<>(accountServImp.getAll(), HttpStatus.OK);
 	}
 
-	@GetMapping ("{username}")
+	@GetMapping ("/{username}")
 	public ResponseEntity<Account> getAccountByUsername (@PathVariable String username) {
 		return accountServImp.getByUsername(username).map(user -> new ResponseEntity<>(user, HttpStatus.OK)).orElse(
 				new ResponseEntity<>(HttpStatus.NOT_FOUND));
