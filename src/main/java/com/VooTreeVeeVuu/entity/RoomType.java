@@ -17,7 +17,7 @@ import java.util.List;
 @Table (name= "room_type")
 public class RoomType {
     @Id
-    String type_Id;
+    String typeId;
     @NotBlank
     @Column (columnDefinition = "nvarchar(50)")
     String type_Name;

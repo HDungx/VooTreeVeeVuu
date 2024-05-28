@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table (name = "Hotels")
 public class Hotel {
 	@Id
-	String hotel_Id;
+	String hotelId;
 	@NotBlank
 	@Column(columnDefinition = "nvarchar(255)")
 	String address;
@@ -30,13 +30,13 @@ public class Hotel {
 	String city;
 	@NotBlank
 	@Size(min = 3, max = 10)
-	String hotel_phoneNum;
+	String hotelPhoneNum;
 	@NotNull
 	@Min(1) @Max(5)
-	int hotel_stars;
+	int hotelStars;
 	@NotBlank
 	@Column(columnDefinition = "nvarchar(255)")
-	String hotel_description;
+	String hotelDescription;
 	@Enumerated(EnumType.STRING)
 	Hotel_status status;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
@@ -55,18 +55,18 @@ public class Hotel {
 	@JoinColumn (name = "partner_Id")
 	Partner partner;
 	@OneToMany (mappedBy = ("hotel"))
-	List<HotelImage> hotel_Images;
+	List<HotelImage> hotelImages;
 	@NotNull
 	@Min(1)
-	int num_of_room;
+	int numOfRoom;
 	@NotNull
 	@Min(2)
-	int num_of_guest;
+	int numOfGuest;
 	@JsonIgnore
 	@OneToMany (mappedBy = ("hotel"))
 	List<Room> rooms;
 	@OneToMany (mappedBy = ("hotel"))
-	List<HotelFacility> hotel_Facilities;
+	List<HotelFacility> hotelFacilities;
 	@JsonIgnore
 	@OneToMany (mappedBy = "hotel")
 	List<Rating> listRating;

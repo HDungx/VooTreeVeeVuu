@@ -3,6 +3,10 @@ package com.VooTreeVeeVuu.controller;
 import com.VooTreeVeeVuu.entity.Account;
 import com.VooTreeVeeVuu.servicesImp.AccountServImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +21,13 @@ public class AccountController {
 	AccountServImp accountServImp;
 
 	@GetMapping ()
-	public ResponseEntity<List<Account>> getAllAccount () {
-		return new ResponseEntity<>(accountServImp.getAll(), HttpStatus.OK);
+	public Page<Account> getAllAccount (@RequestParam (defaultValue = "0") int page,
+	                                    @RequestParam (defaultValue = "10") int size,
+	                                    @RequestParam (defaultValue = "username") String sortBy,
+	                                    @RequestParam (defaultValue = "asc") String dir) {
+		Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+		Pageable pageable = PageRequest.of(page, size, sort);
+		return accountServImp.getAll(pageable);
 	}
 
 	@GetMapping ("/{username}")

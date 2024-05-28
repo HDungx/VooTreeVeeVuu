@@ -21,7 +21,7 @@ import java.util.List;
 @Table (name = "staffs")
 public class Staff {
 	@Id
-	String staff_Id;
+	String staffId;
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(200)")
 	String firstName;
@@ -44,6 +44,7 @@ public class Staff {
 	@OneToOne
 	@JoinColumn (name = "username")
 	Account account;
+	@JsonIgnore
 	@OneToMany (mappedBy = "staff")
 	List<Logs> logsList;
 }
