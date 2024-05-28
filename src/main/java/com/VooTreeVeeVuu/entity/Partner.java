@@ -45,4 +45,5 @@ public class Partner {
 	@JsonIgnore
 	@OneToMany (mappedBy = "partner")
 	List<Hotel> hotelList;
+
 }
