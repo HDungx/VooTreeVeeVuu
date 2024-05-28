@@ -41,7 +41,7 @@ public class CustomerController {
 		return new ResponseEntity<>(customerServ.save(customer), HttpStatus.CREATED);
 	}
 
-	@PutMapping ("/{id}")
+	@PutMapping ("/update/{id}")
 	public ResponseEntity<Customer> updateCustomer (@PathVariable String id, @RequestBody Customer customer) {
 		return customerServ.findById(id).map(cus -> {
 			cus.setFirstName(customer.getFirstName());
@@ -56,7 +56,7 @@ public class CustomerController {
 		}).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
-	@DeleteMapping ("/{id}")
+	@DeleteMapping ("/delete/{id}")
 	public ResponseEntity<Void> deleteCustomer (@PathVariable String id) {
 		return customerServ.findById(id).map(cus -> {
 			customerServ.deleteById(id);

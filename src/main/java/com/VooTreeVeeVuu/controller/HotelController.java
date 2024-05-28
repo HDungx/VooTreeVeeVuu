@@ -41,7 +41,7 @@ public class HotelController {
 		return new ResponseEntity<>(hotelServImp.save(hotel), HttpStatus.CREATED);
 	}
 
-	@PutMapping ("/{id}")
+	@PutMapping ("/update/{id}")
 	public ResponseEntity<Hotel> updateHotel (@RequestBody Hotel hotel, @PathVariable String id) {
 		return hotelServImp.getById(id).map(h -> {
 			h.setAddress(hotel.getAddress());
@@ -58,7 +58,7 @@ public class HotelController {
 		}).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
-	@DeleteMapping ("/{id}")
+	@DeleteMapping ("/delete/{id}")
 	public ResponseEntity<Void> deleteHotel (@PathVariable String id) {
 		return hotelServImp.getById(id).map(h -> {
 			hotelServImp.delete(id);

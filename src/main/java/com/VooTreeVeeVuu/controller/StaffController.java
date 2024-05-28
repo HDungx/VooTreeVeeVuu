@@ -41,7 +41,7 @@ public class StaffController {
 		return new ResponseEntity<>(staffServImp.save(staff), HttpStatus.CREATED);
 	}
 
-	@PutMapping ("/{id}")
+	@PutMapping ("/update/{id}")
 	public ResponseEntity<Staff> updateStaff (@RequestBody Staff staff, @PathVariable String id) {
 		return staffServImp.getStaffById(id).map(st -> {
 			st.setFirstName(staff.getFirstName());
@@ -53,7 +53,7 @@ public class StaffController {
 		}).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
-	@DeleteMapping ("/{id}")
+	@DeleteMapping ("/delete/{id}")
 	public ResponseEntity<Void> deleteStaff (@PathVariable String id) {
 		return staffServImp.getStaffById(id).map(staff -> {
 			staffServImp.deleteById(id);
