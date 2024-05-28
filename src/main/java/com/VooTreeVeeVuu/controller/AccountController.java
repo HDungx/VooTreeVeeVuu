@@ -41,7 +41,7 @@ public class AccountController {
 		return new ResponseEntity<>(accountServImp.save(account), HttpStatus.CREATED);
 	}
 
-	@PutMapping ("/{username}")
+	@PutMapping ("/update/{username}")
 	public ResponseEntity<Account> updateAccount (@RequestBody Account account, @PathVariable String username) {
 		return accountServImp.getByUsername(username).map(acc -> {
 			acc.setPassword(account.getPassword());
@@ -51,7 +51,7 @@ public class AccountController {
 		}).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
 
-	@DeleteMapping ("/{username}")
+	@DeleteMapping ("/delete/{username}")
 	public ResponseEntity<Void> deleteAccount (@PathVariable String username) {
 		return accountServImp.getByUsername(username).map(account -> {
 			accountServImp.delete(username);
