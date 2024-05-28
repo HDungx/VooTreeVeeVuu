@@ -20,7 +20,7 @@ import java.util.List;
 public class Customer {
 	@Id
 	//@Pattern(regexp = "^CUS[1-9]{4}$\n")
-	String customer_Id;
+	String customerId;
 	@NotBlank
 	@Column(columnDefinition = "nvarchar(200)")
 	String firstName;

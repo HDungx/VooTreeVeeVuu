@@ -17,12 +17,12 @@ import java.util.List;
 public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer fac_Id;
+    Integer facId;
     @Enumerated(EnumType.STRING)
-    Fac_Type fac_Type;
+    Fac_Type facType;
     @NotBlank
     @Column(columnDefinition = "nvarchar(255)")
-    String fac_Name;
+    String facName;
     @JsonIgnore
     @OneToMany(mappedBy = "facility")
     List<HotelFacility> hotelFacilities;

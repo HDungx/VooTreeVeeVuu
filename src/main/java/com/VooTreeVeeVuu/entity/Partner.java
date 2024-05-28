@@ -18,7 +18,7 @@ import java.util.List;
 @Table (name = "Partners")
 public class Partner {
 	@Id
-	String partner_Id;
+	String partnerId;
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(200)")
 	String firstName;

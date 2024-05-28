@@ -22,7 +22,7 @@ import java.time.LocalDate;
 public class Booking {
     @Id
     //@Pattern(regexp = "^BKN[1-9]{4}$\n")
-    String booking_Id;
+    String bookingId;
     @NotNull
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Temporal(TemporalType.DATE)
@@ -33,7 +33,7 @@ public class Booking {
     LocalDate checkOutDate;
     @NotNull
     @NumberFormat(style = NumberFormat.Style.CURRENCY)
-    double total_price;
+    double totalPrice;
     @NotBlank
     @ManyToOne @JoinColumn(name = "customer_Id")
     Customer customer;

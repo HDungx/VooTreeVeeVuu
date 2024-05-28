@@ -35,7 +35,7 @@ public class Room {
 	int quantity;
 	@NotNull
 	@NumberFormat (style = NumberFormat.Style.NUMBER)
-	double room_size;
+	double roomSize;
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(255)")
 	String description;
@@ -47,7 +47,7 @@ public class Room {
 	Hotel hotel;
 	@JsonIgnore
 	@OneToMany (mappedBy = "room")
-	List<RoomFacility> room_Facilities;
+	List<RoomFacility> roomFacilities;
 	@JsonIgnore
 	@OneToMany (mappedBy = "room")
 	List<Booking> listBooking;
