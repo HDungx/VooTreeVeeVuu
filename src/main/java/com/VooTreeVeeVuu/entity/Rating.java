@@ -27,10 +27,10 @@ public class Rating {
 	@Column (columnDefinition = "nvarchar(255)")
 	String comment;
 	@ManyToOne
-	@JoinColumn (name = "customer_Id")
+	@JoinColumn (name = "customerId")
 	Customer customer;
 	@ManyToOne
-	@JoinColumn (name = "hotel_Id")
+	@JoinColumn (name = "hotelId")
 	Hotel hotel;
 
 }

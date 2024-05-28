@@ -20,7 +20,7 @@ public class RoomType {
     String typeId;
     @NotBlank
     @Column (columnDefinition = "nvarchar(50)")
-    String type_Name;
+    String typeName;
     @JsonIgnore
     @OneToMany (mappedBy = "roomType")
     List<Room> rooms;

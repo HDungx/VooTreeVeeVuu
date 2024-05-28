@@ -22,6 +22,6 @@ public class RoomFacility {
 	Room room;
 	@NotBlank
 	@ManyToOne
-	@JoinColumn (name = "fac_Id")
+	@JoinColumn (name = "facId")
 	Facility facility;
 }

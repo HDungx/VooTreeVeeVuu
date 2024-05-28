@@ -24,9 +24,9 @@ public class Logs {
 	@Temporal (TemporalType.DATE)
 	LocalDate date;
 	@ManyToOne
-	@JoinColumn (name = "hotel_Id")
+	@JoinColumn (name = "hotelId")
 	Hotel hotel;
 	@ManyToOne
-	@JoinColumn (name = "staff_Id")
+	@JoinColumn (name = "staffId")
 	Staff staff;
 }

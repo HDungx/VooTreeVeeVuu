@@ -46,13 +46,10 @@ public class Hotel {
 	@Temporal (TemporalType.TIME)
 	LocalTime checkOutTime;
 	@ManyToOne
-	@JoinColumn (name = "staff_Id")
-	Staff staff;
-	@ManyToOne
-	@JoinColumn (name = "type_Id")
+	@JoinColumn (name = "typeId")
 	AccommodationType accommodationType;
 	@ManyToOne
-	@JoinColumn (name = "partner_Id")
+	@JoinColumn (name = "partnerId")
 	Partner partner;
 	@OneToMany (mappedBy = ("hotel"))
 	List<HotelImage> hotelImages;
