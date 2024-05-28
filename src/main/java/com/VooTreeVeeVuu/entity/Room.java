@@ -40,7 +40,7 @@ public class Room {
 	@Column (columnDefinition = "nvarchar(255)")
 	String description;
 	@ManyToOne
-	@JoinColumn (name = "type_id")
+	@JoinColumn (name = "typeId")
 	RoomType roomType;
 	@ManyToOne
 	@JoinColumn (name = "hotel_id")

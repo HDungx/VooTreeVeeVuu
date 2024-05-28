@@ -18,10 +18,10 @@ public class HotelFacility {
 	Integer id;
 	@NotBlank
 	@ManyToOne
-	@JoinColumn (name = "fac_Id")
+	@JoinColumn (name = "facId")
 	Facility facility;
 	@NotBlank
 	@ManyToOne
-	@JoinColumn (name = "hotel_Id")
+	@JoinColumn (name = "hotelId")
 	Hotel hotel;
 }

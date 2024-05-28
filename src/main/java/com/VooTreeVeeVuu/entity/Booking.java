@@ -46,7 +46,7 @@ public class Booking {
     Booking_status status;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @Temporal(TemporalType.DATE)
-    LocalDate booking_date;
+    LocalDate bookingDate;
 
     public enum Booking_status {
         PAID, PENDING

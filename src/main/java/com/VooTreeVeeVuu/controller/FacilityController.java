@@ -42,8 +42,8 @@ public class FacilityController {
         Optional<Facility> facility = facilityRepository.findById(id);
         if (facility.isPresent()) {
             Facility fc = facility.get();
-            fc.setFac_Type(facilities.getFac_Type());
-            fc.setFac_Name(facilities.getFac_Name());
+            fc.setFacType(facilities.getFacType());
+            fc.setFacName(facilities.getFacName());
             Facility updatedFacility = facilityRepository.save(fc);
             return ResponseEntity.ok(updatedFacility);
         } else {

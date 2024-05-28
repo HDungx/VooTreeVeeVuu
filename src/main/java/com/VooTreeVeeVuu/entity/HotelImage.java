@@ -20,6 +20,6 @@ public class HotelImage {
 	@Pattern (regexp = ".*\\.(jpg|png)$")
 	String path;
 	@ManyToOne
-	@JoinColumn (name = "hotel_Id")
+	@JoinColumn (name = "hotelId")
 	Hotel hotel;
 }

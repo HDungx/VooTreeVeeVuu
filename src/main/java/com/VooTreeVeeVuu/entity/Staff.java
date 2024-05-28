@@ -38,9 +38,6 @@ public class Staff {
 	@Size (min = 3, max = 10)
 	String phoneNum;
 	@JsonIgnore
-	@OneToMany (mappedBy = "staff")
-	List<Hotel> hotels;
-	@JsonIgnore
 	@OneToOne
 	@JoinColumn (name = "username")
 	Account account;
