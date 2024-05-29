@@ -19,9 +19,11 @@ public class Logs {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	Integer id;
+	@Column(name = "action", columnDefinition = "nvarchar(255)")
 	String action;
 	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
 	@Temporal (TemporalType.DATE)
+	@Column(name = "actionDate")
 	LocalDate date;
 	@ManyToOne
 	@JoinColumn (name = "hotelId")

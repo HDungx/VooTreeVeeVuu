@@ -20,10 +20,10 @@ public class Partner {
 	@Id
 	String partnerId;
 	@NotBlank
-	@Column (columnDefinition = "nvarchar(200)")
+	@Column (columnDefinition = "nvarchar(200)", name = "firstName")
 	String firstName;
 	@NotBlank
-	@Column (columnDefinition = "nvarchar(200)")
+	@Column (columnDefinition = "nvarchar(200)", name = "lastName")
 	String lastName;
 	@NotBlank
 	@Email
@@ -36,7 +36,7 @@ public class Partner {
 	Gender gender;
 	@NotNull
 	@Min (1)
-	@Max (80)
+	@Max (99)
 	int age;
 	@JsonIgnore
 	@OneToOne

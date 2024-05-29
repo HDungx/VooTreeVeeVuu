@@ -18,10 +18,11 @@ public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer facId;
+    @Column(name = "FacilityType")
     @Enumerated(EnumType.STRING)
     Fac_Type facType;
     @NotBlank
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(255)", name = "FacilityName")
     String facName;
     @JsonIgnore
     @OneToMany(mappedBy = "facility")

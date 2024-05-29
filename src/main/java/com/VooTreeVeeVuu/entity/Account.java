@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.entity;
 
+import com.VooTreeVeeVuu.utils.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -16,16 +17,17 @@ import org.hibernate.validator.constraints.Length;
 
 public class Account {
 	@Id
-	@Column(unique = true)
 	String username;
 	@Email
-	@Column (unique = true, nullable = false)
+	@Column (unique = true, nullable = false, name = "email")
 	String email;
 	@NotBlank
 	@Size (min = 6, max = 20, message = "Password must be between 6 and 20 characters long")
+	@Column(name = "password")
 	String password;
-	@Column (columnDefinition = "nvarchar(50)")
-	String role;
+	@Column (columnDefinition = "nvarchar(50)", name = "role")
+	@Enumerated(EnumType.STRING)
+	Role role;
 	@JsonIgnore
 	@OneToOne (mappedBy = ("account"))
 	Customer customer;
