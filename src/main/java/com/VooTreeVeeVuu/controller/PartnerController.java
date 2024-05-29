@@ -1,6 +1,7 @@
 package com.VooTreeVeeVuu.controller;
 
 
+
 import com.VooTreeVeeVuu.entity.Partner;
 import com.VooTreeVeeVuu.repository.PartnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,18 @@ public class PartnerController {
         }
     }
 
+    @PutMapping ("/admin/update/{id}")
+    public ResponseEntity<Partner> updateStatus(@PathVariable String id, @RequestBody Partner partners) {
+        Optional<Partner> partner = partnerRepository.findById(id);
+        if (partner.isPresent()) {
+            Partner pn = partner.get();
+            pn.setStatus(partners.getStatus());
+            Partner updatedStatus = partnerRepository.save(pn);
+            return ResponseEntity.ok(updatedStatus);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @DeleteMapping ("/delete/{id}")
     public ResponseEntity<Void> deletePartner(@PathVariable String id) {
