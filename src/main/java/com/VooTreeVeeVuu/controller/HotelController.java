@@ -2,6 +2,7 @@ package com.VooTreeVeeVuu.controller;
 
 import com.VooTreeVeeVuu.entity.Hotel;
 import com.VooTreeVeeVuu.servicesImp.HotelServImp;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -49,11 +50,19 @@ public class HotelController {
 			h.setHotelPhoneNum(hotel.getHotelPhoneNum());
 			h.setHotelStars(hotel.getHotelStars());
 			h.setHotelDescription(hotel.getHotelDescription());
-			h.setStatus(hotel.getStatus());
+			h.setStatus(Hotel.Hotel_status.PENDING);
 			h.setCheckInTime(hotel.getCheckInTime());
 			h.setCheckOutTime(hotel.getCheckOutTime());
 			h.setAccommodationType(hotel.getAccommodationType());
 			h.setPartner(hotel.getPartner());
+			return new ResponseEntity<>(hotelServImp.save(h), HttpStatus.OK);
+		}).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	}
+
+	@PutMapping ("/admin/update/{id}")
+	public ResponseEntity<Hotel> updateStatusHotel (@RequestBody Hotel hotel, @PathVariable String id) {
+		return hotelServImp.getById(id).map(h -> {
+			h.setStatus(hotel.getStatus());
 			return new ResponseEntity<>(hotelServImp.save(h), HttpStatus.OK);
 		}).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
