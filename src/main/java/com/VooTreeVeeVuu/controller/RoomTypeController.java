@@ -37,7 +37,7 @@ public class RoomTypeController {
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping ("/update/{id}")
     public ResponseEntity<RoomType> updateRoomType(@PathVariable String id, @RequestBody RoomType roomTypes) {
         Optional<RoomType> roomType = roomTypeRepository.findById(id);
         if (roomType.isPresent()) {
@@ -51,7 +51,7 @@ public class RoomTypeController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping ("/delete/{id}")
     public ResponseEntity<Void> deleteRoomType(@PathVariable String id) {
         Optional<RoomType> roomType = roomTypeRepository.findById(id);
         if (roomType.isPresent()) {
