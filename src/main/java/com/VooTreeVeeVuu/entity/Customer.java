@@ -19,25 +19,28 @@ import java.util.List;
 @Table (name = "Customers")
 public class Customer {
 	@Id
-	//@Pattern(regexp = "^CUS[1-9]{4}$\n")
+	@Pattern (regexp = "^CUS[1-9]{3}$\n")
 	String customerId;
 	@NotBlank
-	@Column(columnDefinition = "nvarchar(200)")
+	@Column (columnDefinition = "nvarchar(200)", name = "firstName")
 	String firstName;
 	@NotBlank
-	@Column(columnDefinition = "nvarchar(200)")
+	@Column (columnDefinition = "nvarchar(200)", name = "lastName")
 	String lastName;
 	@NotBlank
 	@Email
-	@Column(unique = true)
+	@Column (unique = true, name = "email")
 	String email;
 	@NotBlank
-	@Size(min = 3, max = 10)
+	@Size (min = 3, max = 10)
+	@Column (name = "phoneNum")
 	String phoneNum;
-	@Enumerated(EnumType.STRING)
+	@Column (name = "gender")
+	@Enumerated (EnumType.STRING)
 	Gender gender;
 	@NotNull
-	@Min(1) @Max(80)
+	@Min (1)
+	@Max (99)
 	int age;
 	boolean status;
 	@OneToOne

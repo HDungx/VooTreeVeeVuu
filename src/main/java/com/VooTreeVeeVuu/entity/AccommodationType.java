@@ -19,7 +19,7 @@ public class AccommodationType {
     @Id
     String typeId;//Hotel, Motel, Resort, Homestay, Apartment
     @NotBlank
-    @Column(columnDefinition = "nvarchar(50)")
+    @Column(columnDefinition = "nvarchar(50)", name = "typeName")
     String typeName;//Hotel, Motel, Resort, Homestay, Apartment
     @JsonIgnore
     @OneToMany( mappedBy = "accommodationType")

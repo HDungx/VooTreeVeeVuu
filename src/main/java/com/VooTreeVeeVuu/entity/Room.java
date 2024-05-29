@@ -32,12 +32,12 @@ public class Room {
 	double price;
 	@NotNull
 	@Min (1)
-	int quantity;
+	Integer quantity;
 	@NotNull
 	@NumberFormat (style = NumberFormat.Style.NUMBER)
 	double roomSize;
 	@NotBlank
-	@Column (columnDefinition = "nvarchar(255)")
+	@Column (columnDefinition = "nvarchar(255)", name = "description")
 	String description;
 	@ManyToOne
 	@JoinColumn (name = "typeId")
