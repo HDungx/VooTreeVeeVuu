@@ -37,7 +37,7 @@ public class HotelImageController {
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping ("/update/{id}")
     public ResponseEntity<HotelImage> updateHotelImage(@PathVariable Integer id, @RequestBody HotelImage hotelImages) {
         Optional<HotelImage> hotelImage = hotelImageRepository.findById(id);
         if (hotelImage.isPresent()) {
@@ -51,7 +51,7 @@ public class HotelImageController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping ("/delete/{id}")
     public ResponseEntity<Void> deleteHotelImage(@PathVariable Integer id) {
         Optional<HotelImage> hotelImage = hotelImageRepository.findById(id);
         if (hotelImage.isPresent()) {

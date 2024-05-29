@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @CrossOrigin("*")
 @RestController
-@RequestMapping("/api/hotel-facilities")
+@RequestMapping("/api/hotelFacilities")
 public class HotelFacilityController {
     @Autowired
     private HotelFacilityRepository hotelFacilityRepository;
@@ -36,7 +36,7 @@ public class HotelFacilityController {
         return hotelFacilityRepository.save(hotelFacility);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping ("/update/{id}")
     public ResponseEntity<HotelFacility> updateHotelFacility(@PathVariable Integer id, @RequestBody HotelFacility hotelFacilities) {
         Optional<HotelFacility> hotelFacility = hotelFacilityRepository.findById(id);
         if (hotelFacility.isPresent()) {
@@ -50,7 +50,7 @@ public class HotelFacilityController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping ("/delete/{id}")
     public ResponseEntity<Void> deleteHotelFacility(@PathVariable Integer id) {
         Optional<HotelFacility> hotelFacility = hotelFacilityRepository.findById(id);
         if (hotelFacility.isPresent()) {

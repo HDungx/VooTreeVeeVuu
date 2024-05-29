@@ -41,7 +41,7 @@ public class PartnerController {
     }
 
     // Update a partner
-    @PutMapping("/{id}")
+    @PutMapping ("/update/{id}")
     public ResponseEntity<Partner> updatePartner(@PathVariable String id, @RequestBody Partner partners) {
         Optional<Partner> partner = partnerRepository.findById(id);
         if (partner.isPresent()) {
@@ -59,7 +59,7 @@ public class PartnerController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping ("/delete/{id}")
     public ResponseEntity<Void> deletePartner(@PathVariable String id) {
         Optional<Partner> partner = partnerRepository.findById(id);
         if (partner.isPresent()) {

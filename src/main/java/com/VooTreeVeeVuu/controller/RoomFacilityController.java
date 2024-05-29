@@ -35,7 +35,7 @@ public class RoomFacilityController {
         return roomFacilityRepository.save(roomFacility);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping ("/update/{id}")
     public ResponseEntity<RoomFacility> updateRoomFacility(@PathVariable Integer id, @RequestBody RoomFacility roomFacilities) {
         Optional<RoomFacility> roomFacility = roomFacilityRepository.findById(id);
         if (roomFacility.isPresent()) {
@@ -49,6 +49,7 @@ public class RoomFacilityController {
         }
     }
 
+    @DeleteMapping ("/delete/{id}")
     public ResponseEntity<Void> deleteRoomFacility(@PathVariable Integer id) {
         Optional<RoomFacility> roomFacility = roomFacilityRepository.findById(id);
         if (roomFacility.isPresent()) {

@@ -40,7 +40,7 @@ public class AccommodationTypeController {
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping ("/update/{id}")
     public ResponseEntity<AccommodationType> updateAccommodationType(@PathVariable String id, @RequestBody AccommodationType accommodationTypes) {
         Optional<AccommodationType> accommodationType = accommodationTypeRepository.findById(id);
         if (accommodationType.isPresent()) {
@@ -54,7 +54,7 @@ public class AccommodationTypeController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping ("/delete/{id}")
     public ResponseEntity<Void> deleteAccommodationType(@PathVariable String id) {
         Optional<AccommodationType> accommodationType = accommodationTypeRepository.findById(id);
         if (accommodationType.isPresent()) {

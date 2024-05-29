@@ -39,7 +39,7 @@ public class RoomImageController {
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping ("/update/{id}")
     public ResponseEntity<RoomImage> updateRoomImage(@PathVariable Integer id, @RequestBody RoomImage roomImages) {
         Optional<RoomImage> roomImage = roomImageRepository.findById(id);
         if (roomImage.isPresent()) {
@@ -54,7 +54,7 @@ public class RoomImageController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping ("/delete/{id}")
     public ResponseEntity<Void> deleteRoomImage(@PathVariable Integer id) {
         Optional<RoomImage> roomImage = roomImageRepository.findById(id);
         if (roomImage.isPresent()) {
