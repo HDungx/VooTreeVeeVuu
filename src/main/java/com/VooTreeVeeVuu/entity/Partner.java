@@ -32,12 +32,15 @@ public class Partner {
 	@NotBlank
 	@Size (min = 3, max = 10)
 	String phoneNum;
-	@Enumerated(EnumType.STRING)
+	@Enumerated (EnumType.STRING)
 	Gender gender;
 	@NotNull
 	@Min (1)
 	@Max (99)
 	int age;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", columnDefinition = "varchar(20)")
+	Partner_status status;
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn (name = "username")
@@ -46,4 +49,7 @@ public class Partner {
 	@OneToMany (mappedBy = "partner")
 	List<Hotel> hotelList;
 
+	public enum Partner_status {
+		ACTIVE, INACTIVE
+	}
 }
