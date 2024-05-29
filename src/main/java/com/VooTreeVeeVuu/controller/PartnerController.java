@@ -52,12 +52,15 @@ public class PartnerController {
             pn.setPhoneNum(partners.getPhoneNum());
             pn.setGender(partners.getGender());
             pn.setAge(partners.getAge());
+            pn.setStatus(Partner.Partner_status.ACTIVE);
             Partner updatedPartner = partnerRepository.save(pn);
             return ResponseEntity.ok(updatedPartner);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePartner(@PathVariable String id) {
