@@ -36,6 +36,11 @@ public class AccountServImp implements AccountServ {
 	}
 
 	@Override
+	public List<Account> getAll () {
+		return accountRepository.findAll();
+	}
+
+	@Override
 	public Optional<Account> getByUsername (String username) {
 		return accountRepository.findById(username);
 	}

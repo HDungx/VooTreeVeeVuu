@@ -20,14 +20,19 @@ public class CustomerController {
 	@Autowired
 	CustomerServ customerServ;
 
+//	@GetMapping ()
+//	public Page<Customer> getAllCustomers (@RequestParam (defaultValue = "0") int page,
+//	                                       @RequestParam (defaultValue = "10") int size,
+//	                                       @RequestParam (defaultValue = "customerId") String sortBy,
+//	                                       @RequestParam (defaultValue = "asc") String dir) {
+//		Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+//		Pageable pageable = PageRequest.of(page, size, sort);
+//		return customerServ.getAll(pageable);
+//	}
+
 	@GetMapping ()
-	public Page<Customer> getAllCustomers (@RequestParam (defaultValue = "0") int page,
-	                                       @RequestParam (defaultValue = "10") int size,
-	                                       @RequestParam (defaultValue = "customerId") String sortBy,
-	                                       @RequestParam (defaultValue = "asc") String dir) {
-		Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-		Pageable pageable = PageRequest.of(page, size, sort);
-		return customerServ.getAll(pageable);
+	public ResponseEntity<List<Customer>> getAllCustomers () {
+		return new ResponseEntity<>(customerServ.getAll(), HttpStatus.OK);
 	}
 
 	@GetMapping ("/{id}")

@@ -1,7 +1,6 @@
 package com.VooTreeVeeVuu.controller;
 
 
-
 import com.VooTreeVeeVuu.entity.Partner;
 import com.VooTreeVeeVuu.repository.PartnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -21,7 +21,7 @@ public class Rating {
 	Integer id;
 	@NotNull
 	@Min (1)
-	@Max (5)
+	@Max (10)
 	int rate;
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(255)")

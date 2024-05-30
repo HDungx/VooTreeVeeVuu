@@ -19,11 +19,12 @@ public class Logs {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	Integer id;
-	@Column(name = "action", columnDefinition = "nvarchar(255)")
-	String action;
+	@Column (name = "action", columnDefinition = "nvarchar(50)")
+	@Enumerated (EnumType.STRING)
+	Action action;
 	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
 	@Temporal (TemporalType.DATE)
-	@Column(name = "actionDate")
+	@Column (name = "actionDate")
 	LocalDate date;
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
@@ -31,4 +32,8 @@ public class Logs {
 	@ManyToOne
 	@JoinColumn (name = "staffId")
 	Staff staff;
+
+	public enum Action {
+		CREATE, UPDATE
+	}
 }

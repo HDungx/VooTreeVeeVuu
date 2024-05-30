@@ -20,14 +20,19 @@ public class StaffController {
 	@Autowired
 	StaffServImp staffServImp;
 
+//	@GetMapping ()
+//	public Page<Staff> getAllStaff (@RequestParam (defaultValue = "0") int page,
+//	                                @RequestParam (defaultValue = "10") int size,
+//	                                @RequestParam (defaultValue = "staffId") String sortBy,
+//	                                @RequestParam (defaultValue = "asc") String dir) {
+//		Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+//		Pageable pageable = PageRequest.of(page, size, sort);
+//		return staffServImp.getAll(pageable);
+//	}
+
 	@GetMapping ()
-	public Page<Staff> getAllStaff (@RequestParam (defaultValue = "0") int page,
-	                                @RequestParam (defaultValue = "10") int size,
-	                                @RequestParam (defaultValue = "staffId") String sortBy,
-	                                @RequestParam (defaultValue = "asc") String dir) {
-		Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-		Pageable pageable = PageRequest.of(page, size, sort);
-		return staffServImp.getAll(pageable);
+	public ResponseEntity<List<Staff>> getAllStaffs () {
+		return new ResponseEntity<>(staffServImp.getAll(), HttpStatus.OK);
 	}
 
 	@GetMapping ("/{id}")

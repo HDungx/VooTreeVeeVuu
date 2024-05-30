@@ -37,6 +37,11 @@ public class CustomerServImp implements CustomerServ {
 	}
 
 	@Override
+	public List<Customer> getAll () {
+		return customerRepository.findAll();
+	}
+
+	@Override
 	public Optional<Customer> findById (String id) {
 		return customerRepository.findById(id);
 	}
