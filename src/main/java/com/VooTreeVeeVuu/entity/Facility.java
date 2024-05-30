@@ -22,7 +22,7 @@ public class Facility {
     @Enumerated(EnumType.STRING)
     Fac_Type facType;
     @NotBlank
-    @Column(columnDefinition = "nvarchar(255)", name = "FacilityName")
+    @Column(columnDefinition = "nvarchar(200)", name = "FacilityName")
     String facName;
     @JsonIgnore
     @OneToMany(mappedBy = "facility")

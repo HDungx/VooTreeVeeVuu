@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +19,11 @@ public class RoomServImp implements RoomServ {
 	@Override
 	public Page<Room> getAll (Pageable pageable) {
 		return roomRepository.findAll(pageable);
+	}
+
+	@Override
+	public List<Room> getAll () {
+		return roomRepository.findAll();
 	}
 
 	@Override

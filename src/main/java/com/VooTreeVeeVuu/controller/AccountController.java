@@ -20,14 +20,19 @@ public class AccountController {
 	@Autowired
 	AccountServImp accountServImp;
 
+//	@GetMapping ()
+//	public Page<Account> getAllAccount (@RequestParam (defaultValue = "0") int page,
+//	                                    @RequestParam (defaultValue = "10") int size,
+//	                                    @RequestParam (defaultValue = "username") String sortBy,
+//	                                    @RequestParam (defaultValue = "asc") String dir) {
+//		Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+//		Pageable pageable = PageRequest.of(page, size, sort);
+//		return accountServImp.getAll(pageable);
+//	}
+
 	@GetMapping ()
-	public Page<Account> getAllAccount (@RequestParam (defaultValue = "0") int page,
-	                                    @RequestParam (defaultValue = "10") int size,
-	                                    @RequestParam (defaultValue = "username") String sortBy,
-	                                    @RequestParam (defaultValue = "asc") String dir) {
-		Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-		Pageable pageable = PageRequest.of(page, size, sort);
-		return accountServImp.getAll(pageable);
+	public ResponseEntity<List<Account>> getAllAccounts () {
+		return new ResponseEntity<>(accountServImp.getAll(), HttpStatus.OK);
 	}
 
 	@GetMapping ("/{username}")

@@ -19,7 +19,7 @@ public class Logs {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	Integer id;
-	@Column (name = "action", columnDefinition = "nvarchar(255)")
+	@Column (name = "action", columnDefinition = "nvarchar(50)")
 	@Enumerated (EnumType.STRING)
 	Action action;
 	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)

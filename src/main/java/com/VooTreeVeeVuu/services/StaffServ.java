@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface StaffServ {
 	public Page<Staff> getAll (Pageable pageable);
 
+	public List<Staff> getAll();
+
 	public Optional<Staff> getStaffById (String id);
 
 	public Staff save (Staff staff);

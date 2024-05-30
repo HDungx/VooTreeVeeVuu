@@ -34,6 +34,11 @@ public class StaffServImp implements StaffServ {
 	}
 
 	@Override
+	public List<Staff> getAll () {
+		return staffRepository.findAll();
+	}
+
+	@Override
 	public Optional<Staff> getStaffById (String id) {
 		if (id != null)
 		{

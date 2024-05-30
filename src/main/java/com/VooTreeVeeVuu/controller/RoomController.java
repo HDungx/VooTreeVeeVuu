@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin ("*")
 @RestController
 @RequestMapping ("/api/rooms")
@@ -21,14 +23,19 @@ public class RoomController {
 	@Autowired
 	private RoomFacilityRepository roomFacilityRepository;
 
+//	@GetMapping ()
+//	public Page<Room> getAllRooms (@RequestParam (defaultValue = "0") int page,
+//	                               @RequestParam (defaultValue = "10") int size,
+//	                               @RequestParam (defaultValue = "roomId") String sortBy,
+//	                               @RequestParam (defaultValue = "asc") String dir) {
+//		Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+//		Pageable pageable = PageRequest.of(page, size, sort);
+//		return roomServImp.getAll(pageable);
+//	}
+
 	@GetMapping ()
-	public Page<Room> getAllRooms (@RequestParam (defaultValue = "0") int page,
-	                               @RequestParam (defaultValue = "10") int size,
-	                               @RequestParam (defaultValue = "roomId") String sortBy,
-	                               @RequestParam (defaultValue = "asc") String dir) {
-		Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-		Pageable pageable = PageRequest.of(page, size, sort);
-		return roomServImp.getAll(pageable);
+	public ResponseEntity<List<Room>> getAllRooms () {
+		return new ResponseEntity<>(roomServImp.getAll(), HttpStatus.OK);
 	}
 
 	@GetMapping ("/{id}")

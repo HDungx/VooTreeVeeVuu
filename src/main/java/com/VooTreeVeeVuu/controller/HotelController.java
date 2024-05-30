@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin ("*")
@@ -21,14 +22,19 @@ public class HotelController {
 	@Autowired
 	HotelServImp hotelServImp;
 
+//	@GetMapping ()
+//	public Page<Hotel> getAllHotel (@RequestParam (defaultValue = "0") int page,
+//	                                @RequestParam (defaultValue = "10") int size,
+//	                                @RequestParam (defaultValue = "hotelId") String sortBy,
+//	                                @RequestParam (defaultValue = "asc") String dir) {
+//		Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+//		Pageable pageable = PageRequest.of(page, size, sort);
+//		return hotelServImp.getAll(pageable);
+//	}
+
 	@GetMapping ()
-	public Page<Hotel> getAllHotel (@RequestParam (defaultValue = "0") int page,
-	                                @RequestParam (defaultValue = "10") int size,
-	                                @RequestParam (defaultValue = "hotelId") String sortBy,
-	                                @RequestParam (defaultValue = "asc") String dir) {
-		Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-		Pageable pageable = PageRequest.of(page, size, sort);
-		return hotelServImp.getAll(pageable);
+	public ResponseEntity<List<Hotel>> getAllHotels () {
+		return new ResponseEntity<>(hotelServImp.getAll(), HttpStatus.OK);
 	}
 
 	@GetMapping ("/{id}")
