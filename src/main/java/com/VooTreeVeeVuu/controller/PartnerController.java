@@ -60,7 +60,6 @@ public class PartnerController {
         }
     }
 
-
     @DeleteMapping ("/delete/{id}")
     public ResponseEntity<Void> deletePartner(@PathVariable String id) {
         Optional<Partner> partner = partnerRepository.findById(id);
