@@ -1,7 +1,7 @@
 package com.VooTreeVeeVuu.servicesImp;
 
-import com.VooTreeVeeVuu.entity.Hotel;
-import com.VooTreeVeeVuu.repository.HotelRepository;
+import com.VooTreeVeeVuu.domain.entity.Hotel;
+import com.VooTreeVeeVuu.domain.repository.HotelRepository;
 import com.VooTreeVeeVuu.services.HotelServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

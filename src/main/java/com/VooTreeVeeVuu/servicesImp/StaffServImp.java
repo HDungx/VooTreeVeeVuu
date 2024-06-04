@@ -1,12 +1,10 @@
 package com.VooTreeVeeVuu.servicesImp;
 
-import com.VooTreeVeeVuu.entity.Staff;
-import com.VooTreeVeeVuu.repository.StaffRepository;
+import com.VooTreeVeeVuu.domain.entity.Staff;
+import com.VooTreeVeeVuu.domain.repository.StaffRepository;
 import com.VooTreeVeeVuu.services.StaffServ;
-import com.VooTreeVeeVuu.utils.AlphaNumComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 

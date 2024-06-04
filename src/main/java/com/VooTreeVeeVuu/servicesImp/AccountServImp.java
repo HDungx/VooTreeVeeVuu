@@ -1,13 +1,10 @@
 package com.VooTreeVeeVuu.servicesImp;
 
-import com.VooTreeVeeVuu.entity.Account;
-import com.VooTreeVeeVuu.entity.Staff;
-import com.VooTreeVeeVuu.repository.AccountRepository;
+import com.VooTreeVeeVuu.domain.entity.Account;
+import com.VooTreeVeeVuu.domain.repository.AccountRepository;
 import com.VooTreeVeeVuu.services.AccountServ;
-import com.VooTreeVeeVuu.utils.AlphaNumComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 

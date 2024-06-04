@@ -1,6 +1,6 @@
 package com.VooTreeVeeVuu.services;
 
-import com.VooTreeVeeVuu.entity.Account;
+import com.VooTreeVeeVuu.domain.entity.Account;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

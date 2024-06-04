@@ -1,7 +1,7 @@
 package com.VooTreeVeeVuu.servicesImp;
 
-import com.VooTreeVeeVuu.entity.Room;
-import com.VooTreeVeeVuu.repository.RoomRepository;
+import com.VooTreeVeeVuu.domain.entity.Room;
+import com.VooTreeVeeVuu.domain.repository.RoomRepository;
 import com.VooTreeVeeVuu.services.RoomServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
