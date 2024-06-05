@@ -17,17 +17,19 @@ import lombok.NoArgsConstructor;
 public class Rating {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	Integer id;
+	private Long id;
 	@NotNull
 	@Min (1)
 	@Max (10)
-	int rate;
+	private int rate;
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(255)")
-	String comment;
+	private String comment;
+	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "customerId")
 	Customer customer;
+	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
 	Hotel hotel;

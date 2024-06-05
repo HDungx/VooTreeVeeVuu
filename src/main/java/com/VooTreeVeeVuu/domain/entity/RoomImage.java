@@ -14,9 +14,10 @@ import lombok.NoArgsConstructor;
 public class RoomImage {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	Integer id;
+	private Long id;
 	@Pattern (regexp = ".*\\.(jpg|png)$")
-	String path;
+	private String path;
+	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "roomId")
 	Room room;

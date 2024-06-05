@@ -14,11 +14,13 @@ import lombok.NoArgsConstructor;
 public class HotelFacility {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	Integer id;
+	private Long id;
+	//@JsonIgnored
 	@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "facId")
 	Facility facility;
+	//@JsonIgnored
 	@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "hotelId")

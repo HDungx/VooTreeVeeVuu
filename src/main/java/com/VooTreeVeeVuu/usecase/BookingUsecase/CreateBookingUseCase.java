@@ -4,8 +4,10 @@ import com.VooTreeVeeVuu.adapters.dto.BookingDTO;
 import com.VooTreeVeeVuu.domain.entity.Booking;
 import com.VooTreeVeeVuu.domain.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class CreateBookingUseCase {
     @Autowired
     private BookingRepository bookingRepository;
@@ -19,23 +21,27 @@ public class CreateBookingUseCase {
 
     private BookingDTO toDTO(Booking booking) {
         BookingDTO dto = new BookingDTO();
-        dto.setBookingId(booking.getBookingId());
+        dto.setId(booking.getId());
         dto.setCheckInDate(booking.getCheckInDate());
         dto.setCheckOutDate(booking.getCheckOutDate());
         dto.setTotalPrice(booking.getTotalPrice());
         dto.setBookingDate(booking.getBookingDate());
         dto.setStatus(booking.getStatus());
+        dto.setNumOfRoom(booking.getNumOfRoom());
+        dto.setNumOfGuest(booking.getNumOfGuest());
         return dto;
     }
 
     private Booking toEntity(BookingDTO bookingDTO) {
         Booking booking = new Booking();
-       booking.setBookingId(bookingDTO.getBookingId());
-       booking.setCheckInDate(bookingDTO.getCheckInDate());
-       booking.setCheckOutDate(bookingDTO.getCheckOutDate());
-       booking.setTotalPrice(bookingDTO.getTotalPrice());
-       booking.setBookingDate(bookingDTO.getBookingDate());
-       booking.setStatus(bookingDTO.getStatus());
+        booking.setId(bookingDTO.getId());
+        booking.setCheckInDate(bookingDTO.getCheckInDate());
+        booking.setCheckOutDate(bookingDTO.getCheckOutDate());
+        booking.setTotalPrice(bookingDTO.getTotalPrice());
+        booking.setBookingDate(bookingDTO.getBookingDate());
+        booking.setStatus(bookingDTO.getStatus());
+        booking.setNumOfRoom(bookingDTO.getNumOfRoom());
+        booking.setNumOfGuest(bookingDTO.getNumOfGuest());
         return booking;
     }
 }

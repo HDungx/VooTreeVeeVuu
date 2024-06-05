@@ -35,7 +35,7 @@ public class AccommodationTypeController {
      }
 
     @GetMapping ("/{id}")
-    public Optional<AccommodationTypeDTO> getAccommodationType (@PathVariable String id){
+    public Optional<AccommodationTypeDTO> getAccommodationType (@PathVariable Long id){
          return getAccommodationTypeUsecase.getAccommodationTypeById(id);
     }
 
@@ -44,17 +44,14 @@ public class AccommodationTypeController {
         return createAccommodationTypeUsecase.createAccommodationType(dto);
     }
 
-    @PutMapping ("/{id}")
-    public Optional<AccommodationTypeDTO> updateTypeDTO (@RequestBody AccommodationTypeDTO dto, @PathVariable String id) {
+    @PutMapping ("/update/{id}")
+    public Optional<AccommodationTypeDTO> updateTypeDTO (@RequestBody AccommodationTypeDTO dto, @PathVariable Long id) {
         return updateAccommodationTypeUsecase.updateAccommodationTypeDTO(id,dto);
     }
 
-    @DeleteMapping ("/{id}")
-    public void deleteTypeDTO (@PathVariable String id) {
+    @DeleteMapping ("/delete/{id}")
+    public void deleteTypeDTO (@PathVariable Long id) {
         deleteAccommodationTypeUsecase.deleteAccommodationType(id);
     }
-
-
-
 
 }

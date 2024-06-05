@@ -8,13 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface HotelServ {
-	public Page<Hotel> getAll (Pageable pageable);
 
-	public List<Hotel> getAll();
-
-	public Optional<Hotel> getById (String id);
-
-	public Hotel save (Hotel hotel);
-
-	public void delete (String id);
+//	public List<Hotel> getAll();
+//
+//	public Optional<Hotel> getById (Long id);
+//
+//	public Hotel save (Hotel hotel);
+//
+//	public void delete (Long id);
 }

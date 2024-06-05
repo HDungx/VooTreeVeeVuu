@@ -4,22 +4,26 @@ import com.VooTreeVeeVuu.adapters.dto.BookingDTO;
 import com.VooTreeVeeVuu.domain.entity.Booking;
 import com.VooTreeVeeVuu.domain.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Service
 public class UpdateBookingUseCase {
     @Autowired
     private BookingRepository bookingRepository;
 
     @Transactional
-    public Optional<BookingDTO> updateBookingDTO(String id, BookingDTO bookingDTO){
+    public Optional<BookingDTO> updateBookingDTO(Long id, BookingDTO bookingDTO){
         return bookingRepository.findById(id).map(booking -> {
             booking.setCheckInDate(bookingDTO.getCheckInDate());
             booking.setCheckOutDate(bookingDTO.getCheckOutDate());
             booking.setBookingDate(bookingDTO.getBookingDate());
             booking.setTotalPrice(bookingDTO.getTotalPrice());
             booking.setStatus(bookingDTO.getStatus());
+            booking.setNumOfRoom(bookingDTO.getNumOfRoom());
+            booking.setNumOfGuest(bookingDTO.getNumOfGuest());
             Booking updated = bookingRepository.save(booking);
             return toDTO(updated);
         });
@@ -32,6 +36,8 @@ public class UpdateBookingUseCase {
        dto.setCheckOutDate(booking.getCheckOutDate());
        dto.setTotalPrice(booking.getTotalPrice());
        dto.setStatus(booking.getStatus());
+       dto.setNumOfRoom(booking.getNumOfRoom());
+       dto.setNumOfGuest(booking.getNumOfGuest());
         return dto;
     }
 }

@@ -46,12 +46,12 @@ public class FacilityController {
         return createFacilityUseCase.createFacility(dto);
     }
 
-    @PutMapping ("/{id}")
+    @PutMapping ("/update/{id}")
     public Optional<FacilityDTO> updateFacility (@RequestBody FacilityDTO dto, @PathVariable Integer id) {
         return updateFacilityUseCase.updateFacility(id,dto);
     }
 
-    @DeleteMapping ("/{id}")
+    @DeleteMapping ("/delete/{id}")
     public void deleteFacility (@PathVariable Integer id) {
         deleteFacilityUseCase.deleteFacility(id);
     }

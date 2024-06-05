@@ -1,7 +1,7 @@
 package com.VooTreeVeeVuu.domain.entity;
 
 
-import com.VooTreeVeeVuu.utils.Gender;
+import com.VooTreeVeeVuu.domain.utils.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -18,30 +18,30 @@ import java.util.List;
 @Table (name = "Customers")
 public class Customer {
 	@Id
-	@Pattern (regexp = "^CUS[1-9]{3}$\n")
-	String customerId;
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private Long id;
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(200)", name = "firstName")
-	String firstName;
+	private String firstName;
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(200)", name = "lastName")
-	String lastName;
+	private String lastName;
 	@NotBlank
 	@Email
 	@Column (unique = true, name = "email")
-	String email;
+	private String email;
 	@NotBlank
 	@Size (min = 3, max = 10)
 	@Column (name = "phoneNum")
-	String phoneNum;
+	private String phoneNum;
 	@Column (name = "gender")
 	@Enumerated (EnumType.STRING)
-	Gender gender;
+	private Gender gender;
 	@NotNull
 	@Min (1)
 	@Max (99)
-	int age;
-	boolean status;
+	private int age;
+	private boolean status;
 	@OneToOne
 	@JoinColumn (name = "username")
 	Account account;

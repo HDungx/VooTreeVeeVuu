@@ -14,11 +14,13 @@ import lombok.NoArgsConstructor;
 public class RoomFacility {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	Integer id;
+	private Long id;
+	//@JsonIgnored
 	@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "roomId")
 	Room room;
+	//@JsonIgnored
 	@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "facId")
