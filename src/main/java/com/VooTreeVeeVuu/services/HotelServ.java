@@ -1,6 +1,6 @@
 package com.VooTreeVeeVuu.services;
 
-import com.VooTreeVeeVuu.entity.Hotel;
+import com.VooTreeVeeVuu.domain.entity.Hotel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

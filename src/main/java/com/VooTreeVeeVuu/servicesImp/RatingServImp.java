@@ -1,7 +1,7 @@
 package com.VooTreeVeeVuu.servicesImp;
 
-import com.VooTreeVeeVuu.entity.Rating;
-import com.VooTreeVeeVuu.repository.RatingRepository;
+import com.VooTreeVeeVuu.domain.entity.Rating;
+import com.VooTreeVeeVuu.domain.repository.RatingRepository;
 import com.VooTreeVeeVuu.services.RatingServ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
