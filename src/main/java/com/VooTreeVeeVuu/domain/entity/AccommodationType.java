@@ -17,10 +17,11 @@ import java.util.List;
 @Table(name ="accommodation_type")
 public class AccommodationType {
     @Id
-    String typeId;//Hotel, Motel, Resort, Homestay, Apartment
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long id;
     @NotBlank
     @Column(columnDefinition = "nvarchar(50)", name = "typeName")
-    String typeName;//Hotel, Motel, Resort, Homestay, Apartment
+    private String typeName;//Hotel, Motel, Resort, Homestay, Apartment
     @JsonIgnore
     @OneToMany( mappedBy = "accommodationType")
     List<Hotel> hotels;

@@ -4,10 +4,12 @@ import com.VooTreeVeeVuu.adapters.dto.FacilityDTO;
 import com.VooTreeVeeVuu.domain.entity.Facility;
 import com.VooTreeVeeVuu.domain.repository.FacilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class GetAllFacilityUseCase {
     @Autowired
     private FacilityRepository facilityRepository;
@@ -21,6 +23,7 @@ public class GetAllFacilityUseCase {
         dto.setFacId(facility.getFacId());
         dto.setFacType(facility.getFacType());
         dto.setFacName(facility.getFacName());
+        dto.setFacIcon(facility.getFacIcon());
         return dto;
     }
 }

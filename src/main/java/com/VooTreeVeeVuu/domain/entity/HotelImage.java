@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -14,9 +15,10 @@ import lombok.NoArgsConstructor;
 public class HotelImage {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	Integer id;
+	private Long id;
 	@Pattern (regexp = ".*\\.(jpg|png)$")
-	String path;
+	private String path;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
 	Hotel hotel;

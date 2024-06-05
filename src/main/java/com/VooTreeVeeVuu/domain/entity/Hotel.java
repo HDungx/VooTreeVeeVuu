@@ -3,6 +3,7 @@ package com.VooTreeVeeVuu.domain.entity;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.VooTreeVeeVuu.domain.utils.Hotel_status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -19,48 +20,48 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table (name = "Hotels")
 public class Hotel {
 	@Id
-	@Pattern(regexp = "^H[1-9]{3}$\n")
-	String hotelId;
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private Long id;
 	@NotBlank
 	@Column(columnDefinition = "nvarchar(255)", name = "address")
-	String address;
+	private String address;
+	@NotBlank
+	@Column(columnDefinition = "nvarchar(255)", name = "hotelName")
+	private String hotelName;
 	@NotBlank
 	@Column(columnDefinition = "nvarchar(50)", name = "city")
-	String city;
+	private String city;
 	@NotBlank
 	@Size(min = 3, max = 10)
 	@Column(name = "hotelPhoneNum")
-	String hotelPhoneNum;
+	private String hotelPhoneNum;
 	@NotNull
 	@Min(1) @Max(5)
-	int hotelStars;
+	private int hotelStars;
 	@NotBlank
 	@Column(columnDefinition = "nvarchar(255)", name = "description")
-	String hotelDescription;
+	private String hotelDescription;
 	@Enumerated(EnumType.STRING)
-	Hotel_status status;
+	private Hotel_status status;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	@Temporal (TemporalType.TIME)
 	@Column(name = "checkInTime")
-	LocalTime checkInTime;
+	private LocalTime checkInTime;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
 	@Temporal (TemporalType.TIME)
 	@Column(name = "checkOutTime")
-	LocalTime checkOutTime;
+	private LocalTime checkOutTime;
+	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "typeId")
 	AccommodationType accommodationType;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn (name = "partnerId")
 	Partner partner;
+	//@JsonIgnored
 	@OneToMany (mappedBy = ("hotel"))
 	List<HotelImage> hotelImages;
-	@NotNull
-	@Min(1)
-	Integer numOfRoom;
-	@NotNull
-	@Min(2)
-	Integer numOfGuest;
 	@JsonIgnore
 	@OneToMany (mappedBy = ("hotel"))
 	List<Room> rooms;
@@ -69,9 +70,7 @@ public class Hotel {
 	@JsonIgnore
 	@OneToMany (mappedBy = "hotel")
 	List<Rating> listRating;
+	@JsonIgnore
 	@OneToMany(mappedBy = "hotel")
 	List<Logs> logs;
-	public enum Hotel_status {
-		PENDING, ACTIVE, INACTIVE, REJECTED
-	}
 }

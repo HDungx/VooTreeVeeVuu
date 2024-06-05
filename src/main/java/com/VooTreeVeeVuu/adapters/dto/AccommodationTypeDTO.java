@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccommodationTypeDTO {
-    private String typeId;
+    private Long id;
     private String typeName;
     private Hotel hotels;
 }

@@ -16,10 +16,11 @@ import java.util.List;
 @Table (name= "room_type")
 public class RoomType {
     @Id
-    String typeId;
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long id;
     @NotBlank
     @Column (columnDefinition = "nvarchar(50)", name = "typeName")
-    String typeName;
+    private String typeName;
     @JsonIgnore
     @OneToMany (mappedBy = "roomType")
     List<Room> rooms;

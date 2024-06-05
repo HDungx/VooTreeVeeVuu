@@ -1,7 +1,8 @@
 package com.VooTreeVeeVuu.adapters.controller;
 
-import com.VooTreeVeeVuu.domain.entity.HotelFacility;
-import com.VooTreeVeeVuu.domain.repository.HotelFacilityRepository;
+
+import com.VooTreeVeeVuu.adapters.dto.HotelFacilityDTO;
+import com.VooTreeVeeVuu.usecase.HotelFacilityUsecase.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,50 +15,43 @@ import java.util.Optional;
 @RequestMapping("/api/hotelFacilities")
 public class HotelFacilityController {
     @Autowired
-    private HotelFacilityRepository hotelFacilityRepository;
+    private CreateHotelFacilityUseCase createHotelFacilityUseCase;
 
-    @GetMapping
-    public List<HotelFacility> getAllHotelFacilities() {
-        return hotelFacilityRepository.findAll();
+    @Autowired
+    private UpdateHotelFacilityUseCase updateHotelFacilityUseCase;
+
+    @Autowired
+    private DeleteHotelFacilityUseCase deleteHotelFacilityUseCase;
+
+    @Autowired
+    private GetAllHotelFacilityUseCase getAllHotelFacilityUseCase;
+
+    @Autowired
+    private GetHotelFacilityUseCase getHotelFacilityUseCase;
+
+    @GetMapping()
+    public List<HotelFacilityDTO> getAllHotelFacility(){
+        return getAllHotelFacilityUseCase.getAllHotelFacility();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<HotelFacility> getHotelFacilityById(@PathVariable Integer id) {
-        Optional<HotelFacility> hotelFacility = hotelFacilityRepository.findById(id);
-        if (hotelFacility.isPresent()) {
-            return ResponseEntity.ok(hotelFacility.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping ("/{id}")
+    public Optional<HotelFacilityDTO> getHotelFacilityById (@PathVariable Long id){
+        return getHotelFacilityUseCase.getHotelFacilityById(id);
     }
 
     @PostMapping
-    public HotelFacility createHotelFacility(@RequestBody HotelFacility hotelFacility) {
-        return hotelFacilityRepository.save(hotelFacility);
+    public HotelFacilityDTO createHotelFacility (@RequestBody HotelFacilityDTO dto) {
+        return createHotelFacilityUseCase.createHotelFacility(dto);
     }
 
     @PutMapping ("/update/{id}")
-    public ResponseEntity<HotelFacility> updateHotelFacility(@PathVariable Integer id, @RequestBody HotelFacility hotelFacilities) {
-        Optional<HotelFacility> hotelFacility = hotelFacilityRepository.findById(id);
-        if (hotelFacility.isPresent()) {
-            HotelFacility htf = hotelFacility.get();
-            htf.setFacility(hotelFacilities.getFacility());
-            htf.setHotel(hotelFacilities.getHotel());
-            HotelFacility updatedHotelFacility = hotelFacilityRepository.save(htf);
-            return ResponseEntity.ok(updatedHotelFacility);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Optional<HotelFacilityDTO> updateHotelFacility (@RequestBody HotelFacilityDTO dto, @PathVariable Long id) {
+        return updateHotelFacilityUseCase.updateHotelFacility(id,dto);
     }
 
     @DeleteMapping ("/delete/{id}")
-    public ResponseEntity<Void> deleteHotelFacility(@PathVariable Integer id) {
-        Optional<HotelFacility> hotelFacility = hotelFacilityRepository.findById(id);
-        if (hotelFacility.isPresent()) {
-            hotelFacilityRepository.delete(hotelFacility.get());
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public void deleteHotelFacility (@PathVariable Long id) {
+        deleteHotelFacilityUseCase.deleteHotelFacility(id);
     }
+
 }

@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.domain.entity;
 
+import com.VooTreeVeeVuu.domain.utils.Action;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,14 +17,15 @@ import java.time.LocalDate;
 public class Logs {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	Integer id;
+	private Long id;
 	@Column (name = "action", columnDefinition = "nvarchar(50)")
 	@Enumerated (EnumType.STRING)
-	Action action;
+	private Action action;
 	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
 	@Temporal (TemporalType.DATE)
 	@Column (name = "actionDate")
-	LocalDate date;
+	private LocalDate date;
+	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
 	Hotel hotel;
@@ -31,7 +33,5 @@ public class Logs {
 	@JoinColumn (name = "staffId")
 	Staff staff;
 
-	public enum Action {
-		CREATE, UPDATE
-	}
+
 }

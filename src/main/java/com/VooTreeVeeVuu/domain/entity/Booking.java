@@ -1,7 +1,8 @@
 package com.VooTreeVeeVuu.domain.entity;
 
-import com.VooTreeVeeVuu.utils.Booking_status;
+import com.VooTreeVeeVuu.domain.utils.Booking_status;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,19 +19,22 @@ import java.time.LocalDate;
 @Entity
 @Table (name = "Bookings")
 public class Booking {
+//	@Id
+//	//@Pattern(regexp = "^BK[1-9]{4}$\n")
+//	String bookingId;
 	@Id
-	//@Pattern(regexp = "^BK[1-9]{4}$\n")
-	String bookingId;
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private Long id;
 	@NotNull
 	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
 	@Temporal (TemporalType.DATE)
 	@Column (name = "checkInDate")
-	LocalDate checkInDate;
+	private LocalDate checkInDate;
 	@NotNull
 	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
 	@Temporal (TemporalType.DATE)
 	@Column (name = "checkOutDate")
-	LocalDate checkOutDate;
+	private LocalDate checkOutDate;
 	@NotNull
 	@NumberFormat (style = NumberFormat.Style.CURRENCY)
 	double totalPrice;
@@ -45,10 +49,15 @@ public class Booking {
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(50)")
 	@Enumerated (EnumType.STRING)
-	Booking_status status;
+	private Booking_status status;
 	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
 	@Temporal (TemporalType.DATE)
-	LocalDate bookingDate;
-
+	private LocalDate bookingDate;
+	@NotNull
+	@Min(1)
+	private Integer numOfRoom;
+	@NotNull
+	@Min(2)
+	private Integer numOfGuest;
 
 }

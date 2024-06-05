@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface RatingRepository extends JpaRepository<Rating, Integer> {
-	@Query("SELECT o FROM Rating o WHERE o.customer.customerId LIKE ?1 OR o.hotel.hotelId LIKE ?1")
-	Optional<Page<Rating>> getByCusIdOrHotelId(String keyword, Pageable pageable);
+public interface RatingRepository extends JpaRepository<Rating, Long> {
+//	@Query("SELECT o FROM Rating o WHERE o.customer.customerId LIKE ?1 OR o.hotel.hotelId LIKE ?1")
+//	Optional<Page<Rating>> getByCusIdOrHotelId(String keyword, Pageable pageable);
 }

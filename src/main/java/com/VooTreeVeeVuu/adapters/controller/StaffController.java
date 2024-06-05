@@ -13,8 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping ("/api/staffs")
 public class StaffController {
-	@Autowired
-	StaffServImp staffServImp;
+//	@Autowired
+//	StaffServImp staffServImp;
 
 //	@GetMapping ()
 //	public Page<Staff> getAllStaff (@RequestParam (defaultValue = "0") int page,
@@ -26,39 +26,39 @@ public class StaffController {
 //		return staffServImp.getAll(pageable);
 //	}
 
-	@GetMapping ()
-	public ResponseEntity<List<Staff>> getAllStaffs () {
-		return new ResponseEntity<>(staffServImp.getAll(), HttpStatus.OK);
-	}
-
-	@GetMapping ("/{id}")
-	public ResponseEntity<Staff> getStaffById (@PathVariable String id) {
-		return staffServImp.getStaffById(id).map(staff -> new ResponseEntity<>(staff, HttpStatus.OK)).orElse(
-				new ResponseEntity<>(HttpStatus.NOT_FOUND));
-	}
-
-	@PostMapping
-	public ResponseEntity<Staff> createStaff (@RequestBody Staff staff) {
-		return new ResponseEntity<>(staffServImp.save(staff), HttpStatus.CREATED);
-	}
-
-	@PutMapping ("/update/{id}")
-	public ResponseEntity<Staff> updateStaff (@RequestBody Staff staff, @PathVariable String id) {
-		return staffServImp.getStaffById(id).map(st -> {
-			st.setFirstName(staff.getFirstName());
-			st.setLastName(staff.getLastName());
-			st.setEmail(staff.getEmail());
-			st.setGender(staff.getGender());
-			st.setPhoneNum(staff.getPhoneNum());
-			return new ResponseEntity<>(staffServImp.save(st), HttpStatus.OK);
-		}).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-	}
-
-	@DeleteMapping ("/delete/{id}")
-	public ResponseEntity<Void> deleteStaff (@PathVariable String id) {
-		return staffServImp.getStaffById(id).map(staff -> {
-			staffServImp.deleteById(id);
-			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-		}).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-	}
+//	@GetMapping ()
+//	public ResponseEntity<List<Staff>> getAllStaffs () {
+//		return new ResponseEntity<>(staffServImp.getAll(), HttpStatus.OK);
+//	}
+//
+//	@GetMapping ("/{id}")
+//	public ResponseEntity<Staff> getStaffById (@PathVariable Long id) {
+//		return staffServImp.getStaffById(id).map(staff -> new ResponseEntity<>(staff, HttpStatus.OK)).orElse(
+//				new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//	}
+//
+//	@PostMapping
+//	public ResponseEntity<Staff> createStaff (@RequestBody Staff staff) {
+//		return new ResponseEntity<>(staffServImp.save(staff), HttpStatus.CREATED);
+//	}
+//
+//	@PutMapping ("/update/{id}")
+//	public ResponseEntity<Staff> updateStaff (@RequestBody Staff staff, @PathVariable Long id) {
+//		return staffServImp.getStaffById(id).map(st -> {
+//			st.setFirstName(staff.getFirstName());
+//			st.setLastName(staff.getLastName());
+//			st.setEmail(staff.getEmail());
+//			st.setGender(staff.getGender());
+//			st.setPhoneNum(staff.getPhoneNum());
+//			return new ResponseEntity<>(staffServImp.save(st), HttpStatus.OK);
+//		}).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//	}
+//
+//	@DeleteMapping ("/delete/{id}")
+//	public ResponseEntity<Void> deleteStaff (@PathVariable Long id) {
+//		return staffServImp.getStaffById(id).map(staff -> {
+//			staffServImp.deleteById(id);
+//			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+//		}).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+//	}
 }

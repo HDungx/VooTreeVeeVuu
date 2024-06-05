@@ -4,8 +4,10 @@ import com.VooTreeVeeVuu.adapters.dto.AccommodationTypeDTO;
 import com.VooTreeVeeVuu.domain.entity.AccommodationType;
 import com.VooTreeVeeVuu.domain.repository.AccommodationTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class CreateAccommodationTypeUseCase {
     @Autowired
     private AccommodationTypeRepository accommodationTypeRepository;
@@ -19,14 +21,14 @@ public class CreateAccommodationTypeUseCase {
 
     private AccommodationTypeDTO toDTO(AccommodationType accommodationType) {
         AccommodationTypeDTO dto = new AccommodationTypeDTO();
-        dto.setTypeId(accommodationType.getTypeId());
+        dto.setId(accommodationType.getId());
         dto.setTypeName(accommodationType.getTypeName());
         return dto;
     }
 
     private AccommodationType toEntity(AccommodationTypeDTO typeDTO) {
         AccommodationType accommodationType = new AccommodationType();
-        accommodationType.setTypeId(typeDTO.getTypeId());
+        accommodationType.setId(typeDTO.getId());
         accommodationType.setTypeName(typeDTO.getTypeName());
         return accommodationType;
     }

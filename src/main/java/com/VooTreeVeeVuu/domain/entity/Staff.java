@@ -1,7 +1,7 @@
 package com.VooTreeVeeVuu.domain.entity;
 
 
-import com.VooTreeVeeVuu.utils.Gender;
+import com.VooTreeVeeVuu.domain.utils.Gender;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -20,22 +20,23 @@ import java.util.List;
 @Table (name = "staffs")
 public class Staff {
 	@Id
-	String staffId;
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private Long id;
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(200)")
-	String firstName;
+	private String firstName;
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(200)")
-	String lastName;
+	private String lastName;
 	@NotBlank
 	@Email
 	@Column (unique = true)
-	String email;
+	private String email;
 	@Enumerated(EnumType.STRING)
-	Gender gender;
+	private Gender gender;
 	@NotBlank
 	@Size (min = 3, max = 10)
-	String phoneNum;
+	private String phoneNum;
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn (name = "username")

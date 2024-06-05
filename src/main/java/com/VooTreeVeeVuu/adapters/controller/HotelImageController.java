@@ -1,8 +1,8 @@
 package com.VooTreeVeeVuu.adapters.controller;
-import com.VooTreeVeeVuu.domain.entity.HotelImage;
-import com.VooTreeVeeVuu.domain.repository.HotelImageRepository;
+
+import com.VooTreeVeeVuu.adapters.dto.HotelImageDTO;
+import com.VooTreeVeeVuu.usecase.HotelImageUsecase.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,53 +13,45 @@ import java.util.Optional;
 @RequestMapping("/api/hotelImages")
 public class HotelImageController {
     @Autowired
-    private HotelImageRepository hotelImageRepository;
+    private CreateHotelImageUseCase createHotelImageUseCase;
 
-    @GetMapping
-    public List<HotelImage> getAllHotelImages() {
-        return hotelImageRepository.findAll();
+    @Autowired
+    private UpdateHotelImageUseCase updateHotelImageUseCase;
+
+    @Autowired
+    private DeleteHotelImageUseCase deleteHotelImageUseCase;
+
+    @Autowired
+    private GetAllHotelImageUseCase getAllHotelImageUseCase;
+
+    @Autowired
+    private GetHotelImageUseCase getHotelImageUseCase;
+
+    @GetMapping()
+    public List<HotelImageDTO> getAllHotelImage(){
+        return getAllHotelImageUseCase.getAllHotelImage();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<HotelImage> getHotelImageById(@PathVariable Integer id) {
-        Optional<HotelImage> hotelImage = hotelImageRepository.findById(id);
-        if (hotelImage.isPresent()) {
-            return ResponseEntity.ok(hotelImage.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping ("/{id}")
+    public Optional<HotelImageDTO> getHotelImageById (@PathVariable Long id){
+        return getHotelImageUseCase.getHotelImageById(id);
     }
-
 
     @PostMapping
-    public HotelImage createHotelImage(@RequestBody HotelImage hotelImage) {
-        return hotelImageRepository.save(hotelImage);
+    public HotelImageDTO createHotelImage (@RequestBody HotelImageDTO dto) {
+        return createHotelImageUseCase.createHotelImage(dto);
     }
 
-
     @PutMapping ("/update/{id}")
-    public ResponseEntity<HotelImage> updateHotelImage(@PathVariable Integer id, @RequestBody HotelImage hotelImages) {
-        Optional<HotelImage> hotelImage = hotelImageRepository.findById(id);
-        if (hotelImage.isPresent()) {
-            HotelImage hi = hotelImage.get();
-            hi.setPath(hotelImages.getPath());
-            hi.setHotel(hotelImages.getHotel());
-            HotelImage updatedHotelImage = hotelImageRepository.save(hi);
-            return ResponseEntity.ok(updatedHotelImage);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public Optional<HotelImageDTO> updateHotelImage (@RequestBody HotelImageDTO dto, @PathVariable Long id) {
+        return updateHotelImageUseCase.updateHotelImage(id,dto);
     }
 
     @DeleteMapping ("/delete/{id}")
-    public ResponseEntity<Void> deleteHotelImage(@PathVariable Integer id) {
-        Optional<HotelImage> hotelImage = hotelImageRepository.findById(id);
-        if (hotelImage.isPresent()) {
-            hotelImageRepository.delete(hotelImage.get());
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public void deleteHotelImage (@PathVariable Long id) {
+        deleteHotelImageUseCase.deleteHotelImage(id);
     }
+
+
 
 }

@@ -8,13 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface StaffServ {
-	public Page<Staff> getAll (Pageable pageable);
 
-	public List<Staff> getAll();
-
-	public Optional<Staff> getStaffById (String id);
-
-	public Staff save (Staff staff);
-
-	public void deleteById (String id);
+//	public List<Staff> getAll();
+//
+//	public Optional<Staff> getStaffById (Long id);
+//
+//	public Staff save (Staff staff);
+//
+//	public void deleteById (Long id);
 }

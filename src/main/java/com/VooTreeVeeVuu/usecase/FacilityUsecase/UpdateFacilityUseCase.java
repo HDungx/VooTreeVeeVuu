@@ -5,10 +5,12 @@ import com.VooTreeVeeVuu.adapters.dto.FacilityDTO;
 import com.VooTreeVeeVuu.domain.entity.Facility;
 import com.VooTreeVeeVuu.domain.repository.FacilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+@Service
 public class UpdateFacilityUseCase {
     @Autowired
     private FacilityRepository facilityRepository;
@@ -18,6 +20,7 @@ public class UpdateFacilityUseCase {
         return facilityRepository.findById(id).map(facility -> {
             facility.setFacType(facilityDTO.getFacType());
             facility.setFacName(facilityDTO.getFacName());
+            facility.setFacIcon(facilityDTO.getFacIcon());
             Facility updated = facilityRepository.save(facility);
             return toDTO(updated);
         });
@@ -28,6 +31,7 @@ public class UpdateFacilityUseCase {
         dto.setFacId(facility.getFacId());
         dto.setFacType(facility.getFacType());
         dto.setFacName(facility.getFacName());
+        dto.setFacIcon(facility.getFacIcon());
         return dto;
     }
 }

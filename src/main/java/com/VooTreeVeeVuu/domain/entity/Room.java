@@ -21,23 +21,25 @@ import java.util.List;
 @Table (name = "Rooms")
 public class Room {
 	@Id
-	String roomId;
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private Long id;
 	@NotNull
 	@Min (1)
 	@Max (8)
-	int capacity;
+	private int capacity;
 	@NotNull
 	@NumberFormat (style = NumberFormat.Style.CURRENCY)
-	double price;
+	private double price;
 	@NotNull
 	@Min (1)
-	Integer quantity;
+	private Integer quantity;
 	@NotNull
 	@NumberFormat (style = NumberFormat.Style.NUMBER)
-	double roomSize;
+	private double roomSize;
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(255)", name = "description")
-	String description;
+	private String description;
+	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "typeId")
 	RoomType roomType;

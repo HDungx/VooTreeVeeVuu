@@ -1,39 +1,82 @@
 package com.VooTreeVeeVuu.domain.entity;
 
-import com.VooTreeVeeVuu.utils.Role;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table (name = "Accounts")
 
-public class Account {
+public class Account implements UserDetails {
 	@Id
-	String username;
-	@Email
-	@Column (unique = true, nullable = false, name = "email")
-	String email;
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private Long id;
+
 	@NotBlank
-	@Size (min = 6, max = 20, message = "Password must be between 6 and 20 characters long")
-	@Column(name = "password")
-	String password;
-	@Column (columnDefinition = "nvarchar(50)", name = "role")
-	@Enumerated(EnumType.STRING)
-	Role role;
-	@JsonIgnore
-	@OneToOne (mappedBy = ("account"))
-	Customer customer;
-	@JsonIgnore
-	@OneToOne (mappedBy = ("account"))
-	Partner partner;
-	@JsonIgnore
-	@OneToOne (mappedBy = ("account"))
-	Staff staff;
+	@Column (unique = true, nullable = false)
+	private String username;
+	@NotBlank
+	private String password;
+	@Email
+	@Column (unique = true, nullable = false)
+	private String email;
+	private String phoneNum;
+	private String avatar;
+
+	@OneToOne (cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn (name = "user_id", referencedColumnName = "id")
+	private User user;
+
+	@ManyToMany (fetch = FetchType.EAGER)
+	@JoinTable (name = "account_roles", joinColumns = @JoinColumn (name = "account_id"), inverseJoinColumns = @JoinColumn (name = "role_id"))
+	private Set<Role> roles = new HashSet<>();
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities () {
+		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName().toString())).collect(
+				Collectors.toList());
+	}
+
+	@Override
+	public boolean isAccountNonExpired () {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked () {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired () {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled () {
+		return true;
+	}
+
+	public void setUser (User user) {
+		this.user = user;
+		user.setAccount(this);
+	}
 }

@@ -33,7 +33,7 @@ public class BookingController {
 	}
 
 	@GetMapping ("/{id}")
-	public Optional<BookingDTO> getBookingById (@PathVariable String id){
+	public Optional<BookingDTO> getBookingById (@PathVariable Long id){
 		return getBookingUseCase.getBookingById(id);
 	}
 
@@ -42,13 +42,13 @@ public class BookingController {
 		return createBookingUseCase.createBookings(dto);
 	}
 
-	@PutMapping ("/{id}")
-	public Optional<BookingDTO> updateBooking (@RequestBody BookingDTO dto, @PathVariable String id) {
+	@PutMapping ("/update/{id}")
+	public Optional<BookingDTO> updateBooking (@RequestBody BookingDTO dto, @PathVariable Long id) {
 		return updateBookingUseCase.updateBookingDTO(id,dto);
 	}
 
-	@DeleteMapping ("/{id}")
-	public void deleteBooking (@PathVariable String id) {
+	@DeleteMapping ("/delete/{id}")
+	public void deleteBooking (@PathVariable Long id) {
 		deleteBookingUseCase.deleteBooking(id);
 	}
 

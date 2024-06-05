@@ -1,6 +1,6 @@
 package com.VooTreeVeeVuu.domain.entity;
 
-import com.VooTreeVeeVuu.utils.Fac_Type;
+import com.VooTreeVeeVuu.domain.utils.Fac_Type;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -31,6 +31,4 @@ public class Facility {
     @JsonIgnore
     @OneToMany(mappedBy = "facility")
     List<RoomFacility> roomFacilities;
-
-
 }
