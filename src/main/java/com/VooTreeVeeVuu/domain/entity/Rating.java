@@ -29,6 +29,7 @@ public class Rating {
 	@ManyToOne
 	@JoinColumn (name = "customerId")
 	Customer customer;
+	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
 	Hotel hotel;

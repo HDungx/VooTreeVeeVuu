@@ -1,6 +1,7 @@
 package com.VooTreeVeeVuu.adapters.dto;
 
-import com.VooTreeVeeVuu.utils.Gender;
+
+import com.VooTreeVeeVuu.domain.utils.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

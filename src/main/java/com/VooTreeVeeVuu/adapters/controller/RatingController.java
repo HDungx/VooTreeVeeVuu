@@ -1,7 +1,6 @@
 package com.VooTreeVeeVuu.adapters.controller;
 
 import com.VooTreeVeeVuu.domain.entity.Rating;
-import com.VooTreeVeeVuu.servicesImp.RatingServImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,8 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping ("/api/ratings")
 public class RatingController {
-	@Autowired
-	RatingServImp ratingServImp;
+
 
 //	@GetMapping ()
 //	public Page<Rating> getAllRating (@RequestParam (defaultValue = "0") int page,

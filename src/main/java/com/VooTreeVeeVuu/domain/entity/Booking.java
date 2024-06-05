@@ -37,11 +37,13 @@ public class Booking {
 	private LocalDate checkOutDate;
 	@NotNull
 	@NumberFormat (style = NumberFormat.Style.CURRENCY)
-	double totalPrice;
+	private double totalPrice;
+	//@JsonIgnored
 	@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "customer_Id")
 	Customer customer;
+	//@JsonIgnored
 	@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "roomId")

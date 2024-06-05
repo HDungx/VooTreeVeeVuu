@@ -20,6 +20,7 @@ public class HotelFacility {
 	@ManyToOne
 	@JoinColumn (name = "facId")
 	Facility facility;
+	//@JsonIgnored
 	@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "hotelId")

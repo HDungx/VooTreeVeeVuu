@@ -29,6 +29,7 @@ public class Logs {
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
 	Hotel hotel;
+	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "staffId")
 	Staff staff;

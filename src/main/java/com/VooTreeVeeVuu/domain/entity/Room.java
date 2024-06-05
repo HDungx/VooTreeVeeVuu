@@ -43,6 +43,7 @@ public class Room {
 	@ManyToOne
 	@JoinColumn (name = "typeId")
 	RoomType roomType;
+	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
 	Hotel hotel;
@@ -52,6 +53,7 @@ public class Room {
 	@JsonIgnore
 	@OneToMany (mappedBy = "room")
 	List<Booking> listBooking;
+	//@JsonIgnored
 	@OneToMany (mappedBy = "room")
 	List<RoomImage> room_images;
 }
