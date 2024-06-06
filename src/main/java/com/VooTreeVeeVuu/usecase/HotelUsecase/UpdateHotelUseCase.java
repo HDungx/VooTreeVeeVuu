@@ -27,7 +27,9 @@ public class UpdateHotelUseCase {
             hotel.setStatus(hotelDTO.getStatus());
             hotel.setCheckInTime(hotelDTO.getCheckInTime());
             hotel.setCheckOutTime(hotelDTO.getCheckOutTime());
-            hotel.setPartner(hotelDTO.getPartner());
+            hotel.setHotelImages(hotelDTO.getHotelImages());
+            hotel.setHotelFacilities(hotelDTO.getHotelFacilities());
+            hotel.setUser(hotelDTO.getUser());
             Hotel updated = hotelRepository.save(hotel);
             return toDTO(updated);
         });

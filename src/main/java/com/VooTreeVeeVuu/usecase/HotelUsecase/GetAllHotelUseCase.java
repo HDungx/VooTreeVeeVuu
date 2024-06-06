@@ -1,7 +1,11 @@
 package com.VooTreeVeeVuu.usecase.HotelUsecase;
 
 import com.VooTreeVeeVuu.adapters.dto.HotelDTO;
+import com.VooTreeVeeVuu.adapters.dto.HotelFacilityDTO;
+import com.VooTreeVeeVuu.adapters.dto.HotelImageDTO;
 import com.VooTreeVeeVuu.domain.entity.Hotel;
+import com.VooTreeVeeVuu.domain.entity.HotelFacility;
+import com.VooTreeVeeVuu.domain.entity.HotelImage;
 import com.VooTreeVeeVuu.domain.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,7 @@ public class GetAllHotelUseCase {
         return hotelRepository.findAll().stream().map(this :: toDTO).collect(Collectors.toList());
     }
 
+
     private HotelDTO toDTO(Hotel hotel) {
         HotelDTO dto = new HotelDTO();
         dto.setId(hotel.getId());
@@ -29,9 +34,9 @@ public class GetAllHotelUseCase {
         dto.setStatus(hotel.getStatus());
         dto.setCheckInTime(hotel.getCheckInTime());
         dto.setCheckOutTime(hotel.getCheckOutTime());
-        dto.setPartner(hotel.getPartner());
-//        dto.setHotelImages(hotel.getHotelImages().stream().map(this::toImageDTO).collect(Collectors.toList()));
-//        dto.setHotelFacilities(hotel.getHotelFacilities().stream().map(this::toFacilityDTO).collect(Collectors.toList()));
+        dto.setUser(hotel.getUser());
+        dto.setHotelImages( hotel.getHotelImages());
+        dto.setHotelFacilities(hotel.getHotelFacilities());
         return dto;
     }
 }

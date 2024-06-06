@@ -20,7 +20,7 @@ public class UpdateLogsUseCase {
             logs.setAction(logsDTO.getAction());
             logs.setDate(logsDTO.getDate());
             logs.setHotel(logsDTO.getHotel());
-            logs.setStaff(logsDTO.getStaff());
+            logs.setUser(logsDTO.getUser());
             Logs updated = logsRepository.save(logs);
             return toDTO(updated);
         });

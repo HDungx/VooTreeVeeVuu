@@ -30,9 +30,9 @@ public class GetHotelUseCase {
         dto.setStatus(hotel.getStatus());
         dto.setCheckInTime(hotel.getCheckInTime());
         dto.setCheckOutTime(hotel.getCheckOutTime());
-        dto.setPartner(hotel.getPartner());
-//        dto.setHotelImages(hotel.getHotelImages().stream().map(this::toImageDTO).collect(Collectors.toList()));
-//        dto.setHotelFacilities(hotel.getHotelFacilities().stream().map(this::toFacilityDTO).collect(Collectors.toList()));
+        dto.setUser(hotel.getUser());
+        dto.setHotelImages( hotel.getHotelImages());
+        dto.setHotelFacilities(hotel.getHotelFacilities());
         return dto;
     }
 }

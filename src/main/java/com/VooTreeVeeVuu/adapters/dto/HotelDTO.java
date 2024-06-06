@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -22,7 +23,7 @@ public class HotelDTO {
     private Hotel_status status;
     private LocalTime checkInTime;
     private LocalTime checkOutTime;
-    private Partner partner;
-    private HotelImage hotelImages;
-    private HotelFacility hotelFacilities;
+    private User user;
+    private List<HotelImage> hotelImages;
+    private List<HotelFacility> hotelFacilities;
 }
