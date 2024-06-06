@@ -1,7 +1,8 @@
 package com.VooTreeVeeVuu.adapters.dto;
 
 import com.VooTreeVeeVuu.domain.entity.Hotel;
-import com.VooTreeVeeVuu.domain.entity.Staff;
+
+import com.VooTreeVeeVuu.domain.entity.User;
 import com.VooTreeVeeVuu.domain.utils.Action;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,5 +18,5 @@ public class LogsDTO {
     private Action action;
     private LocalDate date;
     private Hotel hotel;
-    private Staff staff;
+    private User user;
 }

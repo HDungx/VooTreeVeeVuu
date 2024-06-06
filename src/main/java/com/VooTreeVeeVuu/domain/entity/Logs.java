@@ -35,8 +35,9 @@ public class Logs {
 
 	//@JsonIgnored
 	@ManyToOne
-	@JoinColumn (name = "staffId")
-	Staff staff;
+	@JoinColumn (name = "userId")
+	User user;
+
 
 
 }

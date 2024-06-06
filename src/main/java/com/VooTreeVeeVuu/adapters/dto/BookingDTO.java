@@ -1,6 +1,7 @@
 package com.VooTreeVeeVuu.adapters.dto;
 
 import com.VooTreeVeeVuu.domain.entity.Room;
+import com.VooTreeVeeVuu.domain.entity.User;
 import com.VooTreeVeeVuu.domain.utils.Booking_status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class BookingDTO {
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private double totalPrice;
-    private Customer customer;
+    private User user;
     private Room room;
     private LocalDate bookingDate;
     private Booking_status status;
