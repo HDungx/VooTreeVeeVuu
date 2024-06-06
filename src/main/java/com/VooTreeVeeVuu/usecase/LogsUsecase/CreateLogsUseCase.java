@@ -25,7 +25,7 @@ public class CreateLogsUseCase {
         dto.setAction(logs.getAction());
         dto.setDate(logs.getDate());
         dto.setHotel(logs.getHotel());
-        dto.setStaff(logs.getStaff());
+        dto.setUser(logs.getUser());
         return dto;
     }
 
@@ -34,7 +34,7 @@ public class CreateLogsUseCase {
         logs.setAction(logsDTO.getAction());
         logs.setDate(logsDTO.getDate());
         logs.setHotel(logsDTO.getHotel());
-        logs.setStaff(logsDTO.getStaff());
+        logs.setUser(logsDTO.getUser());
         return logs;
     }
 }

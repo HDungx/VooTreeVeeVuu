@@ -16,8 +16,10 @@ public class HotelImage {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Pattern (regexp = ".*\\.(jpg|png)$")
 	private String path;
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn (name = "hotelId")

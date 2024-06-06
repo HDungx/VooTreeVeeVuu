@@ -23,36 +23,46 @@ public class Room {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@NotNull
 	@Min (1)
 	@Max (8)
 	private int capacity;
+
 	@NotNull
 	@NumberFormat (style = NumberFormat.Style.CURRENCY)
 	private double price;
+
 	@NotNull
 	@Min (1)
 	private Integer quantity;
+
 	@NotNull
 	@NumberFormat (style = NumberFormat.Style.NUMBER)
 	private double roomSize;
+
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(255)", name = "description")
 	private String description;
+
 	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "typeId")
 	RoomType roomType;
+
 	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
 	Hotel hotel;
+
 	@JsonIgnore
 	@OneToMany (mappedBy = "room")
 	List<RoomFacility> roomFacilities;
+
 	@JsonIgnore
 	@OneToMany (mappedBy = "room")
 	List<Booking> listBooking;
+
 	//@JsonIgnored
 	@OneToMany (mappedBy = "room")
 	List<RoomImage> room_images;

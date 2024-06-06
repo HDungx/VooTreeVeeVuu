@@ -6,5 +6,5 @@ import com.VooTreeVeeVuu.domain.repository.AccountRepository;
 import java.util.Optional;
 
 public interface JpaAccountRepository extends AccountRepository {
-	Optional<Account> findByUsername(Object username);
+	Optional<Account> findByUsername(String username);
 }

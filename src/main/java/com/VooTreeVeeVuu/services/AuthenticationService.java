@@ -65,9 +65,13 @@ public class AuthenticationService {
 		}
 		account.setRoles(roles);
 
+		//create new user
 		User user = new User();
 		user.setDob(request.getDob());
+
+		//link acc to user
 		account.setUser(user);
+		//link user to acc
 		user.setAccount(account);
 
 		accountRepository.save(account);

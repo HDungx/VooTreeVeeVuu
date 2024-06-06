@@ -19,16 +19,21 @@ public class Facility {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer facId;
+
     @Column(name = "FacilityType")
     @Enumerated(EnumType.STRING)
     private Fac_Type facType;
+
     @NotBlank
     @Column(columnDefinition = "nvarchar(200)", name = "FacilityName")
     private String facName;
+
     private String facIcon;
+
     @JsonIgnore
     @OneToMany(mappedBy = "facility")
     List<HotelFacility> hotelFacilities;
+
     @JsonIgnore
     @OneToMany(mappedBy = "facility")
     List<RoomFacility> roomFacilities;

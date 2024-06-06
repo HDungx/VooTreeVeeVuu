@@ -7,10 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class DeleteHotelFacilityUseCase {
-    @Autowired
-    private HotelFacilityRepository hotelFacilityRepository;
+	@Autowired
+	private HotelFacilityRepository hotelFacilityRepository;
 
-    @Transactional
-    public void deleteHotelFacility(Long id){hotelFacilityRepository.deleteById(id);
-    }
+	@Transactional
+	public void deleteHotelFacility (Long id) {
+		hotelFacilityRepository.deleteById(id);
+	}
 }

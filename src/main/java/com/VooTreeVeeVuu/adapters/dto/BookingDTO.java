@@ -1,6 +1,5 @@
 package com.VooTreeVeeVuu.adapters.dto;
 
-import com.VooTreeVeeVuu.domain.entity.Customer;
 import com.VooTreeVeeVuu.domain.entity.Room;
 import com.VooTreeVeeVuu.domain.utils.Booking_status;
 import lombok.AllArgsConstructor;

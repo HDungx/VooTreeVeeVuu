@@ -15,11 +15,13 @@ public class HotelFacility {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	//@JsonIgnored
 	@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "facId")
 	Facility facility;
+
 	//@JsonIgnored
 	@NotBlank
 	@ManyToOne

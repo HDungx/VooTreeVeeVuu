@@ -23,10 +23,8 @@ public class WebSecurityConfig {
 		http
 				.csrf(AbstractHttpConfigurer :: disable)
 				.authorizeHttpRequests(authorize -> authorize.requestMatchers("/api/auth/**").permitAll()
-						.requestMatchers("/api/test/admin/**").hasRole("ADMIN")
-						.requestMatchers("/api/test/cus/**").hasRole("CUSTOMER")
 						.anyRequest().authenticated())
-				.sessionManagement(session -> session  // Sử dụng cấu hình mặc định cho session management
+				.sessionManagement(session -> session
 						.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
 				.authenticationProvider(authenticationProvider)
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

@@ -31,7 +31,7 @@ public class UpdateLogsUseCase {
         dto.setAction(logs.getAction());
         dto.setDate(logs.getDate());
         dto.setHotel(logs.getHotel());
-        dto.setStaff(logs.getStaff());
+        dto.setUser(logs.getUser());
         return dto;
     }
 }

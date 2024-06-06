@@ -1,21 +1,27 @@
 package com.VooTreeVeeVuu.domain.entity;
 
-
-import com.VooTreeVeeVuu.domain.utils.RoleName;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Role {
+@Table (name = "otp")
+public class OTP {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Enumerated (EnumType.STRING)
-	private RoleName name;
+	private String otp;
+	private LocalDateTime generatedTime;
+
+	@ManyToOne
+	@JoinColumn (name = "account_id", nullable = false)
+	private Account account;
 }

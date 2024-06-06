@@ -15,8 +15,10 @@ public class RoomImage {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@Pattern (regexp = ".*\\.(jpg|png)$")
 	private String path;
+
 	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "roomId")

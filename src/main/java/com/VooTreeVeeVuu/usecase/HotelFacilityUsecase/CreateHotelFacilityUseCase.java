@@ -23,6 +23,7 @@ public class CreateHotelFacilityUseCase {
 
     private HotelFacilityDTO toDTO(HotelFacility hotelFacility) {
         HotelFacilityDTO dto = new HotelFacilityDTO();
+        dto.setId(hotelFacility.getId());
         dto.setFacility(hotelFacility.getFacility());
         dto.setHotel(hotelFacility.getHotel());
         return dto;
@@ -30,6 +31,7 @@ public class CreateHotelFacilityUseCase {
 
     private HotelFacility toEntity(HotelFacilityDTO hotelFacilityDTO) {
         HotelFacility hotelFacility = new HotelFacility();
+        hotelFacility.setId(hotelFacilityDTO.getId());
         hotelFacility.setFacility(hotelFacilityDTO.getFacility());
         hotelFacility.setHotel(hotelFacilityDTO.getHotel());
         return hotelFacility;

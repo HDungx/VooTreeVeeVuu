@@ -19,45 +19,50 @@ import java.time.LocalDate;
 @Entity
 @Table (name = "Bookings")
 public class Booking {
-//	@Id
-//	//@Pattern(regexp = "^BK[1-9]{4}$\n")
-//	String bookingId;
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@NotNull
 	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
 	@Temporal (TemporalType.DATE)
 	@Column (name = "checkInDate")
 	private LocalDate checkInDate;
+
 	@NotNull
 	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
 	@Temporal (TemporalType.DATE)
 	@Column (name = "checkOutDate")
 	private LocalDate checkOutDate;
+
 	@NotNull
 	@NumberFormat (style = NumberFormat.Style.CURRENCY)
 	private double totalPrice;
+
 	//@JsonIgnored
 	@NotBlank
 	@ManyToOne
-	@JoinColumn (name = "customer_Id")
-	Customer customer;
+	@JoinColumn (name = "userId")
+	User user;
+
 	//@JsonIgnored
 	@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "roomId")
 	Room room;
+
 	@NotBlank
-	@Column (columnDefinition = "nvarchar(50)")
 	@Enumerated (EnumType.STRING)
 	private Booking_status status;
+
 	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
 	@Temporal (TemporalType.DATE)
 	private LocalDate bookingDate;
+
 	@NotNull
 	@Min(1)
 	private Integer numOfRoom;
+
 	@NotNull
 	@Min(2)
 	private Integer numOfGuest;

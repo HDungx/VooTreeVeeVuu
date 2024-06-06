@@ -19,9 +19,11 @@ public class AccommodationType {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank
     @Column(columnDefinition = "nvarchar(50)", name = "typeName")
     private String typeName;//Hotel, Motel, Resort, Homestay, Apartment
+
     @JsonIgnore
     @OneToMany( mappedBy = "accommodationType")
     List<Hotel> hotels;

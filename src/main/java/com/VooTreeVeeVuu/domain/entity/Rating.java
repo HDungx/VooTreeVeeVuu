@@ -18,17 +18,21 @@ public class Rating {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	@NotNull
 	@Min (1)
 	@Max (10)
 	private int rate;
+
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(255)")
 	private String comment;
+
 	//@JsonIgnored
 	@ManyToOne
-	@JoinColumn (name = "customerId")
-	Customer customer;
+	@JoinColumn (name = "userId")
+	User user;
+
 	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "hotelId")

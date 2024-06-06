@@ -33,12 +33,16 @@ public class Account implements UserDetails {
 	@NotBlank
 	@Column (unique = true, nullable = false)
 	private String username;
+
 	@NotBlank
 	private String password;
+
 	@Email
 	@Column (unique = true, nullable = false)
 	private String email;
+
 	private String phoneNum;
+
 	private String avatar;
 
 	@OneToOne (cascade = CascadeType.ALL, orphanRemoval = true)
@@ -48,6 +52,10 @@ public class Account implements UserDetails {
 	@ManyToMany (fetch = FetchType.EAGER)
 	@JoinTable (name = "account_roles", joinColumns = @JoinColumn (name = "account_id"), inverseJoinColumns = @JoinColumn (name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+
+	@JsonIgnore
+	@OneToMany (mappedBy = "account")
+	private List<OTP> otpList;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities () {

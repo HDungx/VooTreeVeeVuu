@@ -18,9 +18,11 @@ public class RoomType {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank
     @Column (columnDefinition = "nvarchar(50)", name = "typeName")
     private String typeName;
+
     @JsonIgnore
     @OneToMany (mappedBy = "roomType")
     List<Room> rooms;
