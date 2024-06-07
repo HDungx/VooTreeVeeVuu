@@ -75,15 +75,15 @@ public class Hotel {
 	@OneToMany (mappedBy = ("hotel"))
 	List<HotelImage> hotelImages;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany (mappedBy = ("hotel"))
 	List<Room> rooms;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany (mappedBy = ("hotel"))
 	List<HotelFacility> hotelFacilities;
 
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToMany (mappedBy = "hotel")
 	List<Rating> listRating;
 

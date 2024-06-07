@@ -18,26 +18,21 @@ public class Logs {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	@Column (name = "action", columnDefinition = "nvarchar(50)")
 	@Enumerated (EnumType.STRING)
 	private Action action;
-
 	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
 	@Temporal (TemporalType.DATE)
 	@Column (name = "actionDate")
 	private LocalDate date;
-
 	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
 	Hotel hotel;
-
 	//@JsonIgnored
 	@ManyToOne
-	@JoinColumn (name = "userId")
+	@JoinColumn (name = "staffId")
 	User user;
-
 
 
 }

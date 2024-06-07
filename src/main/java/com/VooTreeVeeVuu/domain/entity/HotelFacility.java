@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -22,7 +23,7 @@ public class HotelFacility {
 	@JoinColumn (name = "facId")
 	Facility facility;
 
-	//@JsonIgnored
+	@JsonIgnore
 	@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "hotelId")

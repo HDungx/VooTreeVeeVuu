@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ public class RoomImage {
 	@Pattern (regexp = ".*\\.(jpg|png)$")
 	private String path;
 
-	//@JsonIgnored
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn (name = "roomId")
 	Room room;

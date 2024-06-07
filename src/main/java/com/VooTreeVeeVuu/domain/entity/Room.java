@@ -50,12 +50,12 @@ public class Room {
 	@JoinColumn (name = "typeId")
 	RoomType roomType;
 
-	//@JsonIgnored
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
 	Hotel hotel;
 
-	@JsonIgnore
+
 	@OneToMany (mappedBy = "room")
 	List<RoomFacility> roomFacilities;
 

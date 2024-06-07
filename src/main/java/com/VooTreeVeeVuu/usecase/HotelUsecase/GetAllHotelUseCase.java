@@ -35,6 +35,9 @@ public class GetAllHotelUseCase {
         dto.setCheckInTime(hotel.getCheckInTime());
         dto.setCheckOutTime(hotel.getCheckOutTime());
         dto.setUser(hotel.getUser());
+        dto.setRatings(hotel.getListRating());
+        dto.setAccommodationType(hotel.getAccommodationType());
+        dto.setRooms(hotel.getRooms());
         dto.setHotelImages( hotel.getHotelImages());
         dto.setHotelFacilities(hotel.getHotelFacilities());
         return dto;

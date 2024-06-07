@@ -45,6 +45,7 @@ public class Account implements UserDetails {
 
 	private String avatar;
 
+	@JsonIgnore
 	@OneToOne (cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn (name = "user_id", referencedColumnName = "id")
 	private User user;

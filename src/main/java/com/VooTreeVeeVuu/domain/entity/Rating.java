@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -33,7 +34,7 @@ public class Rating {
 	@JoinColumn (name = "userId")
 	User user;
 
-	//@JsonIgnored
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
 	Hotel hotel;

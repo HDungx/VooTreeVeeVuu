@@ -24,6 +24,9 @@ public class HotelDTO {
     private LocalTime checkInTime;
     private LocalTime checkOutTime;
     private User user;
+    private AccommodationType accommodationType;
+    private List<Rating> ratings;
+    private List<Room> rooms;
     private List<HotelImage> hotelImages;
     private List<HotelFacility> hotelFacilities;
 }
