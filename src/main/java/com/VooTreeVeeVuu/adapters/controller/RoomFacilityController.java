@@ -52,4 +52,5 @@ public class RoomFacilityController {
 	public void deleteRoomFacility(@PathVariable Long id) {
 		deleteRoomFacilityUseCase.deleteRoomFacility(id);
 	}
+
 }
