@@ -1,69 +1,55 @@
 package com.VooTreeVeeVuu.adapters.controller;
 
-import com.VooTreeVeeVuu.domain.entity.Room;
-import com.VooTreeVeeVuu.domain.repository.RoomFacilityRepository;
+
+import com.VooTreeVeeVuu.adapters.dto.RoomDTO;
+import com.VooTreeVeeVuu.usecase.RoomUsecase.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin ("*")
 @RestController
 @RequestMapping ("/api/rooms")
 public class RoomController {
-//	@Autowired
-//	RoomServImp roomServImp;
-//	@Autowired
-//	private RoomFacilityRepository roomFacilityRepository;
-//
-////	@GetMapping ()
-////	public Page<Room> getAllRooms (@RequestParam (defaultValue = "0") int page,
-////	                               @RequestParam (defaultValue = "10") int size,
-////	                               @RequestParam (defaultValue = "roomId") String sortBy,
-////	                               @RequestParam (defaultValue = "asc") String dir) {
-////		Sort sort = dir.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
-////		Pageable pageable = PageRequest.of(page, size, sort);
-////		return roomServImp.getAll(pageable);
-////	}
-//
-//	@GetMapping ()
-//	public ResponseEntity<List<Room>> getAllRooms () {
-//		return new ResponseEntity<>(roomServImp.getAll(), HttpStatus.OK);
-//	}
-//
-//	@GetMapping ("/{id}")
-//	public ResponseEntity<Room> getRoomById (@PathVariable String id) {
-//		return roomServImp.findById(id).map(r -> new ResponseEntity<>(r, HttpStatus.OK)).orElse(
-//				new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//	}
-//
-//	@PostMapping
-//	public ResponseEntity<Room> createRoom (@RequestBody Room room) {
-//		return new ResponseEntity<>(roomServImp.save(room), HttpStatus.CREATED);
-//	}
-//
-//	@PutMapping ("/update/{id}")
-//	public ResponseEntity<Room> updateRoom (@RequestBody Room room, @PathVariable String id) {
-//		return roomServImp.findById(id).map(r -> {
-//			r.setCapacity(room.getCapacity());
-//			r.setPrice(room.getPrice());
-//			r.setQuantity(room.getQuantity());
-//			r.setRoomSize(room.getRoomSize());
-//			r.setDescription(room.getDescription());
-//			r.setRoomType(room.getRoomType());
-//			r.setHotel(room.getHotel());
-//			r.setRoom_images(room.getRoom_images());
-//			return new ResponseEntity<>(r, HttpStatus.OK);
-//		}).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//	}
-//
-//	@DeleteMapping ("/delete/{id}")
-//	public ResponseEntity<Void> deleteRoom (@PathVariable String id) {
-//		return roomServImp.findById(id).map(r -> {
-//			roomServImp.delete(id);
-//			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
-//		}).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//	}
+    @Autowired
+    private CreateRoomUseCase createRoomUseCase;
+
+    @Autowired
+    private UpdateRoomUseCase updateRoomUseCase;
+
+    @Autowired
+    private DeleteRoomUseCase deleteRoomUseCase;
+
+    @Autowired
+    private GetAllRoomUseCase getAllRoomUseCase;
+
+    @Autowired
+    private GetRoomUseCase getRoomUseCase;
+
+    @GetMapping ()
+    public List<RoomDTO> getAllRoom(){
+        return getAllRoomUseCase.getAllRoom();
+    }
+
+    @GetMapping ("/{id}")
+    public Optional<RoomDTO> getRoomById (@PathVariable Long id){
+        return getRoomUseCase.getRoomById(id);
+    }
+
+    @PostMapping
+    public RoomDTO createRoom(@RequestBody RoomDTO dto) {
+        return createRoomUseCase.createRoom(dto);
+    }
+
+    @PutMapping ("/update/{id}")
+    public Optional<RoomDTO> updateRoom (@RequestBody RoomDTO dto, @PathVariable Long id) {
+        return updateRoomUseCase.updateRooms(id,dto);
+    }
+
+    @DeleteMapping ("/delete/{id}")
+    public void deleteRoom(@PathVariable Long id) {
+        deleteRoomUseCase.deleteRoom(id);
+    }
 }
