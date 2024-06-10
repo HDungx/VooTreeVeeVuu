@@ -45,7 +45,7 @@ public class JwtUtils {
 
 		return Jwts.builder().setClaims(extraClaims).setSubject(account.getUsername()).setIssuedAt(
 						new Date(System.currentTimeMillis())).setExpiration(
-						new Date(System.currentTimeMillis() + 300000)).claim("roles", roles).claim("email", email).signWith(
+						new Date(System.currentTimeMillis() + 600000)).claim("roles", roles).claim("email", email).signWith(
 						getSigningKey(), SignatureAlgorithm.HS256) //
 				.compact();
 	}
