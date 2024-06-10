@@ -12,6 +12,8 @@ public class AccountDTO {
 	private Long id;
 	private String username;
 	private String password;
+	private String email;
+	private String phoneNum;
 	private boolean enabled;
 	private User user;
 }

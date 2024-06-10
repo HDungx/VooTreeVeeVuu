@@ -23,6 +23,8 @@ public class GetAllAccountsUseCase {
 		dto.setId(account.getId());
 		dto.setUsername(account.getUsername());
 		dto.setPassword(account.getPassword());
+		dto.setEmail(account.getEmail());
+		dto.setPhoneNum(account.getPhoneNum());
 		dto.setEnabled(account.isEnabled());
 		dto.setUser(account.getUser());
 		return dto;

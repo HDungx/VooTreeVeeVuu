@@ -27,6 +27,8 @@ public class UpdateStatusUseCase {
 		dto.setId(account.getId());
 		dto.setUsername(account.getUsername());
 		dto.setPassword(account.getPassword());
+		dto.setEmail(account.getEmail());
+		dto.setPhoneNum(account.getPhoneNum());
 		dto.setEnabled(account.isEnabled());
 		return dto;
 	}
