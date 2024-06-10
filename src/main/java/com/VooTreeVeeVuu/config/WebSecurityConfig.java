@@ -20,12 +20,13 @@ public class WebSecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
-		http.csrf(AbstractHttpConfigurer :: disable).sessionManagement(
-				session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)).authenticationProvider(
-				authenticationProvider).authorizeHttpRequests(authorize -> authorize
-				.requestMatchers("/api/auth/**").permitAll()
-				.anyRequest().authenticated())
-				;
+		http.csrf(AbstractHttpConfigurer :: disable)
+				.authorizeHttpRequests(authorize -> authorize.requestMatchers("/api/auth/**").permitAll()
+						.anyRequest().authenticated())
+				.sessionManagement(session -> session
+						.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
+				.authenticationProvider(authenticationProvider)
+				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
 }

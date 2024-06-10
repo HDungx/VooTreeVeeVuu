@@ -25,6 +25,7 @@ public class GetAllAccountsUseCase {
 		dto.setPassword(account.getPassword());
 		dto.setEmail(account.getEmail());
 		dto.setPhoneNum(account.getPhoneNum());
+		dto.setRoles(account.getRoles());
 		dto.setEnabled(account.isEnabled());
 		dto.setUser(account.getUser());
 		return dto;
