@@ -19,16 +19,13 @@ public class WebSecurityConfig {
 	private final AuthenticationProvider authenticationProvider;
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http
-				.csrf(AbstractHttpConfigurer :: disable)
-				.authorizeHttpRequests(authorize -> authorize.requestMatchers("/api/auth/**").permitAll()
-//						.anyRequest().authenticated())
-						.anyRequest().permitAll())
-				.sessionManagement(session -> session
-						.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
-				.authenticationProvider(authenticationProvider)
-				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+	public SecurityFilterChain securityFilterChain (HttpSecurity http) throws Exception {
+		http.csrf(AbstractHttpConfigurer :: disable).sessionManagement(
+				session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)).authenticationProvider(
+				authenticationProvider).authorizeHttpRequests(authorize -> authorize
+				.requestMatchers("/api/auth/**").permitAll()
+				.anyRequest().authenticated())
+				;
 		return http.build();
 	}
 }

@@ -64,7 +64,7 @@ public class AuthenticationService {
 			});
 		}
 		account.setRoles(roles);
-
+		account.setStatus(request.isStatus());
 		//create new user
 		User user = new User();
 		user.setDob(request.getDob());
@@ -75,15 +75,19 @@ public class AuthenticationService {
 		user.setAccount(account);
 
 		accountRepository.save(account);
-		var jwtToken = jwtService.generateToken(account);
+		var jwtToken = JwtUtils.generateToken(account);
 		return AuthenticationResponse.builder().token(jwtToken).build();
 	}
 
 	public AuthenticationResponse login (LoginDTO request) {
 		authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-		var account = accountRepository.findByUsername(request.getUsername()).orElseThrow();
-		var jwtToken = jwtService.generateToken(account);
+		var account = accountRepository.findByUsername(request.getUsername()).orElseThrow(
+				() -> new RuntimeException("Account not found"));
+//		if(!account.getPassword().equals(request.getPassword())){
+//			throw new RuntimeException("Password incorrect");
+//		}
+		var jwtToken = JwtUtils.generateToken(account);
 		return AuthenticationResponse.builder().token(jwtToken).date(request.getDate()).build();
 	}
 }

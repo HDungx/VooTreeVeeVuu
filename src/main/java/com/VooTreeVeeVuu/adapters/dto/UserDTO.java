@@ -1,6 +1,7 @@
 package com.VooTreeVeeVuu.adapters.dto;
 
 
+import com.VooTreeVeeVuu.domain.entity.Account;
 import com.VooTreeVeeVuu.domain.utils.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,4 +16,5 @@ public class UserDTO {
 	private String lastName;
 	private String dob;
 	private Gender gender;
+	private Account account;
 }

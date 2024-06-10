@@ -17,7 +17,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@ComponentScan (basePackages = "com.example.intern")
 @RequiredArgsConstructor
 public class ApplicationConfig {
 	@Autowired
@@ -46,4 +45,6 @@ public class ApplicationConfig {
 	public PasswordEncoder passwordEncoder () {
 		return new BCryptPasswordEncoder();
 	}
+
+
 }

@@ -18,4 +18,7 @@ public class SignUpDTO {
 	private String email;
 	private LocalDate dob;
 	private Set<String> roles;
+
+	private boolean status = true;
+
 }

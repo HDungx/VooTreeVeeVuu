@@ -33,6 +33,7 @@ public class UpdateRoomUseCase {
     }
     private RoomDTO toDTO(Room room) {
         RoomDTO dto = new RoomDTO();
+        dto.setId(room.getId());
         dto.setCapacity(room.getCapacity());
         dto.setPrice(room.getPrice());
         dto.setQuantity(room.getQuantity());

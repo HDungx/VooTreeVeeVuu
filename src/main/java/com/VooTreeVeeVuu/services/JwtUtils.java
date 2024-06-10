@@ -21,7 +21,7 @@ import java.util.function.Function;
 @Service
 @RequiredArgsConstructor
 public class JwtUtils {
-	private final String SECRET_KEY = "dXhwbW15P0RCRmNZVC8/SGYwTW5sODdqNUpuemcwSmM4bHlmPWw9WjBZS2FvN21RNnk9TUNEdjdHZHohTUpTTk1reXN0SEtDbDVzTUpEQmVSLXEtWU93UFo1b2dxPVFESlpSSWhFWWh4Mlk3OVpuY1BmY2MwTENudXJOZmp6WkdBOFl4clNEZm9hP2RIVG1Gbk5KISFpRkRiT3p6UDQyYVNUdGFQWWVRN2ktZXRZd0wweVg2TmEzNkFrcE9zdGJ1SHlaNzlBZW1ZbFRWb0V0clpzR2JKPTchUDBUQUUwNXczUjRVcDFodEg1YUJLSDA0bkUvQ0hyOEJLWW5pQk9aVw==";
+	private static final String SECRET_KEY = "dXhwbW15P0RCRmNZVC8/SGYwTW5sODdqNUpuemcwSmM4bHlmPWw9WjBZS2FvN21RNnk9TUNEdjdHZHohTUpTTk1reXN0SEtDbDVzTUpEQmVSLXEtWU93UFo1b2dxPVFESlpSSWhFWWh4Mlk3OVpuY1BmY2MwTENudXJOZmp6WkdBOFl4clNEZm9hP2RIVG1Gbk5KISFpRkRiT3p6UDQyYVNUdGFQWWVRN2ktZXRZd0wweVg2TmEzNkFrcE9zdGJ1SHlaNzlBZW1ZbFRWb0V0clpzR2JKPTchUDBUQUUwNXczUjRVcDFodEg1YUJLSDA0bkUvQ0hyOEJLWW5pQk9aVw==";
 
 	public String extractUsername (String token) {
 		return extractClaim(token, Claims :: getSubject);
@@ -34,11 +34,11 @@ public class JwtUtils {
 
 	// Trong phương thức generateToken của JwtService
 
-	public String generateToken (Account account) {
+	public static String generateToken (Account account) {
 		return generateToken(new HashMap<>(), account);
 	}
 
-	public String generateToken (Map<String, Object> extraClaims, Account account) {
+	public static String generateToken (Map<String, Object> extraClaims, Account account) {
 		List<String> roles = account.getAuthorities().stream().map(GrantedAuthority :: getAuthority).toList();
 		String email = account.getEmail();
 		System.out.println(roles);
@@ -46,7 +46,7 @@ public class JwtUtils {
 		return Jwts.builder().setClaims(extraClaims).setSubject(account.getUsername()).setIssuedAt(
 						new Date(System.currentTimeMillis())).setExpiration(
 						new Date(System.currentTimeMillis() + 600000)).claim("roles", roles).claim("email", email).signWith(
-						getSigningKey(), SignatureAlgorithm.HS256) //
+						getSigningKey(), SignatureAlgorithm.HS256) //300000=5m
 				.compact();
 	}
 
@@ -67,7 +67,7 @@ public class JwtUtils {
 		return extractClaim(token, Claims :: getExpiration);
 	}
 
-	private Key getSigningKey () {
+	private static Key getSigningKey () {
 		byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
 		return Keys.hmacShaKeyFor(keyBytes);
 	}

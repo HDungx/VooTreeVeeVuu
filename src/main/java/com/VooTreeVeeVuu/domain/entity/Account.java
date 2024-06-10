@@ -45,6 +45,8 @@ public class Account implements UserDetails {
 
 	private String avatar;
 
+	private boolean status = true;
+
 	@JsonIgnore
 	@OneToOne (cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn (name = "user_id", referencedColumnName = "id")
@@ -81,7 +83,7 @@ public class Account implements UserDetails {
 
 	@Override
 	public boolean isEnabled () {
-		return true;
+		return status;
 	}
 
 	public void setUser (User user) {
