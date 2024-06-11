@@ -20,6 +20,8 @@ public class OTP {
 
 	private String otp;
 	private LocalDateTime generatedTime;
+	private String newEmail;
+	private String newPhoneNum;
 
 	@ManyToOne
 	@JoinColumn (name = "account_id", nullable = false)

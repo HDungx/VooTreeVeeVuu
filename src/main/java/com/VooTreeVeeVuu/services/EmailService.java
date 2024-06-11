@@ -22,7 +22,7 @@ public class EmailService {
 		{
 			message.setFrom("dhuyclone2001@gmail.com");
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-			message.setSubject("FORGOT PASSWORD OTP");
+			message.setSubject("OTP VERIFICATION CODE");
 			message.setText("Your OTP code: " + otp);
 			mailSender.send(message);
 		} catch (Exception e)

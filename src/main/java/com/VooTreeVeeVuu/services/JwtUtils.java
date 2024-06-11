@@ -41,12 +41,16 @@ public class JwtUtils {
 	public static String generateToken (Map<String, Object> extraClaims, Account account) {
 		List<String> roles = account.getAuthorities().stream().map(GrantedAuthority :: getAuthority).toList();
 		String email = account.getEmail();
+		Long id = account.getId();
+		String phone = account.getPhoneNum();
+		Long user_id = account.getUser().getId();
 		System.out.println(roles);
 
 		return Jwts.builder().setClaims(extraClaims).setSubject(account.getUsername()).setIssuedAt(
 						new Date(System.currentTimeMillis())).setExpiration(
-						new Date(System.currentTimeMillis() + 600000)).claim("roles", roles).claim("email", email).signWith(
-						getSigningKey(), SignatureAlgorithm.HS256) //300000=5m
+						new Date(System.currentTimeMillis() + 600000)).claim("id", id).claim("phoneNum", phone).claim("roles",
+						roles).claim("email", email).claim("user_id", user_id).signWith(getSigningKey(),
+						SignatureAlgorithm.HS256) //600000=10m
 				.compact();
 	}
 
