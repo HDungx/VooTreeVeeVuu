@@ -32,7 +32,7 @@ import java.util.Set;
 public class AccountService {
 	private static final long OTP_EXPIRATION_MINUTES = 1;
 
-	private final String uploadDir = "uploads/";
+	private final String uploadDir = "/Users/aaronnguyen/eclipse-workspace/VooTreeVeeVuu/uploads/";
 
 	@Autowired
 	private AccountRepository accountRepository;
@@ -246,21 +246,27 @@ public class AccountService {
 		otpRepository.delete(otpToken); // Clean up used OTP
 	}
 
-	public String updateAvatar (Long id, MultipartFile file) throws IOException {
+	public void updateAvatar (Long id, MultipartFile file) throws IOException {
 		Optional<Account> optionalAccount = accountRepository.findById(id);
 		if (optionalAccount.isPresent())
 		{
 			Account account = optionalAccount.get();
-			String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-			Path filePath = Paths.get(uploadDir, fileName);
-			Files.createDirectories(filePath.getParent());
-			file.transferTo(filePath.toFile());
-			account.setAvatar(filePath.toString());
+			account.setAvatar(file.getBytes());
 			accountRepository.save(account);
-			return filePath.toString();
 		} else
 		{
 			throw new RuntimeException("User not found");
+		}
+	}
+
+	public byte[] getAvatar (Long id) {
+		Optional<Account> optionalAccount = accountRepository.findById(id);
+		if (optionalAccount.isPresent() && optionalAccount.get().getAvatar() != null)
+		{
+			return optionalAccount.get().getAvatar();
+		} else
+		{
+			throw new RuntimeException("Avatar not found");
 		}
 	}
 }

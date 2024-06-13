@@ -8,6 +8,7 @@ import com.VooTreeVeeVuu.usecase.AccountUseCase.GetAllAccountsUseCase;
 import com.VooTreeVeeVuu.usecase.AccountUseCase.UpdateStatusUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,14 +58,28 @@ public class AccountController {
 	public ResponseEntity<String> uploadAvatar (@PathVariable Long id, @RequestParam ("avatar") MultipartFile file) {
 		try
 		{
-			String filePath = accountService.updateAvatar(id, file);
-			return ResponseEntity.ok(filePath);
+			accountService.updateAvatar(id, file);
+			return ResponseEntity.ok("Avatar uploaded successfully");
 		} catch (IOException e)
 		{
+			System.out.println(e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to upload avatar");
 		} catch (RuntimeException e)
 		{
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+		}
+	}
+
+	@GetMapping ("/{id}/avatar")
+	public ResponseEntity<byte[]> getAvatar (@PathVariable Long id) {
+		try
+		{
+			byte[] avatar = accountService.getAvatar(id);
+			return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG) // Adjust based on the image type stored
+					.body(avatar);
+		} catch (RuntimeException e)
+		{
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 	}
 }

@@ -43,7 +43,8 @@ public class Account implements UserDetails {
 
 	private String phoneNum;
 
-	private String avatar;
+	@Lob
+	private byte[] avatar;
 
 	private boolean status = true;
 
