@@ -1,7 +1,6 @@
 package com.VooTreeVeeVuu.adapters.controller;
 
-import com.VooTreeVeeVuu.usecase.AccountUseCase.ChangeEmailRequestUseCase;
-import com.VooTreeVeeVuu.usecase.AccountUseCase.VerifyAndChangeEmailUseCase;
+import com.VooTreeVeeVuu.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,16 +10,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping ("/api/email")
 public class ChangeEmailController {
 	@Autowired
-	private ChangeEmailRequestUseCase changeEmailRequestUseCase;
-
-	@Autowired
-	private VerifyAndChangeEmailUseCase verifyAndChangeEmailUseCase;
+	private AccountService accountService;
 
 	@PostMapping ("/change-request")
 	public ResponseEntity<String> requestEmailChange (@RequestParam String curEmail, @RequestParam String newEmail) {
 		try
 		{
-			changeEmailRequestUseCase.requestEmailChange(curEmail, newEmail);
+			accountService.requestEmailChange(curEmail, newEmail);
 			return ResponseEntity.ok("OTP sent to your new email");
 		} catch (IllegalArgumentException e)
 		{
@@ -33,7 +29,7 @@ public class ChangeEmailController {
 	                                                    @RequestParam String newEmail) {
 		try
 		{
-			verifyAndChangeEmailUseCase.verifyAndChangeEmail(curEmail, otp, newEmail);
+			accountService.verifyAndChangeEmail(curEmail, otp, newEmail);
 			return ResponseEntity.ok("Email has been changed successfully");
 		} catch (IllegalArgumentException e)
 		{

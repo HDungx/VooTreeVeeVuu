@@ -22,7 +22,6 @@ public class GetAllHotelImageUseCase {
         HotelImageDTO dto = new HotelImageDTO();
         dto.setId(hotelImage.getId());
         dto.setPath(hotelImage.getPath());
-        dto.setHotel(hotelImage.getHotel());
         return dto;
     }
 }

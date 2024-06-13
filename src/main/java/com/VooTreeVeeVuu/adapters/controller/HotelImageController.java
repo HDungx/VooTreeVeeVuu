@@ -12,11 +12,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/hotelImages")
 public class HotelImageController {
-    @Autowired
-    private CreateHotelImageUseCase createHotelImageUseCase;
+//    @Autowired
+//    private CreateHotelImageUseCase createHotelImageUseCase;
 
-    @Autowired
-    private UpdateHotelImageUseCase updateHotelImageUseCase;
+//    @Autowired
+//    private UpdateHotelImageUseCase updateHotelImageUseCase;
 
     @Autowired
     private DeleteHotelImageUseCase deleteHotelImageUseCase;
@@ -37,15 +37,15 @@ public class HotelImageController {
         return getHotelImageUseCase.getHotelImageById(id);
     }
 
-    @PostMapping
-    public HotelImageDTO createHotelImage (@RequestBody HotelImageDTO dto) {
-        return createHotelImageUseCase.createHotelImage(dto);
-    }
-
-    @PutMapping ("/update/{id}")
-    public Optional<HotelImageDTO> updateHotelImage (@RequestBody HotelImageDTO dto, @PathVariable Long id) {
-        return updateHotelImageUseCase.updateHotelImage(id,dto);
-    }
+//    @PostMapping
+//    public HotelImageDTO createHotelImage (@RequestBody HotelImageDTO dto) {
+//        return createHotelImageUseCase.createHotelImage(dto);
+//    }
+//
+//    @PutMapping ("/update/{id}")
+//    public Optional<HotelImageDTO> updateHotelImage (@RequestBody HotelImageDTO dto, @PathVariable Long id) {
+//        return updateHotelImageUseCase.updateHotelImage(id,dto);
+//    }
 
     @DeleteMapping ("/delete/{id}")
     public void deleteHotelImage (@PathVariable Long id) {

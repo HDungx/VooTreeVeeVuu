@@ -26,6 +26,7 @@ public class CreateHotelUseCase {
 
     private HotelDTO toDTO(Hotel hotel) {
         HotelDTO dto = new HotelDTO();
+        dto.setId(hotel.getId());
         dto.setAddress(hotel.getAddress());
         dto.setHotelName(hotel.getHotelName());
         dto.setCity(hotel.getCity());
@@ -35,6 +36,7 @@ public class CreateHotelUseCase {
         dto.setStatus(hotel.getStatus());
         dto.setCheckInTime(hotel.getCheckInTime());
         dto.setCheckOutTime(hotel.getCheckOutTime());
+        dto.setAccommodationType(hotel.getAccommodationType());
         dto.setUser(hotel.getUser());
         dto.setHotelImages(hotel.getHotelImages());
         dto.setHotelFacilities(hotel.getHotelFacilities());
@@ -44,6 +46,7 @@ public class CreateHotelUseCase {
 
     private Hotel toEntity(HotelDTO hotelDTO) {
         Hotel hotel = new Hotel();
+        hotel.setId(hotelDTO.getId());
         hotel.setAddress(hotelDTO.getAddress());
         hotel.setHotelName(hotelDTO.getHotelName());
         hotel.setCity(hotelDTO.getCity());
@@ -53,6 +56,8 @@ public class CreateHotelUseCase {
         hotel.setStatus(hotelDTO.getStatus());
         hotel.setCheckInTime(hotelDTO.getCheckInTime());
         hotel.setCheckOutTime(hotelDTO.getCheckOutTime());
+        hotel.setUser(hotelDTO.getUser());
+        hotel.setAccommodationType(hotelDTO.getAccommodationType());
         hotel.setHotelImages(hotelDTO.getHotelImages());
         hotel.setHotelFacilities(hotelDTO.getHotelFacilities());
         hotel.setUser(hotelDTO.getUser());

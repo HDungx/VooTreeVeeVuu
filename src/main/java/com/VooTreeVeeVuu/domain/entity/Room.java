@@ -45,6 +45,9 @@ public class Room {
 	@Column (columnDefinition = "nvarchar(255)", name = "description")
 	private String description;
 
+	@Column(name = "serveBreakfast")
+	private boolean serveBreakfast;
+
 	//@JsonIgnored
 	@ManyToOne
 	@JoinColumn (name = "typeId")

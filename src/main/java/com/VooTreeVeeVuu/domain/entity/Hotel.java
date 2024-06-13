@@ -72,7 +72,7 @@ public class Hotel {
 	User user;
 
 	//@JsonIgnored
-	@OneToMany (mappedBy = ("hotel"))
+	@OneToMany (mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<HotelImage> hotelImages;
 
 	//@JsonIgnore

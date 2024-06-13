@@ -1,7 +1,6 @@
 package com.VooTreeVeeVuu.adapters.controller;
 
-import com.VooTreeVeeVuu.usecase.AccountUseCase.ChangePhoneNumRequestUseCase;
-import com.VooTreeVeeVuu.usecase.AccountUseCase.VerifyAndChangePhoneNumUseCase;
+import com.VooTreeVeeVuu.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,17 +10,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping ("/api/phone")
 public class ChangePhoneNumController {
 	@Autowired
-	private VerifyAndChangePhoneNumUseCase verifyAndChangePhoneNumUseCase;
-
-	@Autowired
-	private ChangePhoneNumRequestUseCase changePhoneNumRequestUseCase;
+	private AccountService accountService;
 
 	@PostMapping ("/change-request")
 	public ResponseEntity<String> requestPhoneNumChange (@RequestParam String email, @RequestParam String curPhoneNum,
 	                                                     @RequestParam String newPhoneNum) {
 		try
 		{
-			changePhoneNumRequestUseCase.requestPhoneNumChange(email, curPhoneNum, newPhoneNum);
+			accountService.requestPhoneNumChange(email, curPhoneNum, newPhoneNum);
 			return ResponseEntity.ok("OTP sent to your email");
 		} catch (IllegalArgumentException e)
 		{
@@ -34,7 +30,7 @@ public class ChangePhoneNumController {
 	                                                       @RequestParam String newPhoneNum) {
 		try
 		{
-			verifyAndChangePhoneNumUseCase.verifyAndChangePhoneNum(email, otp, newPhoneNum);
+			accountService.verifyAndChangePhoneNum(email, otp, newPhoneNum);
 			return ResponseEntity.ok("Phone number has been changed successfully");
 		} catch (IllegalArgumentException e)
 		{

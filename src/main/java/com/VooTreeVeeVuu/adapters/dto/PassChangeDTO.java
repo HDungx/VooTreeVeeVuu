@@ -1,6 +1,5 @@
 package com.VooTreeVeeVuu.adapters.dto;
 
-import com.VooTreeVeeVuu.domain.entity.Hotel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HotelImageDTO {
-    private Long id;
-    private String path;
+public class PassChangeDTO {
+	private String oldPassword;
+	private String newPassword;
+	private String confPassword;
 }

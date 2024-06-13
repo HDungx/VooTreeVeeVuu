@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.services;
 
+import com.VooTreeVeeVuu.adapters.dto.PassChangeDTO;
 import com.VooTreeVeeVuu.adapters.repository.JpaRoleRepository;
 import com.VooTreeVeeVuu.domain.entity.Account;
 import com.VooTreeVeeVuu.domain.entity.OTP;
@@ -16,7 +17,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
@@ -25,6 +31,8 @@ import java.util.Set;
 @Service
 public class AccountService {
 	private static final long OTP_EXPIRATION_MINUTES = 1;
+
+	private final String uploadDir = "uploads/";
 
 	@Autowired
 	private AccountRepository accountRepository;
@@ -100,5 +108,159 @@ public class AccountService {
 		accountRepository.save(account);
 		//clean used otp
 		otpRepository.delete(otpToken);
+	}
+
+	public void changePassword (Long id, PassChangeDTO passChangeDTO) {
+		Account account = accountRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+
+		if (!passwordEncoder.matches(passChangeDTO.getOldPassword(), account.getPassword()))
+		{
+			throw new RuntimeException("Old password is incorrect");
+		}
+
+		if (passwordEncoder.matches(passChangeDTO.getNewPassword(), account.getPassword()))
+		{
+			throw new RuntimeException("Can't use same old password");
+		}
+
+		if (!passChangeDTO.getNewPassword().equals(passChangeDTO.getConfPassword()))
+		{
+			throw new RuntimeException("Confirm password does not match!");
+		}
+
+		account.setPassword(passwordEncoder.encode(passChangeDTO.getNewPassword()));
+		accountRepository.save(account);
+	}
+
+	public void requestEmailChange (String curEmail, String newEmail) {
+		Account account = accountRepository.findByEmail(curEmail);
+
+		if (account == null)
+		{
+			throw new IllegalArgumentException("Current email not found");
+		}
+		if (accountRepository.findByEmail(newEmail) != null)
+		{
+			throw new IllegalArgumentException("New email is already in use");
+		}
+
+		// Remove existing OTP for the new email if any
+		otpRepository.deleteByAccountAndNewEmail(account, newEmail);
+
+		// Generate new OTP
+		String otp = generateOTP();
+		OTP otpToken = new OTP();
+		otpToken.setOtp(otp);
+		otpToken.setGeneratedTime(LocalDateTime.now());
+		otpToken.setAccount(account);
+		otpToken.setNewEmail(newEmail);
+		otpRepository.save(otpToken);
+
+		emailService.sendOTP(newEmail, otp);
+	}
+
+	public void requestPhoneNumChange (String email, String curPhoneNum, String newPhone) {
+		Account account = accountRepository.findByEmail(email);
+		if (account == null)
+		{
+			throw new IllegalArgumentException("User not found with the provided email.");
+		}
+		if (accountRepository.findByPhoneNum(curPhoneNum) == null)
+		{
+			throw new IllegalArgumentException("User not found with this phone number");
+		}
+		if (accountRepository.findByPhoneNum(newPhone) != null)
+		{
+			throw new IllegalArgumentException("New phone number is currently in use");
+		}
+
+		// Remove existing OTP for the new phone number if any
+		otpRepository.deleteByNewEmailAndNewPhoneNum(email, newPhone);
+
+		// Generate new OTP
+		String otp = generateOTP();
+		OTP otpToken = new OTP();
+		otpToken.setOtp(otp);
+		otpToken.setGeneratedTime(LocalDateTime.now());
+		otpToken.setAccount(account);
+		otpToken.setNewEmail(email);
+		otpToken.setNewPhoneNum(newPhone);
+		otpRepository.save(otpToken);
+
+		emailService.sendOTP(email, otp);
+	}
+
+	public void verifyAndChangeEmail (String curEmail, String otp, String newEmail) {
+		Account account = accountRepository.findByEmail(curEmail);
+		if (account == null)
+		{
+			throw new IllegalArgumentException("Current email not found");
+		}
+		OTP otpToken = otpRepository.findByAccountAndNewEmail(account, newEmail);
+		if (otpToken == null)
+		{
+			throw new IllegalArgumentException("OTP not generate for this user or new email");
+		}
+		if (isExpired(otpToken))
+		{
+			//delete expired otp
+			otpRepository.delete(otpToken);
+			throw new IllegalArgumentException("OTP has expired");
+		}
+		if (!otp.equals(otpToken.getOtp()))
+		{
+			throw new IllegalArgumentException("Invalid OTP");
+		}
+
+		//Update mail
+		account.setEmail(newEmail);
+		accountRepository.save(account);
+		otpRepository.delete(otpToken);
+	}
+
+	public void verifyAndChangePhoneNum (String email, String otp, String newPhoneNum) {
+		Account account = accountRepository.findByEmail(email);
+		if (account == null)
+		{
+			throw new IllegalArgumentException("User not found");
+		}
+
+		OTP otpToken = otpRepository.findByNewEmailAndNewPhoneNum(email, newPhoneNum);
+		if (otpToken == null)
+		{
+			throw new IllegalArgumentException("OTP not generated for this user or new phone number");
+		}
+		if (isExpired(otpToken))
+		{
+			otpRepository.delete(otpToken); // Clean up expired OTP
+			throw new IllegalArgumentException("OTP has expired");
+		}
+		if (!otp.equals(otpToken.getOtp()))
+		{
+			throw new IllegalArgumentException("Invalid OTP");
+		}
+
+		// Update the phone number
+		account.setPhoneNum(newPhoneNum);
+		accountRepository.save(account);
+		otpRepository.delete(otpToken); // Clean up used OTP
+	}
+
+	public String updateAvatar (Long id, MultipartFile file) throws IOException {
+		Optional<Account> optionalAccount = accountRepository.findById(id);
+		if (optionalAccount.isPresent())
+		{
+			Account account = optionalAccount.get();
+			String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+			Path filePath = Paths.get(uploadDir, fileName);
+			Files.createDirectories(filePath.getParent());
+			file.transferTo(filePath.toFile());
+			account.setAvatar(filePath.toString());
+			accountRepository.save(account);
+			return filePath.toString();
+		} else
+		{
+			throw new RuntimeException("User not found");
+		}
 	}
 }

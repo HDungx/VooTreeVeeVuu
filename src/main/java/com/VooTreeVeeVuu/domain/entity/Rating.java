@@ -9,6 +9,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +31,11 @@ public class Rating {
 	@NotBlank
 	@Column (columnDefinition = "nvarchar(255)")
 	private String comment;
+
+	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
+	@Temporal(TemporalType.DATE)
+	@Column(name = "rate_date")
+	private LocalDate date;
 
 	//@JsonIgnored
 	@ManyToOne
