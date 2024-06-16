@@ -14,9 +14,6 @@ import java.util.Optional;
 @RequestMapping ("/api/rooms")
 public class RoomController {
     @Autowired
-    private CreateRoomUseCase createRoomUseCase;
-
-    @Autowired
     private UpdateRoomUseCase updateRoomUseCase;
 
     @Autowired

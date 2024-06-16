@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.usecase.HotelUsecase;
 
+import com.VooTreeVeeVuu.adapters.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.adapters.dto.HotelDTO;
 import com.VooTreeVeeVuu.adapters.dto.HotelFacilityDTO;
 import com.VooTreeVeeVuu.adapters.dto.HotelImageDTO;
@@ -17,13 +18,14 @@ public class GetAllHotelUseCase {
     @Autowired
     private HotelRepository hotelRepository;
 
-    public List<HotelDTO> getAllHotel(){
+    public List<GetAllHotelDTO> getAllHotel(){
         return hotelRepository.findAll().stream().map(this :: toDTO).collect(Collectors.toList());
     }
 
 
-    private HotelDTO toDTO (Hotel hotel) {
-        HotelDTO hotelDTO = new HotelDTO();
+    private GetAllHotelDTO toDTO (Hotel hotel) {
+        GetAllHotelDTO hotelDTO = new GetAllHotelDTO();
+        hotelDTO.setId(hotel.getId());
         hotelDTO.setAddress(hotel.getAddress());
         hotelDTO.setHotelName(hotel.getHotelName());
         hotelDTO.setCity(hotel.getCity());
@@ -32,8 +34,13 @@ public class GetAllHotelUseCase {
         hotelDTO.setHotelDescription(hotel.getHotelDescription());
         hotelDTO.setCheckInTime(hotel.getCheckInTime());
         hotelDTO.setCheckOutTime(hotel.getCheckOutTime());
-        hotelDTO.setAccommodationTypeId(hotel.getAccommodationType().getId());
-        hotelDTO.setUserId(hotel.getUser().getId());
+        hotelDTO.setStatus(hotel.getStatus());
+        hotelDTO.setAccommodationType(hotel.getAccommodationType());
+        hotelDTO.setHotelFacilities(hotel.getHotelFacilities());
+        hotelDTO.setUser(hotel.getUser());
+        hotelDTO.setHotelImages(hotel.getHotelImages());
+        hotelDTO.setRooms(hotel.getRooms());
+        hotel.setListRating(hotel.getListRating());
         return hotelDTO;
     }
 }

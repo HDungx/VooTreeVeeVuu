@@ -20,7 +20,7 @@ public class RoomDTO {
 	private Long roomTypeId;
 	private boolean serveBreakfast;
 	//private Hotel hotel;
-	private List<RoomFacility> roomFacilities;
+	private List<RoomFacilityDTO> roomFacilities;
 	//private List<Booking> listBooking;
 	//private List<RoomImage> room_images;
 }

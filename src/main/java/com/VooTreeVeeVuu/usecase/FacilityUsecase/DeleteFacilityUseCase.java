@@ -12,6 +12,6 @@ public class DeleteFacilityUseCase {
     private FacilityRepository facilityRepository;
 
     @Transactional
-    public void deleteFacility(Integer id){facilityRepository.deleteById(id);
+    public void deleteFacility(Long id){facilityRepository.deleteById(id);
     }
 }

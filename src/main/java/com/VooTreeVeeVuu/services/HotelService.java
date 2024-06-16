@@ -2,21 +2,14 @@ package com.VooTreeVeeVuu.services;
 
 import com.VooTreeVeeVuu.adapters.dto.HotelDTO;
 import com.VooTreeVeeVuu.adapters.dto.HotelFacilityDTO;
-import com.VooTreeVeeVuu.adapters.dto.HotelWithDetailsDTO;
 import com.VooTreeVeeVuu.adapters.dto.RoomDTO;
+import com.VooTreeVeeVuu.adapters.dto.RoomFacilityDTO;
 import com.VooTreeVeeVuu.domain.entity.*;
-import com.VooTreeVeeVuu.domain.repository.HotelFacilityRepository;
-import com.VooTreeVeeVuu.domain.repository.HotelRepository;
-import com.VooTreeVeeVuu.domain.repository.RoomRepository;
-import com.VooTreeVeeVuu.usecase.HotelFacilityUsecase.CreateHotelFacilityUseCase;
-import com.VooTreeVeeVuu.usecase.HotelUsecase.CreateHotelUseCase;
-import com.VooTreeVeeVuu.usecase.RoomUsecase.CreateRoomUseCase;
+import com.VooTreeVeeVuu.domain.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class HotelService {
@@ -28,6 +21,15 @@ public class HotelService {
 
 	@Autowired
 	private RoomRepository roomRepository;
+
+	@Autowired
+	private RoomTypeRepository roomTypeRepository;
+
+	@Autowired
+	private FacilityRepository facilityRepository;
+
+	@Autowired
+	private RoomFacilityRepository roomFacilityRepository;
 
 	public HotelDTO createHotel (HotelDTO hotelDTO) {
 		Hotel hotel = mapToHotelEntity(hotelDTO);
@@ -48,8 +50,22 @@ public class HotelService {
 		{
 			for (RoomDTO roomDTO : hotelDTO.getRooms())
 			{
-				Room room = mapToRoomEntity(roomDTO, savedHotel);
+				RoomType roomType = roomTypeRepository.findById(roomDTO.getRoomTypeId())
+						.orElseThrow(() -> new RuntimeException("RoomType not found with id: " + roomDTO.getRoomTypeId()));
+				Room room = mapToRoomEntity(roomDTO, savedHotel, roomType);
 				roomRepository.save(room);
+				if (roomDTO.getRoomFacilities() != null) {
+					for (RoomFacilityDTO roomFacilityDTO : roomDTO.getRoomFacilities()) {
+						Facility facility = facilityRepository.findById(roomFacilityDTO.getFacilityId())
+								.orElseThrow(() -> new RuntimeException("Facility not found with id: " + roomFacilityDTO.getFacilityId()));
+						RoomFacility roomFacility = new RoomFacility();
+						roomFacility.setRoom(room);
+						roomFacility.setFacility(facility);
+						//room.getRoomFacilities().add(roomFacility);
+						roomFacilityRepository.save(roomFacility);
+					}
+					roomRepository.save(room);
+				}
 			}
 		}
 
@@ -72,7 +88,7 @@ public class HotelService {
 		return hotel;
 	}
 
-	private Room mapToRoomEntity (RoomDTO roomDTO, Hotel hotel) {
+	private Room mapToRoomEntity(RoomDTO roomDTO, Hotel hotel, RoomType roomType) {
 		Room room = new Room();
 		room.setCapacity(roomDTO.getCapacity());
 		room.setPrice(roomDTO.getPrice());
@@ -81,7 +97,7 @@ public class HotelService {
 		room.setDescription(roomDTO.getDescription());
 		room.setServeBreakfast(roomDTO.isServeBreakfast());
 		room.setHotel(hotel);
-		room.setRoomType(new RoomType(roomDTO.getRoomTypeId()));
+		room.setRoomType(roomType);
 		return room;
 	}
 
@@ -98,6 +114,27 @@ public class HotelService {
 		hotelDTO.setCheckOutTime(hotel.getCheckOutTime());
 		hotelDTO.setAccommodationTypeId(hotel.getAccommodationType().getId());
 		hotelDTO.setUserId(hotel.getUser().getId());
+
+//		hotelDTO.setHotelFacilities(hotel.getHotelFacilities().stream()
+//				.map(hf -> new HotelFacilityDTO(hf.getFacility().getFacId()))
+//				.collect(Collectors.toList()));
+
+//		hotelDTO.setRooms(hotel.getRooms().stream()
+//				.map(room -> {
+//					RoomDTO roomDTO = new RoomDTO();
+//					roomDTO.setCapacity(room.getCapacity());
+//					roomDTO.setPrice(room.getPrice());
+//					roomDTO.setQuantity(room.getQuantity());
+//					roomDTO.setRoomSize(room.getRoomSize());
+//					roomDTO.setDescription(room.getDescription());
+//					roomDTO.setServeBreakfast(room.isServeBreakfast());
+//					roomDTO.setRoomTypeId(room.getRoomType().getId());
+//					roomDTO.setRoomFacilities(room.getRoomFacilities().stream()
+//							.map(rf -> new RoomFacilityDTO(rf.getFacility().getFacId()))
+//							.collect(Collectors.toList()));
+//					return roomDTO;
+//				})
+//				.collect(Collectors.toList()));
 		return hotelDTO;
 	}
 }

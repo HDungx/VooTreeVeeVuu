@@ -16,7 +16,7 @@ public class UpdateFacilityUseCase {
     private FacilityRepository facilityRepository;
 
     @Transactional
-    public Optional<FacilityDTO> updateFacility(Integer id, FacilityDTO facilityDTO){
+    public Optional<FacilityDTO> updateFacility(Long id, FacilityDTO facilityDTO){
         return facilityRepository.findById(id).map(facility -> {
             facility.setFacType(facilityDTO.getFacType());
             facility.setFacName(facilityDTO.getFacName());

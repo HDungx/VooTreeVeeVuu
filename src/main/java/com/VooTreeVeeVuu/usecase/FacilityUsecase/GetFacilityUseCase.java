@@ -1,6 +1,7 @@
 package com.VooTreeVeeVuu.usecase.FacilityUsecase;
 
 import com.VooTreeVeeVuu.adapters.dto.FacilityDTO;
+import com.VooTreeVeeVuu.adapters.dto.GetAllRoomFacDTO;
 import com.VooTreeVeeVuu.domain.entity.Facility;
 import com.VooTreeVeeVuu.domain.repository.FacilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ public class GetFacilityUseCase {
     @Autowired
     private FacilityRepository facilityRepository;
 
-    public Optional<FacilityDTO> getFacilityById(Integer id){
+    public Optional<FacilityDTO> getFacilityById(Long id){
         return facilityRepository.findById(id).map(this :: toDTO);
     }
 

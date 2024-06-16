@@ -45,7 +45,7 @@ public class Room {
 	@Column (columnDefinition = "nvarchar(255)", name = "description")
 	private String description;
 
-	@Column(name = "serveBreakfast")
+	@Column (name = "serveBreakfast")
 	private boolean serveBreakfast;
 
 	//@JsonIgnored
@@ -59,7 +59,7 @@ public class Room {
 	Hotel hotel;
 
 
-	@OneToMany (mappedBy = "room")
+	@OneToMany (mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
 	List<RoomFacility> roomFacilities;
 
 	@JsonIgnore

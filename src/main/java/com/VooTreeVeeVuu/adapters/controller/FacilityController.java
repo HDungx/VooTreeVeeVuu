@@ -37,7 +37,7 @@ public class FacilityController {
     }
 
     @GetMapping ("/{id}")
-    public Optional<FacilityDTO> getFacilityById (@PathVariable Integer id){
+    public Optional<FacilityDTO> getFacilityById (@PathVariable Long id){
         return getFacilityUseCase.getFacilityById(id);
     }
 
@@ -47,12 +47,12 @@ public class FacilityController {
     }
 
     @PutMapping ("/update/{id}")
-    public Optional<FacilityDTO> updateFacility (@RequestBody FacilityDTO dto, @PathVariable Integer id) {
+    public Optional<FacilityDTO> updateFacility (@RequestBody FacilityDTO dto, @PathVariable Long id) {
         return updateFacilityUseCase.updateFacility(id,dto);
     }
 
     @DeleteMapping ("/delete/{id}")
-    public void deleteFacility (@PathVariable Integer id) {
+    public void deleteFacility (@PathVariable Long id) {
         deleteFacilityUseCase.deleteFacility(id);
     }
 }

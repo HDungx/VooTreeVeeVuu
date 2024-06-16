@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.adapters.controller;
 
+import com.VooTreeVeeVuu.adapters.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.adapters.dto.HotelDTO;
 import com.VooTreeVeeVuu.adapters.dto.HotelImageDTO;
 import com.VooTreeVeeVuu.adapters.dto.HotelWithDetailsDTO;
@@ -19,9 +20,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping ("/api/hotels")
 public class HotelController {
-	@Autowired
-	private CreateHotelUseCase createHotelUseCase;
-
 	@Autowired
 	private UpdateHotelUseCase updateHotelUseCase;
 
@@ -44,12 +42,12 @@ public class HotelController {
 	private HotelService hotelService;
 
 	@GetMapping ()
-	public List<HotelDTO> getAllHotel () {
+	public List<GetAllHotelDTO> getAllHotel () {
 		return getAllHotelUseCase.getAllHotel();
 	}
 
 	@GetMapping ("/{id}")
-	public Optional<HotelDTO> getHotelById (@PathVariable Long id) {
+	public Optional<GetAllHotelDTO> getHotelById (@PathVariable Long id) {
 		return getHotelUseCase.getHotelById(id);
 	}
 
@@ -69,15 +67,15 @@ public class HotelController {
 //		return updateHotelUseCase.updateHotelDTO(id, dto);
 //	}
 
-	@PutMapping ("/staff/update/{id}")
-	public Optional<HotelDTO> updateStatusHotel (@RequestBody HotelDTO dto, @PathVariable Long id) {
-		return updateStatusHotelUseCase.updateStatusHotel(id, dto);
-	}
-
-	@DeleteMapping ("/delete/{id}")
-	public void deleteHotel (@PathVariable Long id) {
-		deleteHotelUseCase.deleteHotel(id);
-	}
+//	@PutMapping ("/staff/update/{id}")
+//	public Optional<HotelDTO> updateStatusHotel (@RequestBody HotelDTO dto, @PathVariable Long id) {
+//		return updateStatusHotelUseCase.updateStatusHotel(id, dto);
+//	}
+//
+//	@DeleteMapping ("/delete/{id}")
+//	public void deleteHotel (@PathVariable Long id) {
+//		deleteHotelUseCase.deleteHotel(id);
+//	}
 
 	@PostMapping ("/{id}/images")
 	public ResponseEntity<HotelDTO> addImage (@PathVariable Long id, @RequestBody List<HotelImageDTO> imageDTO) {

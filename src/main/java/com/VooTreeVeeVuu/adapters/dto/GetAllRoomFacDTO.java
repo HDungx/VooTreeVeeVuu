@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RoomFacilityDTO {
-	private Long facilityId;
+public class GetAllRoomFacDTO {
+	private Long id;
+	private Room room;
+	private Facility facility;
 }
