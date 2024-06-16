@@ -33,20 +33,20 @@ public class RoomController {
         return getAllRoomUseCase.getAllRoom();
     }
 
-    @GetMapping ("/{id}")
-    public Optional<RoomDTO> getRoomById (@PathVariable Long id){
-        return getRoomUseCase.getRoomById(id);
-    }
+//    @GetMapping ("/{id}")
+//    public Optional<RoomDTO> getRoomById (@PathVariable Long id){
+//        return getRoomUseCase.getRoomById(id);
+//    }
 
-    @PostMapping
-    public RoomDTO createRoom(@RequestBody RoomDTO dto) {
-        return createRoomUseCase.createRoom(dto);
-    }
+//    @PostMapping
+//    public RoomDTO createRoom(@RequestBody RoomDTO dto) {
+//        return createRoomUseCase.createRoom(dto);
+//    }
 
-    @PutMapping ("/update/{id}")
-    public Optional<RoomDTO> updateRoom (@RequestBody RoomDTO dto, @PathVariable Long id) {
-        return updateRoomUseCase.updateRooms(id,dto);
-    }
+//    @PutMapping ("/update/{id}")
+//    public Optional<RoomDTO> updateRoom (@RequestBody RoomDTO dto, @PathVariable Long id) {
+//        return updateRoomUseCase.updateRooms(id,dto);
+//    }
 
     @DeleteMapping ("/delete/{id}")
     public void deleteRoom(@PathVariable Long id) {

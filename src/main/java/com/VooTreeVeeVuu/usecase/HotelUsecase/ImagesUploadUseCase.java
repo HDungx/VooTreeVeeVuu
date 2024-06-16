@@ -37,20 +37,19 @@ public class ImagesUploadUseCase {
 	}
 
 	private HotelDTO toDTO (Hotel hotel) {
-		HotelDTO dto = new HotelDTO();
-		dto.setAddress(hotel.getAddress());
-		dto.setHotelName(hotel.getHotelName());
-		dto.setCity(hotel.getCity());
-		dto.setHotelPhoneNum(hotel.getHotelPhoneNum());
-		dto.setHotelStars(hotel.getHotelStars());
-		dto.setHotelDescription(hotel.getHotelDescription());
-		dto.setStatus(hotel.getStatus());
-		dto.setCheckInTime(hotel.getCheckInTime());
-		dto.setCheckOutTime(hotel.getCheckOutTime());
-		dto.setUser(hotel.getUser());
-		dto.setHotelImages(hotel.getHotelImages());
-		dto.setHotelFacilities(hotel.getHotelFacilities());
-		return dto;
+		HotelDTO hotelDTO = new HotelDTO();
+		hotelDTO.setAddress(hotel.getAddress());
+		hotelDTO.setHotelName(hotel.getHotelName());
+		hotelDTO.setCity(hotel.getCity());
+		hotelDTO.setHotelPhoneNum(hotel.getHotelPhoneNum());
+		hotelDTO.setHotelStars(hotel.getHotelStars());
+		hotelDTO.setStatus(hotel.getStatus());
+		hotelDTO.setHotelDescription(hotel.getHotelDescription());
+		hotelDTO.setCheckInTime(hotel.getCheckInTime());
+		hotelDTO.setCheckOutTime(hotel.getCheckOutTime());
+		hotelDTO.setAccommodationTypeId(hotel.getAccommodationType().getId());
+		hotelDTO.setUserId(hotel.getUser().getId());
+		return hotelDTO;
 	}
 
 	public HotelImage toEntity (HotelImageDTO dto) {

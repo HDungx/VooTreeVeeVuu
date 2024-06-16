@@ -2,8 +2,11 @@ package com.VooTreeVeeVuu.adapters.controller;
 
 import com.VooTreeVeeVuu.adapters.dto.HotelDTO;
 import com.VooTreeVeeVuu.adapters.dto.HotelImageDTO;
+import com.VooTreeVeeVuu.adapters.dto.HotelWithDetailsDTO;
 import com.VooTreeVeeVuu.domain.entity.HotelImage;
+import com.VooTreeVeeVuu.services.HotelService;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.*;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +40,9 @@ public class HotelController {
 	@Autowired
 	private ImagesUploadUseCase imagesUploadUseCase;
 
+	@Autowired
+	private HotelService hotelService;
+
 	@GetMapping ()
 	public List<HotelDTO> getAllHotel () {
 		return getAllHotelUseCase.getAllHotel();
@@ -47,15 +53,21 @@ public class HotelController {
 		return getHotelUseCase.getHotelById(id);
 	}
 
+//	@PostMapping
+//	public HotelDTO createHotel (@RequestBody HotelDTO dto) {
+//		return createHotelUseCase.createHotel(dto);
+//	}
+
 	@PostMapping
-	public HotelDTO createHotel (@RequestBody HotelDTO dto) {
-		return createHotelUseCase.createHotel(dto);
+	public ResponseEntity<HotelDTO> createHotel(@RequestBody @Valid HotelDTO hotelDTO) {
+		HotelDTO createdHotel = hotelService.createHotel(hotelDTO);
+		return new ResponseEntity<>(createdHotel, HttpStatus.CREATED);
 	}
 
-	@PutMapping ("/partner/update/{id}")
-	public Optional<HotelDTO> updateHotel (@RequestBody HotelDTO dto, @PathVariable Long id) {
-		return updateHotelUseCase.updateHotelDTO(id, dto);
-	}
+//	@PutMapping ("/partner/update/{id}")
+//	public Optional<HotelDTO> updateHotel (@RequestBody HotelDTO dto, @PathVariable Long id) {
+//		return updateHotelUseCase.updateHotelDTO(id, dto);
+//	}
 
 	@PutMapping ("/staff/update/{id}")
 	public Optional<HotelDTO> updateStatusHotel (@RequestBody HotelDTO dto, @PathVariable Long id) {

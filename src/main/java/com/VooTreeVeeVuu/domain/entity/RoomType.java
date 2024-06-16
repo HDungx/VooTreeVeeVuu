@@ -26,4 +26,8 @@ public class RoomType {
     @JsonIgnore
     @OneToMany (mappedBy = "roomType")
     List<Room> rooms;
+
+	public RoomType (Long roomTypeId) {
+	    this.id = roomTypeId;
+	}
 }

@@ -14,53 +14,53 @@ import java.util.stream.Collectors;
 
 @Service
 public class CreateHotelUseCase {
-    @Autowired
-    private HotelRepository hotelRepository;
-
-    @Transactional
-    public HotelDTO createHotel(HotelDTO hotelDTO) {
-        Hotel hotel = toEntity(hotelDTO);
-        Hotel saved = hotelRepository.save(hotel);
-        return toDTO(saved);
-    }
-
-    private HotelDTO toDTO(Hotel hotel) {
-        HotelDTO dto = new HotelDTO();
-        dto.setId(hotel.getId());
-        dto.setAddress(hotel.getAddress());
-        dto.setHotelName(hotel.getHotelName());
-        dto.setCity(hotel.getCity());
-        dto.setHotelPhoneNum(hotel.getHotelPhoneNum());
-        dto.setHotelStars(hotel.getHotelStars());
-        dto.setHotelDescription(hotel.getHotelDescription());
-        dto.setStatus(hotel.getStatus());
-        dto.setCheckInTime(hotel.getCheckInTime());
-        dto.setCheckOutTime(hotel.getCheckOutTime());
-        dto.setAccommodationType(hotel.getAccommodationType());
-        dto.setUser(hotel.getUser());
-        dto.setHotelImages(hotel.getHotelImages());
-        dto.setHotelFacilities(hotel.getHotelFacilities());
-        return dto;
-    }
-
-
-    private Hotel toEntity(HotelDTO hotelDTO) {
-        Hotel hotel = new Hotel();
-        hotel.setId(hotelDTO.getId());
-        hotel.setAddress(hotelDTO.getAddress());
-        hotel.setHotelName(hotelDTO.getHotelName());
-        hotel.setCity(hotelDTO.getCity());
-        hotel.setHotelPhoneNum(hotelDTO.getHotelPhoneNum());
-        hotel.setHotelStars(hotelDTO.getHotelStars());
-        hotel.setHotelDescription(hotelDTO.getHotelDescription());
-        hotel.setStatus(hotelDTO.getStatus());
-        hotel.setCheckInTime(hotelDTO.getCheckInTime());
-        hotel.setCheckOutTime(hotelDTO.getCheckOutTime());
-        hotel.setUser(hotelDTO.getUser());
-        hotel.setAccommodationType(hotelDTO.getAccommodationType());
-        hotel.setHotelImages(hotelDTO.getHotelImages());
-        hotel.setHotelFacilities(hotelDTO.getHotelFacilities());
-        hotel.setUser(hotelDTO.getUser());
-        return hotel;
-    }
+//    @Autowired
+//    private HotelRepository hotelRepository;
+//
+//    @Transactional
+//    public HotelDTO createHotel(HotelDTO hotelDTO) {
+//        Hotel hotel = toEntity(hotelDTO);
+//        Hotel saved = hotelRepository.save(hotel);
+//        return toDTO(saved);
+//    }
+//
+//    public HotelDTO toDTO(Hotel hotel) {
+//        HotelDTO dto = new HotelDTO();
+//        dto.setId(hotel.getId());
+//        dto.setAddress(hotel.getAddress());
+//        dto.setHotelName(hotel.getHotelName());
+//        dto.setCity(hotel.getCity());
+//        dto.setHotelPhoneNum(hotel.getHotelPhoneNum());
+//        dto.setHotelStars(hotel.getHotelStars());
+//        dto.setHotelDescription(hotel.getHotelDescription());
+//        dto.setStatus(hotel.getStatus());
+//        dto.setCheckInTime(hotel.getCheckInTime());
+//        dto.setCheckOutTime(hotel.getCheckOutTime());
+//        dto.setAccommodationType(hotel.getAccommodationType());
+//        dto.setUser(hotel.getUser());
+//        dto.setHotelImages(hotel.getHotelImages());
+//        dto.setHotelFacilities(hotel.getHotelFacilities());
+//        return dto;
+//    }
+//
+//
+//    public Hotel toEntity(HotelDTO hotelDTO) {
+//        Hotel hotel = new Hotel();
+//        hotel.setId(hotelDTO.getId());
+//        hotel.setAddress(hotelDTO.getAddress());
+//        hotel.setHotelName(hotelDTO.getHotelName());
+//        hotel.setCity(hotelDTO.getCity());
+//        hotel.setHotelPhoneNum(hotelDTO.getHotelPhoneNum());
+//        hotel.setHotelStars(hotelDTO.getHotelStars());
+//        hotel.setHotelDescription(hotelDTO.getHotelDescription());
+//        hotel.setStatus(hotelDTO.getStatus());
+//        hotel.setCheckInTime(hotelDTO.getCheckInTime());
+//        hotel.setCheckOutTime(hotelDTO.getCheckOutTime());
+//        hotel.setUser(hotelDTO.getUser());
+//        hotel.setAccommodationType(hotelDTO.getAccommodationType());
+//        hotel.setHotelImages(hotelDTO.getHotelImages());
+//        hotel.setHotelFacilities(hotelDTO.getHotelFacilities());
+//        hotel.setUser(hotelDTO.getUser());
+//        return hotel;
+//    }
 }

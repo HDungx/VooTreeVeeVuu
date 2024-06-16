@@ -18,24 +18,18 @@ public class GetHotelUseCase {
         return hotelRepository.findById(id).map(this :: toDTO);
     }
 
-    private HotelDTO toDTO(Hotel hotel) {
-        HotelDTO dto = new HotelDTO();
-        dto.setId(hotel.getId());
-        dto.setAddress(hotel.getAddress());
-        dto.setHotelName(hotel.getHotelName());
-        dto.setCity(hotel.getCity());
-        dto.setHotelPhoneNum(hotel.getHotelPhoneNum());
-        dto.setHotelStars(hotel.getHotelStars());
-        dto.setHotelDescription(hotel.getHotelDescription());
-        dto.setStatus(hotel.getStatus());
-        dto.setCheckInTime(hotel.getCheckInTime());
-        dto.setCheckOutTime(hotel.getCheckOutTime());
-        dto.setUser(hotel.getUser());
-        dto.setRooms(hotel.getRooms());
-        dto.setRatings(hotel.getListRating());
-        dto.setAccommodationType(hotel.getAccommodationType());
-        dto.setHotelImages( hotel.getHotelImages());
-        dto.setHotelFacilities(hotel.getHotelFacilities());
-        return dto;
+    private HotelDTO toDTO (Hotel hotel) {
+        HotelDTO hotelDTO = new HotelDTO();
+        hotelDTO.setAddress(hotel.getAddress());
+        hotelDTO.setHotelName(hotel.getHotelName());
+        hotelDTO.setCity(hotel.getCity());
+        hotelDTO.setHotelPhoneNum(hotel.getHotelPhoneNum());
+        hotelDTO.setHotelStars(hotel.getHotelStars());
+        hotelDTO.setHotelDescription(hotel.getHotelDescription());
+        hotelDTO.setCheckInTime(hotel.getCheckInTime());
+        hotelDTO.setCheckOutTime(hotel.getCheckOutTime());
+        hotelDTO.setAccommodationTypeId(hotel.getAccommodationType().getId());
+        hotelDTO.setUserId(hotel.getUser().getId());
+        return hotelDTO;
     }
 }

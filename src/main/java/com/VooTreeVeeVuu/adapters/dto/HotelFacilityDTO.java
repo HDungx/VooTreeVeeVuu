@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HotelFacilityDTO {
-    private Long id;
-    private Facility facility;
-    private Hotel hotel;
+    //private Long id;
+    private Long facilityId;
+    //private Hotel hotel;
 }

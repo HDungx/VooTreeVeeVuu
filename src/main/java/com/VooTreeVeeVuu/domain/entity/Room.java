@@ -24,24 +24,24 @@ public class Room {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull
+	//@NotNull
 	@Min (1)
 	@Max (8)
 	private int capacity;
 
-	@NotNull
+	//@NotNull
 	@NumberFormat (style = NumberFormat.Style.CURRENCY)
 	private double price;
 
-	@NotNull
+	//@NotNull
 	@Min (1)
 	private Integer quantity;
 
-	@NotNull
+	//@NotNull
 	@NumberFormat (style = NumberFormat.Style.NUMBER)
 	private double roomSize;
 
-	@NotBlank
+	//@NotBlank
 	@Column (columnDefinition = "nvarchar(255)", name = "description")
 	private String description;
 

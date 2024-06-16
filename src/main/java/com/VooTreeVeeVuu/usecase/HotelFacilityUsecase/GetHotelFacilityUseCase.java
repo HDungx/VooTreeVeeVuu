@@ -20,9 +20,9 @@ public class GetHotelFacilityUseCase {
 
     private HotelFacilityDTO toDTO(HotelFacility hotelFacility) {
         HotelFacilityDTO dto = new HotelFacilityDTO();
-        dto.setId(hotelFacility.getId());
-        dto.setFacility(hotelFacility.getFacility());
-        dto.setHotel(hotelFacility.getHotel());
+        dto.setFacilityId(hotelFacility.getId());
+        //dto.setFacility(hotelFacility.getFacility());
+        //dto.setHotel(hotelFacility.getHotel());
         return dto;
     }
 }

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FacilityDTO {
-    private Integer facId;
+    private Long facId;
     private Fac_Type facType;
     private String facName;
     private String facIcon;

@@ -44,10 +44,10 @@ public class HotelFacilityController {
         return createHotelFacilityUseCase.createHotelFacility(dto);
     }
 
-    @PutMapping ("/update/{id}")
-    public Optional<HotelFacilityDTO> updateHotelFacility (@RequestBody HotelFacilityDTO dto, @PathVariable Long id) {
-        return updateHotelFacilityUseCase.updateHotelFacility(id,dto);
-    }
+//    @PutMapping ("/update/{id}")
+//    public Optional<HotelFacilityDTO> updateHotelFacility (@RequestBody HotelFacilityDTO dto, @PathVariable Long id) {
+//        return updateHotelFacilityUseCase.updateHotelFacility(id,dto);
+//    }
 
     @DeleteMapping ("/delete/{id}")
     public void deleteHotelFacility (@PathVariable Long id) {

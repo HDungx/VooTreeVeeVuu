@@ -23,17 +23,17 @@ public class CreateHotelFacilityUseCase {
 
     private HotelFacilityDTO toDTO(HotelFacility hotelFacility) {
         HotelFacilityDTO dto = new HotelFacilityDTO();
-        dto.setId(hotelFacility.getId());
-        dto.setFacility(hotelFacility.getFacility());
-        dto.setHotel(hotelFacility.getHotel());
+        //dto.setId(hotelFacility.getId());
+        dto.setFacilityId(hotelFacility.getFacility().getFacId());
+        //dto.setHotel(hotelFacility.getHotel());
         return dto;
     }
 
     private HotelFacility toEntity(HotelFacilityDTO hotelFacilityDTO) {
         HotelFacility hotelFacility = new HotelFacility();
-        hotelFacility.setId(hotelFacilityDTO.getId());
-        hotelFacility.setFacility(hotelFacilityDTO.getFacility());
-        hotelFacility.setHotel(hotelFacilityDTO.getHotel());
+        hotelFacility.setId(hotelFacilityDTO.getFacilityId());
+        //hotelFacility.setFacility(hotelFacilityDTO.getFacilityId());
+        //hotelFacility.setHotel(hotelFacilityDTO.getHotel());
         return hotelFacility;
     }
 }

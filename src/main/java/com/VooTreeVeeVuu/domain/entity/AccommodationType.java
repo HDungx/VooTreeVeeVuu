@@ -27,4 +27,8 @@ public class AccommodationType {
     @JsonIgnore
     @OneToMany( mappedBy = "accommodationType")
     List<Hotel> hotels;
+
+	public AccommodationType (Long accommodationTypeId) {
+	    this.id = accommodationTypeId;
+	}
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class HotelDTO {
-    private Long id;
+    //private Long id;
     private String address;
     private String hotelName;
     private String city;
@@ -23,10 +23,10 @@ public class HotelDTO {
     private Hotel_status status;
     private LocalTime checkInTime;
     private LocalTime checkOutTime;
-    private User user;
-    private AccommodationType accommodationType;
-    private List<Rating> ratings;
-    private List<Room> rooms;
-    private List<HotelImage> hotelImages;
-    private List<HotelFacility> hotelFacilities;
+    private Long userId;
+    private Long accommodationTypeId;
+    //private List<Rating> ratings;
+    private List<RoomDTO> rooms;
+    //private List<HotelImage> hotelImages;
+    private List<HotelFacilityDTO> hotelFacilities;
 }
