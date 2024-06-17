@@ -1,7 +1,8 @@
 package com.VooTreeVeeVuu.usecase.RoomUsecase;
 
 
-import com.VooTreeVeeVuu.adapters.dto.RoomDTO;
+import com.VooTreeVeeVuu.dto.GetAllRoomDTO;
+import com.VooTreeVeeVuu.dto.RoomDTO;
 import com.VooTreeVeeVuu.domain.entity.Room;
 import com.VooTreeVeeVuu.domain.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +15,24 @@ public class GetAllRoomUseCase {
     @Autowired
     private RoomRepository roomRepository;
 
-    public List<RoomDTO> getAllRoom(){
+    public List<GetAllRoomDTO> getAllRoom(){
         return roomRepository.findAll().stream().map(this :: toDTO).collect(Collectors.toList());
     }
 
-    private RoomDTO toDTO(Room room) {
-        RoomDTO dto = new RoomDTO();
-        //dto.setId(room.getId());
+    private GetAllRoomDTO toDTO(Room room) {
+        GetAllRoomDTO dto = new GetAllRoomDTO();
+        dto.setId(room.getId());
         dto.setCapacity(room.getCapacity());
         dto.setPrice(room.getPrice());
         dto.setQuantity(room.getQuantity());
         dto.setRoomSize(room.getRoomSize());
         dto.setDescription(room.getDescription());
-        dto.setRoomTypeId(room.getRoomType().getId());
-        //dto.setHotel(room.getHotel());
-        //dto.setRoomFacilities(room.getRoomFacilities());
-        //dto.setRoom_images(room.getRoom_images());
+        dto.setRoomType(room.getRoomType());
+        dto.setHotel(room.getHotel());
+        dto.setRoomFacilities(room.getRoomFacilities());
+        dto.setRoom_images(room.getRoom_images());
         //dto.setListBooking(room.getListBooking());
+        dto.setServeBreakfast(room.isServeBreakfast());
         return dto;
     }
 }

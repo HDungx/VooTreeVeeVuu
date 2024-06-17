@@ -2,7 +2,7 @@ package com.VooTreeVeeVuu.usecase.RoomTypeUsecase;
 
 
 
-import com.VooTreeVeeVuu.adapters.dto.RoomTypeDTO;
+import com.VooTreeVeeVuu.dto.RoomTypeDTO;
 import com.VooTreeVeeVuu.domain.entity.RoomType;
 import com.VooTreeVeeVuu.domain.repository.RoomTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.VooTreeVeeVuu.usecase.UserUseCase;
 
-import com.VooTreeVeeVuu.adapters.dto.UserDTO;
+import com.VooTreeVeeVuu.dto.UserDTO;
 import com.VooTreeVeeVuu.domain.entity.User;
 import com.VooTreeVeeVuu.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

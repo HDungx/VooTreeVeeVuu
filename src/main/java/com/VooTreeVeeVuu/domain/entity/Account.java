@@ -41,6 +41,7 @@ public class Account implements UserDetails {
 	@Column (unique = true, nullable = false)
 	private String email;
 
+	@Column(unique = true)
 	private String phoneNum;
 
 	@Lob

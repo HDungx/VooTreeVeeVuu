@@ -1,10 +1,10 @@
 package com.VooTreeVeeVuu.services;
 
-import com.VooTreeVeeVuu.adapters.dto.AuthenticationResponse;
-import com.VooTreeVeeVuu.adapters.dto.LoginDTO;
-import com.VooTreeVeeVuu.adapters.dto.SignUpDTO;
-import com.VooTreeVeeVuu.adapters.repository.JpaAccountRepository;
-import com.VooTreeVeeVuu.adapters.repository.JpaRoleRepository;
+import com.VooTreeVeeVuu.domain.repository.AccountRepository;
+import com.VooTreeVeeVuu.domain.repository.RoleRepository;
+import com.VooTreeVeeVuu.dto.AuthenticationResponse;
+import com.VooTreeVeeVuu.dto.LoginDTO;
+import com.VooTreeVeeVuu.dto.SignUpDTO;
 import com.VooTreeVeeVuu.domain.entity.Account;
 import com.VooTreeVeeVuu.domain.entity.Role;
 import com.VooTreeVeeVuu.domain.entity.User;
@@ -22,15 +22,16 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
-	private final JpaAccountRepository accountRepository;
+	private final AccountRepository accountRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final JwtUtils jwtService;
 	private final AuthenticationManager authenticationManager;
-	private final JpaRoleRepository roleRepository;
+	private final RoleRepository roleRepository;
 
 	public AuthenticationResponse register (SignUpDTO request) {
 		var account = Account.builder().username(request.getUsername()).password(
-				passwordEncoder.encode(request.getPassword())).email(request.getEmail()).build();
+				passwordEncoder.encode(request.getPassword())).email(request.getEmail()).phoneNum(
+				request.getPhone()).build();
 		Set<String> rolesString = request.getRoles();
 		Set<Role> roles = new HashSet<>();
 		if (rolesString == null)

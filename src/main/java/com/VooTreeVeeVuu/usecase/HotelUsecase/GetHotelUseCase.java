@@ -1,8 +1,6 @@
 package com.VooTreeVeeVuu.usecase.HotelUsecase;
 
-import com.VooTreeVeeVuu.adapters.dto.BookingDTO;
-import com.VooTreeVeeVuu.adapters.dto.GetAllHotelDTO;
-import com.VooTreeVeeVuu.adapters.dto.HotelDTO;
+import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.domain.entity.Hotel;
 import com.VooTreeVeeVuu.domain.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +34,7 @@ public class GetHotelUseCase {
         hotelDTO.setUser(hotel.getUser());
         hotelDTO.setHotelImages(hotel.getHotelImages());
         hotelDTO.setRooms(hotel.getRooms());
-        hotel.setListRating(hotel.getListRating());
+        hotelDTO.setRatings(hotel.getListRating());
         return hotelDTO;
     }
 }

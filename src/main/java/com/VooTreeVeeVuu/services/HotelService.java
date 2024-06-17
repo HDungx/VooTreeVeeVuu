@@ -1,15 +1,17 @@
 package com.VooTreeVeeVuu.services;
 
-import com.VooTreeVeeVuu.adapters.dto.HotelDTO;
-import com.VooTreeVeeVuu.adapters.dto.HotelFacilityDTO;
-import com.VooTreeVeeVuu.adapters.dto.RoomDTO;
-import com.VooTreeVeeVuu.adapters.dto.RoomFacilityDTO;
+import com.VooTreeVeeVuu.dto.HotelDTO;
+import com.VooTreeVeeVuu.dto.HotelFacilityDTO;
+import com.VooTreeVeeVuu.dto.RoomDTO;
+import com.VooTreeVeeVuu.dto.RoomFacilityDTO;
 import com.VooTreeVeeVuu.domain.entity.*;
 import com.VooTreeVeeVuu.domain.repository.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class HotelService {
@@ -50,26 +52,90 @@ public class HotelService {
 		{
 			for (RoomDTO roomDTO : hotelDTO.getRooms())
 			{
-				RoomType roomType = roomTypeRepository.findById(roomDTO.getRoomTypeId())
-						.orElseThrow(() -> new RuntimeException("RoomType not found with id: " + roomDTO.getRoomTypeId()));
+				RoomType roomType = roomTypeRepository.findById(roomDTO.getRoomTypeId()).orElseThrow(
+						() -> new RuntimeException("RoomType not found with id: " + roomDTO.getRoomTypeId()));
 				Room room = mapToRoomEntity(roomDTO, savedHotel, roomType);
 				roomRepository.save(room);
-				if (roomDTO.getRoomFacilities() != null) {
-					for (RoomFacilityDTO roomFacilityDTO : roomDTO.getRoomFacilities()) {
-						Facility facility = facilityRepository.findById(roomFacilityDTO.getFacilityId())
-								.orElseThrow(() -> new RuntimeException("Facility not found with id: " + roomFacilityDTO.getFacilityId()));
+				if (roomDTO.getRoomFacilities() != null)
+				{
+					for (RoomFacilityDTO roomFacilityDTO : roomDTO.getRoomFacilities())
+					{
+						Facility facility = facilityRepository.findById(roomFacilityDTO.getFacilityId()).orElseThrow(
+								() -> new RuntimeException(
+										"Facility not found with id: " + roomFacilityDTO.getFacilityId()));
 						RoomFacility roomFacility = new RoomFacility();
 						roomFacility.setRoom(room);
-						roomFacility.setFacility(facility);
-						//room.getRoomFacilities().add(roomFacility);
 						roomFacilityRepository.save(roomFacility);
 					}
 					roomRepository.save(room);
 				}
 			}
 		}
-
 		return mapToHotelDTO(savedHotel);
+	}
+
+	@Transactional
+	public HotelDTO updateHotel (Long hotelId, HotelDTO hotelDTO) {
+		Hotel existingHotel = hotelRepository.findById(hotelId).orElseThrow(
+				() -> new RuntimeException("Hotel not found with id: " + hotelId));
+		updateHotelEntity(existingHotel, hotelDTO);
+		Hotel updatedHotel = hotelRepository.save(existingHotel);
+
+		updateHotelFacilities(updatedHotel, hotelDTO.getHotelFacilities());
+		updateRooms(updatedHotel, hotelDTO.getRooms());
+
+		return mapToHotelDTO(updatedHotel);
+	}
+
+	private void updateHotelFacilities (Hotel hotel, List<HotelFacilityDTO> facilityDTOs) {
+		List<HotelFacility> existingFacilities = hotelFacilityRepository.findByHotel(hotel);
+		hotelFacilityRepository.deleteAll(existingFacilities);
+
+		if (facilityDTOs != null)
+		{
+			for (HotelFacilityDTO facilityDTO : facilityDTOs)
+			{
+				Facility facility = facilityRepository.findById(facilityDTO.getFacilityId()).orElseThrow(
+						() -> new RuntimeException("Facility not found with id: " + facilityDTO.getFacilityId()));
+				HotelFacility hotelFacility = new HotelFacility();
+				hotelFacility.setHotel(hotel);
+				hotelFacility.setFacility(facility);
+				hotelFacilityRepository.save(hotelFacility);
+			}
+		}
+	}
+
+	private void updateRooms (Hotel hotel, List<RoomDTO> roomDTOs) {
+		List<Room> existingRooms = roomRepository.findByHotel(hotel);
+		roomRepository.deleteAll(existingRooms);
+
+		if (roomDTOs != null)
+		{
+			for (RoomDTO roomDTO : roomDTOs)
+			{
+				RoomType roomType = roomTypeRepository.findById(roomDTO.getRoomTypeId()).orElseThrow(
+						() -> new RuntimeException("RoomType not found with id: " + roomDTO.getRoomTypeId()));
+				Room room = mapToRoomEntity(roomDTO, hotel, roomType);
+				Room savedRoom = roomRepository.save(room);
+
+				if (roomDTO.getRoomFacilities() != null)
+				{
+					List<RoomFacility> roomFacilities = new ArrayList<>();
+					for (RoomFacilityDTO roomFacilityDTO : roomDTO.getRoomFacilities())
+					{
+						Facility facility = facilityRepository.findById(roomFacilityDTO.getFacilityId()).orElseThrow(
+								() -> new RuntimeException(
+										"Facility not found with id: " + roomFacilityDTO.getFacilityId()));
+						RoomFacility roomFacility = new RoomFacility();
+						roomFacility.setRoom(savedRoom);
+						roomFacility.setFacility(facility);
+						roomFacilities.add(roomFacility);
+					}
+					savedRoom.setRoomFacilities(roomFacilities);
+					roomRepository.save(savedRoom);
+				}
+			}
+		}
 	}
 
 	private Hotel mapToHotelEntity (HotelDTO hotelDTO) {
@@ -88,7 +154,7 @@ public class HotelService {
 		return hotel;
 	}
 
-	private Room mapToRoomEntity(RoomDTO roomDTO, Hotel hotel, RoomType roomType) {
+	private Room mapToRoomEntity (RoomDTO roomDTO, Hotel hotel, RoomType roomType) {
 		Room room = new Room();
 		room.setCapacity(roomDTO.getCapacity());
 		room.setPrice(roomDTO.getPrice());
@@ -114,27 +180,19 @@ public class HotelService {
 		hotelDTO.setCheckOutTime(hotel.getCheckOutTime());
 		hotelDTO.setAccommodationTypeId(hotel.getAccommodationType().getId());
 		hotelDTO.setUserId(hotel.getUser().getId());
-
-//		hotelDTO.setHotelFacilities(hotel.getHotelFacilities().stream()
-//				.map(hf -> new HotelFacilityDTO(hf.getFacility().getFacId()))
-//				.collect(Collectors.toList()));
-
-//		hotelDTO.setRooms(hotel.getRooms().stream()
-//				.map(room -> {
-//					RoomDTO roomDTO = new RoomDTO();
-//					roomDTO.setCapacity(room.getCapacity());
-//					roomDTO.setPrice(room.getPrice());
-//					roomDTO.setQuantity(room.getQuantity());
-//					roomDTO.setRoomSize(room.getRoomSize());
-//					roomDTO.setDescription(room.getDescription());
-//					roomDTO.setServeBreakfast(room.isServeBreakfast());
-//					roomDTO.setRoomTypeId(room.getRoomType().getId());
-//					roomDTO.setRoomFacilities(room.getRoomFacilities().stream()
-//							.map(rf -> new RoomFacilityDTO(rf.getFacility().getFacId()))
-//							.collect(Collectors.toList()));
-//					return roomDTO;
-//				})
-//				.collect(Collectors.toList()));
 		return hotelDTO;
+	}
+
+	private void updateHotelEntity (Hotel hotel, HotelDTO hotelDTO) {
+		hotel.setAddress(hotelDTO.getAddress());
+		hotel.setHotelName(hotelDTO.getHotelName());
+		hotel.setCity(hotelDTO.getCity());
+		hotel.setHotelPhoneNum(hotelDTO.getHotelPhoneNum());
+		hotel.setHotelStars(hotelDTO.getHotelStars());
+		hotel.setHotelDescription(hotelDTO.getHotelDescription());
+		hotel.setCheckInTime(hotelDTO.getCheckInTime());
+		hotel.setCheckOutTime(hotelDTO.getCheckOutTime());
+		hotel.setAccommodationType(new AccommodationType(hotelDTO.getAccommodationTypeId()));
+		hotel.setUser(new User(hotelDTO.getUserId()));
 	}
 }

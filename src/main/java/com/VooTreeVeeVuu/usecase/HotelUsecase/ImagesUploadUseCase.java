@@ -1,19 +1,16 @@
 package com.VooTreeVeeVuu.usecase.HotelUsecase;
 
-import com.VooTreeVeeVuu.adapters.dto.HotelDTO;
-import com.VooTreeVeeVuu.adapters.dto.HotelImageDTO;
+import com.VooTreeVeeVuu.dto.HotelDTO;
+import com.VooTreeVeeVuu.dto.HotelImageDTO;
 import com.VooTreeVeeVuu.domain.entity.Hotel;
 import com.VooTreeVeeVuu.domain.entity.HotelImage;
 import com.VooTreeVeeVuu.domain.repository.HotelImageRepository;
 import com.VooTreeVeeVuu.domain.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class ImagesUploadUseCase {

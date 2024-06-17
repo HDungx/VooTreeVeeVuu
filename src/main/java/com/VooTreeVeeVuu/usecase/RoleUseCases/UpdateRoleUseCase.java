@@ -1,6 +1,6 @@
 package com.VooTreeVeeVuu.usecase.RoleUseCases;
 
-import com.VooTreeVeeVuu.adapters.dto.RoleDTO;
+import com.VooTreeVeeVuu.dto.RoleDTO;
 import com.VooTreeVeeVuu.domain.entity.Role;
 import com.VooTreeVeeVuu.domain.repository.RoleRepository;
 import jakarta.transaction.Transactional;

@@ -1,12 +1,7 @@
 package com.VooTreeVeeVuu.usecase.HotelUsecase;
 
-import com.VooTreeVeeVuu.adapters.dto.GetAllHotelDTO;
-import com.VooTreeVeeVuu.adapters.dto.HotelDTO;
-import com.VooTreeVeeVuu.adapters.dto.HotelFacilityDTO;
-import com.VooTreeVeeVuu.adapters.dto.HotelImageDTO;
+import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.domain.entity.Hotel;
-import com.VooTreeVeeVuu.domain.entity.HotelFacility;
-import com.VooTreeVeeVuu.domain.entity.HotelImage;
 import com.VooTreeVeeVuu.domain.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

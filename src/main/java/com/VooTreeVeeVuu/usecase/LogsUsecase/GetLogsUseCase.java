@@ -1,6 +1,6 @@
 package com.VooTreeVeeVuu.usecase.LogsUsecase;
 
-import com.VooTreeVeeVuu.adapters.dto.LogsDTO;
+import com.VooTreeVeeVuu.dto.LogsDTO;
 import com.VooTreeVeeVuu.domain.entity.Logs;
 import com.VooTreeVeeVuu.domain.repository.LogsRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.VooTreeVeeVuu.usecase.RatingUsecase;
 
-import com.VooTreeVeeVuu.adapters.dto.RatingDTO;
+import com.VooTreeVeeVuu.dto.RatingDTO;
 import com.VooTreeVeeVuu.domain.entity.Rating;
 import com.VooTreeVeeVuu.domain.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;

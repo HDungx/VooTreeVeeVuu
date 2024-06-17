@@ -1,10 +1,7 @@
 package com.VooTreeVeeVuu.usecase.RoomImageUsecase;
 
-import com.VooTreeVeeVuu.adapters.dto.HotelImageDTO;
-import com.VooTreeVeeVuu.adapters.dto.RoomImageDTO;
-import com.VooTreeVeeVuu.domain.entity.HotelImage;
+import com.VooTreeVeeVuu.dto.RoomImageDTO;
 import com.VooTreeVeeVuu.domain.entity.RoomImage;
-import com.VooTreeVeeVuu.domain.repository.HotelImageRepository;
 import com.VooTreeVeeVuu.domain.repository.RoomImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

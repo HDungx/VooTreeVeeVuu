@@ -1,6 +1,6 @@
 package com.VooTreeVeeVuu.usecase.HotelImageUsecase;
 
-import com.VooTreeVeeVuu.adapters.dto.HotelImageDTO;
+import com.VooTreeVeeVuu.dto.HotelImageDTO;
 import com.VooTreeVeeVuu.domain.entity.HotelImage;
 import com.VooTreeVeeVuu.domain.repository.HotelImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;

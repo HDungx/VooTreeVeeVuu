@@ -21,11 +21,11 @@ public class HotelFacility {
 	//@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "facId")
-	Facility facility;
+	private Facility facility;
 
 	@JsonIgnore
 	//@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
-	Hotel hotel;
+	private Hotel hotel;
 }
