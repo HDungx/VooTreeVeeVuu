@@ -1,8 +1,8 @@
 package com.VooTreeVeeVuu.usecase.HotelUsecase;
 
-import com.VooTreeVeeVuu.dto.HotelDTO;
 import com.VooTreeVeeVuu.domain.entity.Hotel;
 import com.VooTreeVeeVuu.domain.repository.HotelRepository;
+import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class UpdateStatusHotelUseCase {
     @Autowired
     private HotelRepository hotelRepository;
 
-    public Optional<HotelDTO> updateStatusHotel(Long id, HotelDTO hotelDTO){
+    public Optional<GetAllHotelDTO> updateStatusHotel(Long id, GetAllHotelDTO hotelDTO) {
         return hotelRepository.findById(id).map(hotel -> {
             hotel.setStatus(hotelDTO.getStatus());
             Hotel updated = hotelRepository.save(hotel);
@@ -21,8 +21,8 @@ public class UpdateStatusHotelUseCase {
         });
     }
 
-    private HotelDTO toDTO(Hotel hotel) {
-        HotelDTO dto = new HotelDTO();
+    private GetAllHotelDTO toDTO(Hotel hotel) {
+        GetAllHotelDTO dto = new GetAllHotelDTO();
         dto.setStatus(hotel.getStatus());
         return dto;
     }
