@@ -1,7 +1,9 @@
 package com.VooTreeVeeVuu.controller;
 
 import com.VooTreeVeeVuu.dto.HotelImageDTO;
-import com.VooTreeVeeVuu.usecase.HotelImageUsecase.*;
+import com.VooTreeVeeVuu.usecase.HotelImageUsecase.DeleteHotelImage.DeleteHotelImageImpl;
+import com.VooTreeVeeVuu.usecase.HotelImageUsecase.GetAllHotelImage.GetAllHotelImageImpl;
+import com.VooTreeVeeVuu.usecase.HotelImageUsecase.GetHotelImage.GetHotelImageUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,10 +21,10 @@ public class HotelImageController {
 //    private UpdateHotelImageUseCase updateHotelImageUseCase;
 
     @Autowired
-    private DeleteHotelImageUseCase deleteHotelImageUseCase;
+    private DeleteHotelImageImpl deleteHotelImageUseCase;
 
     @Autowired
-    private GetAllHotelImageUseCase getAllHotelImageUseCase;
+    private GetAllHotelImageImpl getAllHotelImageUseCase;
 
     @Autowired
     private GetHotelImageUseCase getHotelImageUseCase;

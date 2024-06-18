@@ -1,7 +1,11 @@
 package com.VooTreeVeeVuu.controller;
 
 import com.VooTreeVeeVuu.dto.RoomImageDTO;
-import com.VooTreeVeeVuu.usecase.RoomImageUsecase.*;
+import com.VooTreeVeeVuu.usecase.RoomImageUsecase.CreateRoomImage.CreateRoomImageImpl;
+import com.VooTreeVeeVuu.usecase.RoomImageUsecase.DeleteRoomImage.DeleteRoomImageImpl;
+import com.VooTreeVeeVuu.usecase.RoomImageUsecase.GetAllRoomImage.GetAllRoomImageImpl;
+import com.VooTreeVeeVuu.usecase.RoomImageUsecase.GetRoomImage.GetRoomImageImpl;
+import com.VooTreeVeeVuu.usecase.RoomImageUsecase.UpdateRoomImage.UpdateRoomImageImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,19 +17,19 @@ import java.util.Optional;
 @RequestMapping("/api/roomImages")
 public class RoomImageController {
     @Autowired
-    private CreateRoomImageUseCase createRoomImageUseCase;
+    private CreateRoomImageImpl createRoomImageUseCase;
 
     @Autowired
-    private UpdateRoomImageUseCase updateRoomImageUseCase;
+    private UpdateRoomImageImpl updateRoomImageUseCase;
 
     @Autowired
-    private DeleteRoomImageUseCase deleteRoomImageUseCase;
+    private DeleteRoomImageImpl deleteRoomImageUseCase;
 
     @Autowired
-    private GetAllRoomImageUseCase getAllRoomImageUseCase;
+    private GetAllRoomImageImpl getAllRoomImageUseCase;
 
     @Autowired
-    private GetRoomImageUseCase  getRoomImageUseCase;
+    private GetRoomImageImpl getRoomImageUseCase;
 
     @GetMapping ()
     public List<RoomImageDTO> getAllRoomImages(){

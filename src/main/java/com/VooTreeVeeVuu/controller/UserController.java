@@ -1,9 +1,9 @@
 package com.VooTreeVeeVuu.controller;
 
 import com.VooTreeVeeVuu.dto.UserDTO;
-import com.VooTreeVeeVuu.usecase.UserUseCase.GetAllUserUseCase;
-import com.VooTreeVeeVuu.usecase.UserUseCase.GetUserUseCase;
-import com.VooTreeVeeVuu.usecase.UserUseCase.UpdateUserUseCase;
+import com.VooTreeVeeVuu.usecase.UserUseCase.GetAllUser.GetAllUserImpl;
+import com.VooTreeVeeVuu.usecase.UserUseCase.GetUser.GetUserImpl;
+import com.VooTreeVeeVuu.usecase.UserUseCase.UpdateUser.UpdateUserImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,13 +15,13 @@ import java.util.Optional;
 @RequestMapping ("/api/users")
 public class UserController {
 	@Autowired
-	private GetAllUserUseCase getAllUserUseCase;
+	private GetAllUserImpl getAllUserUseCase;
 
 	@Autowired
-	private GetUserUseCase getUserUseCase;
+	private GetUserImpl getUserUseCase;
 
 	@Autowired
-	private UpdateUserUseCase updateUserUseCase;
+	private UpdateUserImpl updateUserUseCase;
 
 	@GetMapping ()
 	public List<UserDTO> getAllUsers () {

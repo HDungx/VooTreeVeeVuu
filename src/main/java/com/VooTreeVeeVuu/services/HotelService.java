@@ -87,6 +87,21 @@ public class HotelService {
 		return mapToHotelDTO(updatedHotel);
 	}
 
+	@Transactional
+	public void deleteHotel (Long id) {
+		Hotel existed = hotelRepository.findById(id).orElseThrow(() -> new RuntimeException("Hotel not found"));
+
+		existed.getRooms().forEach(room -> {
+			roomFacilityRepository.deleteAll(room.getRoomFacilities());
+		});
+
+		roomRepository.deleteAll(existed.getRooms());
+
+		hotelFacilityRepository.deleteAll(existed.getHotelFacilities());
+
+		hotelRepository.delete(existed);
+	}
+
 	private void updateHotelFacilities (Hotel hotel, List<HotelFacilityDTO> facilityDTOs) {
 		List<HotelFacility> existingFacilities = hotelFacilityRepository.findByHotel(hotel);
 		hotelFacilityRepository.deleteAll(existingFacilities);

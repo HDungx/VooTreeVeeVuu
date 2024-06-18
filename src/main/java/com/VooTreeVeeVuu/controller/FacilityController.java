@@ -3,10 +3,10 @@ package com.VooTreeVeeVuu.controller;
 
 import com.VooTreeVeeVuu.dto.FacilityDTO;
 import com.VooTreeVeeVuu.usecase.FacilityUsecase.CreateFacility.CreateFacilityImpl;
-import com.VooTreeVeeVuu.usecase.FacilityUsecase.DeleteFacility.DeleteFacilityUseCase;
-import com.VooTreeVeeVuu.usecase.FacilityUsecase.GetAllFacility.GetAllFacilityUseCase;
-import com.VooTreeVeeVuu.usecase.FacilityUsecase.GetFacility.GetFacilityUseCase;
-import com.VooTreeVeeVuu.usecase.FacilityUsecase.UpdateFacility.UpdateFacilityUseCase;
+import com.VooTreeVeeVuu.usecase.FacilityUsecase.DeleteFacility.DeleteFacilityImpl;
+import com.VooTreeVeeVuu.usecase.FacilityUsecase.GetAllFacility.GetAllFacilityImpl;
+import com.VooTreeVeeVuu.usecase.FacilityUsecase.GetFacility.GetFacilityImpl;
+import com.VooTreeVeeVuu.usecase.FacilityUsecase.UpdateFacility.UpdateFacilityImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,16 +21,16 @@ public class FacilityController {
     private CreateFacilityImpl createFacilityUseCase;
 
     @Autowired
-    private UpdateFacilityUseCase updateFacilityUseCase;
+    private UpdateFacilityImpl updateFacilityUseCase;
 
     @Autowired
-    private DeleteFacilityUseCase deleteFacilityUseCase;
+    private DeleteFacilityImpl deleteFacilityUseCase;
 
     @Autowired
-    private GetAllFacilityUseCase getAllFacilityUseCase;
+    private GetAllFacilityImpl getAllFacilityUseCase;
 
     @Autowired
-    private GetFacilityUseCase getFacilityUseCase;
+    private GetFacilityImpl getFacilityUseCase;
 
     @GetMapping()
     public List<FacilityDTO> getAllFacility(){

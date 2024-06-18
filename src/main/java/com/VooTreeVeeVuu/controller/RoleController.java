@@ -2,7 +2,12 @@ package com.VooTreeVeeVuu.controller;
 
 import com.VooTreeVeeVuu.dto.RoleDTO;
 import com.VooTreeVeeVuu.domain.utils.RoleName;
-import com.VooTreeVeeVuu.usecase.RoleUseCases.*;
+import com.VooTreeVeeVuu.usecase.RoleUseCases.CreateRole.CreateRoleImpl;
+import com.VooTreeVeeVuu.usecase.RoleUseCases.DeleteRole.DeleteRoleImpl;
+import com.VooTreeVeeVuu.usecase.RoleUseCases.FindRoleByName.FindRoleByNameImpl;
+import com.VooTreeVeeVuu.usecase.RoleUseCases.GetAllRole.GetAllRoleImpl;
+import com.VooTreeVeeVuu.usecase.RoleUseCases.GetRole.GetRoleImpl;
+import com.VooTreeVeeVuu.usecase.RoleUseCases.UpdateRole.UpdateRoleImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,22 +19,22 @@ import java.util.Optional;
 @RequestMapping ("/api/roles")
 public class RoleController {
 	@Autowired
-	private GetAllRoleUseCase getAllRoleUseCase;
+	private GetAllRoleImpl getAllRoleUseCase;
 
 	@Autowired
-	private GetRoleUseCase getRoleUseCase;
+	private GetRoleImpl getRoleUseCase;
 
 	@Autowired
-	private CreateRoleUseCase createRoleUseCase;
+	private CreateRoleImpl createRoleUseCase;
 
 	@Autowired
-	private DeleteRoleUseCase deleteRoleUseCase;
+	private DeleteRoleImpl deleteRoleUseCase;
 
 	@Autowired
-	private FindRoleByNameUseCase findRoleByNameUseCase;
+	private FindRoleByNameImpl findRoleByNameUseCase;
 
 	@Autowired
-	private UpdateRoleUseCase updateRoleUseCase;
+	private UpdateRoleImpl updateRoleUseCase;
 
 	@GetMapping ()
 	public List<RoleDTO> getAllRoles () {

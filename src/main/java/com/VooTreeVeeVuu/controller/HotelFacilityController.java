@@ -2,8 +2,9 @@ package com.VooTreeVeeVuu.controller;
 
 
 import com.VooTreeVeeVuu.dto.GetAllHotelFacDTO;
-import com.VooTreeVeeVuu.dto.HotelFacilityDTO;
-import com.VooTreeVeeVuu.usecase.HotelFacilityUsecase.*;
+import com.VooTreeVeeVuu.usecase.HotelFacilityUsecase.DeleteHotelFacility.DeleteHotelFacilityImpl;
+import com.VooTreeVeeVuu.usecase.HotelFacilityUsecase.GetAllHotelFacility.GetAllHotelFacilityImpl;
+import com.VooTreeVeeVuu.usecase.HotelFacilityUsecase.GetHotelFacility.GetHotelFacilityImpl;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,13 +16,13 @@ import java.util.Optional;
 @RequestMapping("/api/hotelFacilities")
 public class HotelFacilityController {
     @Autowired
-    private DeleteHotelFacilityUseCase deleteHotelFacilityUseCase;
+    private DeleteHotelFacilityImpl deleteHotelFacilityUseCase;
 
     @Autowired
-    private GetAllHotelFacilityUseCase getAllHotelFacilityUseCase;
+    private GetAllHotelFacilityImpl getAllHotelFacilityUseCase;
 
     @Autowired
-    private GetHotelFacilityUseCase getHotelFacilityUseCase;
+    private GetHotelFacilityImpl getHotelFacilityUseCase;
 
     @GetMapping()
     public List<GetAllHotelFacDTO> getAllHotelFacility(){

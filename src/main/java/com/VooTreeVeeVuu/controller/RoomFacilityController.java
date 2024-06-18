@@ -1,6 +1,8 @@
 package com.VooTreeVeeVuu.controller;
 
-import com.VooTreeVeeVuu.usecase.RoomFacilityUsecase.*;
+import com.VooTreeVeeVuu.usecase.RoomFacilityUsecase.DeleteRoomFacility.DeleteRoomFacilityImpl;
+import com.VooTreeVeeVuu.usecase.RoomFacilityUsecase.GetAllRoomFacility.GetAllRoomFacilityImpl;
+import com.VooTreeVeeVuu.usecase.RoomFacilityUsecase.GetRoomFacility.GetRoomFacilityImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,13 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/roomFacilities")
 public class RoomFacilityController {
 	@Autowired
-	private DeleteRoomFacilityUseCase deleteRoomFacilityUseCase;
+	private DeleteRoomFacilityImpl deleteRoomFacilityUseCase;
 
 	@Autowired
-	private GetAllRoomFacilityUseCase getAllRoomFacilityUseCase;
+	private GetAllRoomFacilityImpl getAllRoomFacilityUseCase;
 
 	@Autowired
-	private GetRoomFacilityUseCase getRoomFacilityUseCase;
+	private GetRoomFacilityImpl getRoomFacilityUseCase;
 
 //	@GetMapping ()
 //	public List<RoomFacilityDTO> getAllRoomFacility(){

@@ -1,7 +1,11 @@
 package com.VooTreeVeeVuu.controller;
 
 import com.VooTreeVeeVuu.dto.RatingDTO;
-import com.VooTreeVeeVuu.usecase.RatingUsecase.*;
+import com.VooTreeVeeVuu.usecase.RatingUsecase.CreateRating.CreateRatingImpl;
+import com.VooTreeVeeVuu.usecase.RatingUsecase.DeleteRating.DeleteRatingImpl;
+import com.VooTreeVeeVuu.usecase.RatingUsecase.GetAllRating.GetAllRatingImpl;
+import com.VooTreeVeeVuu.usecase.RatingUsecase.GetRating.GetRatingImpl;
+import com.VooTreeVeeVuu.usecase.RatingUsecase.UpdateRating.UpdateRatingImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +17,15 @@ import java.util.Optional;
 @RequestMapping ("/api/ratings")
 public class RatingController {
 	@Autowired
-	private CreateRatingUseCase createRatingUseCase;
+	private CreateRatingImpl createRatingUseCase;
 	@Autowired
-	private UpdateRatingUseCase updateRatingUseCase;
+	private UpdateRatingImpl updateRatingUseCase;
 	@Autowired
-	private DeleteRatingUseCase deleteRatingUseCase;
+	private DeleteRatingImpl deleteRatingUseCase;
 	@Autowired
-	private GetAllRatingUseCase getAllRatingUseCase;
+	private GetAllRatingImpl getAllRatingUseCase;
 	@Autowired
-	private GetRatingUseCase getRatingUseCase;
+	private GetRatingImpl getRatingUseCase;
 
 	@GetMapping ()
 	public List<RatingDTO> getAllRating(){

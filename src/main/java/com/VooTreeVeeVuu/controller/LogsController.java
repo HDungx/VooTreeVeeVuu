@@ -1,7 +1,11 @@
 package com.VooTreeVeeVuu.controller;
 
 import com.VooTreeVeeVuu.dto.LogsDTO;
-import com.VooTreeVeeVuu.usecase.LogsUsecase.*;
+import com.VooTreeVeeVuu.usecase.LogsUsecase.CreateLogs.CreateLogsImpl;
+import com.VooTreeVeeVuu.usecase.LogsUsecase.DeleteLogs.DeleteLogsImpl;
+import com.VooTreeVeeVuu.usecase.LogsUsecase.GetAllLogs.GetAllLogsImpl;
+import com.VooTreeVeeVuu.usecase.LogsUsecase.GetLogs.GetLogsImpl;
+import com.VooTreeVeeVuu.usecase.LogsUsecase.UpdateLogs.UpdateLogsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,19 +17,19 @@ import java.util.Optional;
 @RequestMapping("/api/logs")
 public class LogsController {
 	 @Autowired
-	 private CreateLogsUseCase createLogsUseCase;
+	 private CreateLogsImpl createLogsUseCase;
 
     @Autowired
-    private UpdateLogsUseCase updateLogsUseCase;
+    private UpdateLogsImpl updateLogsUseCase;
 
     @Autowired
-	private DeleteLogsUseCase deleteLogsUseCase;
+	private DeleteLogsImpl deleteLogsUseCase;
 
 	@Autowired
-	private GetAllLogsUseCase getAllLogsUseCase;
+	private GetAllLogsImpl getAllLogsUseCase;
 
 	@Autowired
-	private GetLogsUseCase getLogsUseCase;
+	private GetLogsImpl getLogsUseCase;
 
 	@GetMapping ()
 	public List<LogsDTO> getAllLogs(){

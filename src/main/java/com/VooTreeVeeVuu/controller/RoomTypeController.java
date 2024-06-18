@@ -1,7 +1,11 @@
 package com.VooTreeVeeVuu.controller;
 
 import com.VooTreeVeeVuu.dto.RoomTypeDTO;
-import com.VooTreeVeeVuu.usecase.RoomTypeUsecase.*;
+import com.VooTreeVeeVuu.usecase.RoomTypeUsecase.CreateRoomType.CreateRoomTypeImpl;
+import com.VooTreeVeeVuu.usecase.RoomTypeUsecase.DeleteRoomType.DeleteRoomTypeImpl;
+import com.VooTreeVeeVuu.usecase.RoomTypeUsecase.GetAllRoomType.GetAllRoomTypeImpl;
+import com.VooTreeVeeVuu.usecase.RoomTypeUsecase.GetRoomType.GetRoomTypeImpl;
+import com.VooTreeVeeVuu.usecase.RoomTypeUsecase.UpdateRoomType.UpdateRoomTypeImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,19 +17,19 @@ import java.util.Optional;
 @RequestMapping("/api/roomTypes")
 public class RoomTypeController {
 	@Autowired
-	private CreateRoomTypeUseCase createRoomTypeUseCase;
+	private CreateRoomTypeImpl createRoomTypeUseCase;
 
 	@Autowired
-	private UpdateRoomTypeUseCase updateRoomTypeUseCase;
+	private UpdateRoomTypeImpl updateRoomTypeUseCase;
 
 	@Autowired
-	private DeleteRoomTypeUseCase deleteRoomTypeUseCase;
+	private DeleteRoomTypeImpl deleteRoomTypeUseCase;
 
 	@Autowired
-	private GetAllRoomTypeUseCase getAllRoomTypeUseCase;
+	private GetAllRoomTypeImpl getAllRoomTypeUseCase;
 
 	@Autowired
-	private GetRoomTypeUseCase getRoomTypeUseCase;
+	private GetRoomTypeImpl getRoomTypeUseCase;
 
 	@GetMapping ()
 	public List<RoomTypeDTO> getAllRoomTypes(){
