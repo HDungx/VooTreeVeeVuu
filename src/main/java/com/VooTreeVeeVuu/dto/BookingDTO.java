@@ -1,7 +1,5 @@
 package com.VooTreeVeeVuu.dto;
 
-import com.VooTreeVeeVuu.domain.entity.Room;
-import com.VooTreeVeeVuu.domain.entity.User;
 import com.VooTreeVeeVuu.domain.utils.Booking_status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,11 +15,13 @@ public class BookingDTO {
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private double totalPrice;
-    private User user;
-    private Room room;
-    private LocalDate bookingDate;
+    private String userName; // Tên người đặt, tách biệt để dễ dàng hiển thị
+    private String hotelName; // Tên khách sạn
+    private String roomType; // Loại phòng
+    private String address; // Địa chỉ khách sạn
     private Booking_status status;
     private Integer numOfRoom;
     private Integer numOfGuest;
+    private LocalDate bookingDate;
 
 }
