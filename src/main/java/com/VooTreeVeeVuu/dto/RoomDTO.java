@@ -10,16 +10,16 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoomDTO {
-	//private Long id;
-	private int capacity;
-	private double price;
-	private Integer quantity;
-	private double roomSize;
-	private String description;
-	private Long roomTypeId;
-	private boolean serveBreakfast;
-	//private Hotel hotel;
-	private List<RoomFacilityDTO> roomFacilities;
-	//private List<Booking> listBooking;
-	//private List<RoomImage> room_images;
+    //private Long id;
+    private int capacity;
+    private double price;
+    private Integer quantity;
+    private double roomSize;
+    private String description;
+    private Long roomTypeId;
+    private boolean serveBreakfast;
+    private Long hotelId;
+    private List<RoomFacilityDTO> roomFacilities;
+    //private List<Booking> listBooking;
+    //private List<RoomImage> room_images;
 }

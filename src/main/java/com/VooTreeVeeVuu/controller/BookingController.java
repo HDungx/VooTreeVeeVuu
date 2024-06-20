@@ -1,46 +1,37 @@
 package com.VooTreeVeeVuu.controller;
 
 import com.VooTreeVeeVuu.dto.BookingDTO;
-import com.VooTreeVeeVuu.usecase.BookingUsecase.CreateBooking.CreateBookingImpl;
-import com.VooTreeVeeVuu.usecase.BookingUsecase.DeleteBooking.DeleteBookingImpl;
+import com.VooTreeVeeVuu.services.BookingService;
 import com.VooTreeVeeVuu.usecase.BookingUsecase.GetAllBooking.GetAllBookingImpl;
 import com.VooTreeVeeVuu.usecase.BookingUsecase.GetBooking.GetBookingImpl;
-
-import com.VooTreeVeeVuu.usecase.BookingUsecase.UpdateBooking.UpdateBookingImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin ("*")
+@CrossOrigin("*")
 @RestController
-@RequestMapping ("/api/bookings")
+@RequestMapping("/api/bookings")
 public class BookingController {
-	@Autowired
-	private CreateBookingImpl createBookingUseCase;
+    @Autowired
+    private GetAllBookingImpl getAllBookingUseCase;
 
-	@Autowired
-	private UpdateBookingImpl updateBookingUseCase;
+    @Autowired
+    private GetBookingImpl getBookingUseCase;
 
-	@Autowired
-	private DeleteBookingImpl deleteBookingUseCase;
+    @Autowired
+    private BookingService bookingService;
 
-	@Autowired
-	private GetAllBookingImpl getAllBookingUseCase;
+    @GetMapping()
+    public List<BookingDTO> getAllBooking() {
+        return getAllBookingUseCase.getAllBooking();
+    }
 
-	@Autowired
-	private GetBookingImpl getBookingUseCase;
-
-	@GetMapping()
-	public List<BookingDTO> getAllBooking(){
-		return getAllBookingUseCase.getAllBooking();
-	}
-
-	@GetMapping ("/{id}")
-	public Optional<BookingDTO> getBookingById (@PathVariable Long id){
-		return getBookingUseCase.getBookingById(id);
-	}
+    @GetMapping("/{id}")
+    public Optional<BookingDTO> getBookingById(@PathVariable Long id) {
+        return getBookingUseCase.getBookingById(id);
+    }
 
 	@PostMapping
 	public BookingDTO createBooking (@RequestBody BookingDTO dto) {
