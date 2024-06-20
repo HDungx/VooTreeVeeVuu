@@ -6,13 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface BookingRepository extends JpaRepository<Booking,Long> {
-
-//    List<Booking> findAll ();
-//
-//    Optional<Booking> findById (Long id);
-//
-//    Booking save (Booking booking) ;
-//
-//    void deleteById (Long id);
+public interface BookingRepository extends JpaRepository<Booking, Long> {
+    @Query("SELECT o FROM Booking o WHERE o.user.id = ?1 AND o.status LIKE 'PAID'")
+    List<Booking> findBookingHistoryByUser(Long userId);
 }

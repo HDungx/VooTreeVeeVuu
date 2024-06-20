@@ -33,19 +33,9 @@ public class BookingController {
         return getBookingUseCase.getBookingById(id);
     }
 
-	@PostMapping
-	public BookingDTO createBooking (@RequestBody BookingDTO dto) {
-		return createBookingUseCase.createBookings(dto);
-	}
-
-	@PutMapping ("/update/{id}")
-	public Optional<BookingDTO> updateBooking (@RequestBody BookingDTO dto, @PathVariable Long id) {
-		return updateBookingUseCase.updateBookingDTO(id,dto);
-	}
-
-	@DeleteMapping ("/delete/{id}")
-	public void deleteBooking (@PathVariable Long id) {
-		deleteBookingUseCase.deleteBooking(id);
-	}
+    @GetMapping("/{userId}/booking-history")
+    public List<BookingDTO> getUserBookingHistory(@PathVariable Long userId) {
+        return bookingService.getUserBookingHistory(userId);
+    }
 
 }
