@@ -101,10 +101,46 @@ public class HotelService {
 		hotelRepository.delete(existed);
 	}
 
-	public List<GetAllHotelDTO> searchHotels (String searchTerm, Integer capacity, LocalDate checkIn,
-	                                          LocalDate checkOut, Integer quantity) {
-		List<Hotel> results = hotelRepository.searchHotels(searchTerm, capacity, checkIn, checkOut, quantity);
-		return results.stream().map(this :: toDTO).collect(Collectors.toList());
+	public List<GetAllHotelDTO> searchHotels (String hotelName, String city, LocalDate checkinDate,
+	                                          LocalDate checkoutDate, int rooms, int capacity) {
+		List<Hotel> hotels;
+
+		// Tìm kiếm theo tên khách sạn hoặc thành phố
+		if (hotelName != null && !hotelName.isEmpty())
+		{
+			hotels = hotelRepository.findByHotelName(hotelName);
+		} else if (city != null && !city.isEmpty())
+		{
+			hotels = hotelRepository.findByCity(city);
+		} else
+		{
+			throw new IllegalArgumentException("Either hotelName or city must be provided.");
+		}
+
+		// Lọc các khách sạn dựa trên số lượng phòng trống, sức chứa và ngày, sau đó chuyển đổi thành DTO
+		return hotels.stream().map(hotel -> {
+					hotel.setRooms(filterRooms(hotel.getRooms(), checkinDate, checkoutDate, rooms, capacity));
+					return hotel;
+				}).filter(hotel -> !hotel.getRooms().isEmpty()) // Chỉ giữ khách sạn có phòng thỏa mãn điều kiện
+				.map(this :: toDTO).collect(Collectors.toList());
+	}
+
+	private List<Room> filterRooms (List<Room> rooms, LocalDate checkinDate, LocalDate checkoutDate, int requiredRooms,
+	                                int capacity) {
+		return rooms.stream().filter(room -> room.getCapacity() >= capacity).filter(
+				room -> getAvailableRooms(room, checkinDate, checkoutDate) >= requiredRooms).collect(
+				Collectors.toList());
+	}
+
+	private int getAvailableRooms (Room room, LocalDate checkinDate, LocalDate checkoutDate) {
+		long bookedRooms = room.getListBooking().stream().filter(
+				booking -> booking.getCheckInDate().isBefore(checkoutDate) && booking.getCheckOutDate().isAfter(
+						checkinDate)).count();
+		return room.getQuantity() - (int) bookedRooms;
+	}
+
+	public boolean validateDates (LocalDate checkinDate, LocalDate checkoutDate) {
+		return checkinDate.isBefore(checkoutDate);
 	}
 
 	private GetAllHotelDTO toDTO (Hotel hotel) {
