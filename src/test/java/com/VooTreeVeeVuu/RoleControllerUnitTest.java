@@ -3,7 +3,7 @@ package com.VooTreeVeeVuu;
 import com.VooTreeVeeVuu.controller.RoleController;
 import com.VooTreeVeeVuu.dto.RoleDTO;
 import com.VooTreeVeeVuu.domain.utils.RoleName;
-import com.VooTreeVeeVuu.usecase.RoleUseCases.GetAllRole.GetAllRoleUseCase;
+import com.VooTreeVeeVuu.usecase.RoleUseCases.GetAllRole.GetAllRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -27,7 +27,7 @@ public class RoleControllerUnitTest {
 	private RoleController roleController;
 
 	@Mock
-	private GetAllRoleUseCase getAllRoleUseCase;
+	private GetAllRole getAllRoleUseCase;
 
 	@BeforeEach
 	public void setUp () {

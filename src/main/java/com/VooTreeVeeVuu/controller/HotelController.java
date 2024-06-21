@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.controller;
 
+import com.VooTreeVeeVuu.domain.repository.HotelRepository;
 import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.dto.HotelDTO;
 import com.VooTreeVeeVuu.dto.HotelImageDTO;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +41,8 @@ public class HotelController {
 
 	@Autowired
 	private HotelService hotelService;
+	@Autowired
+	private HotelRepository hotelRepository;
 
 	@GetMapping ()
 	public List<GetAllHotelDTO> getAllHotel () {
@@ -77,5 +81,21 @@ public class HotelController {
 	public ResponseEntity<HotelDTO> addImage (@PathVariable Long id, @RequestBody List<HotelImageDTO> imageDTO) {
 		Optional<HotelDTO> updated = imagesUploadUseCase.uploadImg(id, imageDTO);
 		return updated.map(ResponseEntity :: ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	}
+
+	@GetMapping ("/search")
+	public ResponseEntity<List<GetAllHotelDTO>> searchHotels (
+			@RequestParam (value = "searchTerm", required = true) String searchTerm,
+			@RequestParam (value = "capacity") Integer capacity, @RequestParam (value = "checkIn") LocalDate checkIn,
+			@RequestParam (value = "checkOut") LocalDate checkOut,
+			@RequestParam (value = "quantity") Integer quantity) {
+		try
+		{
+			List<GetAllHotelDTO> hotels = hotelService.searchHotels(searchTerm, capacity, checkIn, checkOut, quantity);
+			return new ResponseEntity<>(hotels, HttpStatus.OK);
+		} catch (Exception e)
+		{
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }

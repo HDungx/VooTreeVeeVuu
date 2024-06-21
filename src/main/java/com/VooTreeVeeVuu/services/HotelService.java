@@ -1,17 +1,16 @@
 package com.VooTreeVeeVuu.services;
 
-import com.VooTreeVeeVuu.dto.HotelDTO;
-import com.VooTreeVeeVuu.dto.HotelFacilityDTO;
-import com.VooTreeVeeVuu.dto.RoomDTO;
-import com.VooTreeVeeVuu.dto.RoomFacilityDTO;
+import com.VooTreeVeeVuu.dto.*;
 import com.VooTreeVeeVuu.domain.entity.*;
 import com.VooTreeVeeVuu.domain.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class HotelService {
@@ -100,6 +99,33 @@ public class HotelService {
 		hotelFacilityRepository.deleteAll(existed.getHotelFacilities());
 
 		hotelRepository.delete(existed);
+	}
+
+	public List<GetAllHotelDTO> searchHotels (String searchTerm, Integer capacity, LocalDate checkIn,
+	                                          LocalDate checkOut, Integer quantity) {
+		List<Hotel> results = hotelRepository.searchHotels(searchTerm, capacity, checkIn, checkOut, quantity);
+		return results.stream().map(this :: toDTO).collect(Collectors.toList());
+	}
+
+	private GetAllHotelDTO toDTO (Hotel hotel) {
+		GetAllHotelDTO hotelDTO = new GetAllHotelDTO();
+		hotelDTO.setId(hotel.getId());
+		hotelDTO.setAddress(hotel.getAddress());
+		hotelDTO.setHotelName(hotel.getHotelName());
+		hotelDTO.setCity(hotel.getCity());
+		hotelDTO.setHotelPhoneNum(hotel.getHotelPhoneNum());
+		hotelDTO.setHotelStars(hotel.getHotelStars());
+		hotelDTO.setHotelDescription(hotel.getHotelDescription());
+		hotelDTO.setCheckInTime(hotel.getCheckInTime());
+		hotelDTO.setCheckOutTime(hotel.getCheckOutTime());
+		hotelDTO.setStatus(hotel.getStatus());
+		hotelDTO.setAccommodationType(hotel.getAccommodationType());
+		hotelDTO.setHotelFacilities(hotel.getHotelFacilities());
+		hotelDTO.setUser(hotel.getUser());
+		hotelDTO.setHotelImages(hotel.getHotelImages());
+		hotelDTO.setRooms(hotel.getRooms());
+		hotel.setListRating(hotel.getListRating());
+		return hotelDTO;
 	}
 
 	private void updateHotelFacilities (Hotel hotel, List<HotelFacilityDTO> facilityDTOs) {
