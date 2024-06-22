@@ -5,5 +5,5 @@ import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import java.util.Optional;
 
 public interface GetHotel {
-	Optional<GetAllHotelDTO> getHotelById(Long id);
+	GetAllHotelDTO getHotelById(Long id);
 }

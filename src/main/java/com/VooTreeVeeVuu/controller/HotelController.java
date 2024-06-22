@@ -1,6 +1,5 @@
 package com.VooTreeVeeVuu.controller;
 
-import com.VooTreeVeeVuu.domain.entity.Hotel;
 import com.VooTreeVeeVuu.domain.repository.HotelRepository;
 import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.dto.HotelDTO;
@@ -52,8 +51,16 @@ public class HotelController {
 	}
 
 	@GetMapping ("/{id}")
-	public Optional<GetAllHotelDTO> getHotelById (@PathVariable Long id) {
-		return getHotelUseCase.getHotelById(id);
+	public ResponseEntity<GetAllHotelDTO> getHotelById (@PathVariable Long id,
+	                                                    @RequestParam @DateTimeFormat (iso = DateTimeFormat.ISO.DATE) LocalDate checkinDate,
+	                                                    @RequestParam @DateTimeFormat (iso = DateTimeFormat.ISO.DATE) LocalDate checkoutDate,
+	                                                    @RequestParam int rooms, @RequestParam int capacity) {
+		if (!hotelService.validateDates(checkinDate, checkoutDate))
+		{
+			return ResponseEntity.badRequest().body(null);
+		}
+		GetAllHotelDTO hotel = hotelService.getHotelByIdWithCriteria(id, checkinDate, checkoutDate, rooms, capacity);
+		return ResponseEntity.ok(hotel);
 	}
 
 	@PostMapping
@@ -85,21 +92,6 @@ public class HotelController {
 		return updated.map(ResponseEntity :: ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 
-	//	@GetMapping ("/search")
-//	public ResponseEntity<List<GetAllHotelDTO>> searchHotels (
-//			@RequestParam (value = "searchTerm", required = true) String searchTerm,
-//			@RequestParam (value = "capacity") Integer capacity, @RequestParam (value = "checkIn") LocalDate checkIn,
-//			@RequestParam (value = "checkOut") LocalDate checkOut,
-//			@RequestParam (value = "quantity") Integer quantity) {
-//		try
-//		{
-//			List<GetAllHotelDTO> hotels = hotelService.searchHotels(searchTerm, capacity, checkIn, checkOut, quantity);
-//			return new ResponseEntity<>(hotels, HttpStatus.OK);
-//		} catch (Exception e)
-//		{
-//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
 	@GetMapping ("/search")
 	public ResponseEntity<List<GetAllHotelDTO>> searchHotels (@RequestParam (required = false) String hotelName,
 	                                                          @RequestParam (required = false) String city,
