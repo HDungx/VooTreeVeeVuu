@@ -18,7 +18,7 @@ public class RoomDTO {
     private String description;
     private Long roomTypeId;
     private boolean serveBreakfast;
-    private Long hotelId;
+    //   private Long hotelId;
     private List<RoomFacilityDTO> roomFacilities;
     //private List<Booking> listBooking;
     //private List<RoomImage> room_images;

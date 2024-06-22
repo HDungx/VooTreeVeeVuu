@@ -6,16 +6,15 @@ import com.VooTreeVeeVuu.dto.GetAllRoomDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
-public class GetRoomImpl implements GetRoom{
+public class GetRoomImpl implements GetRoom {
     @Autowired
     private RoomRepository roomRepository;
 
-    public Optional<GetAllRoomDTO> getRoomById(Long id){
-        return roomRepository.findById(id).map(this :: toDTO);
+    public GetAllRoomDTO getRoomById(Long id) {
+        return roomRepository.findById(id).map(this::toDTO).orElseThrow(() -> new RuntimeException("Room not found"));
     }
+
     private GetAllRoomDTO toDTO(Room room) {
         GetAllRoomDTO dto = new GetAllRoomDTO();
         dto.setId(room.getId());

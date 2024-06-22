@@ -10,31 +10,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin ("*")
+@CrossOrigin("*")
 @RestController
-@RequestMapping ("/api/users")
+@RequestMapping("/api/users")
 public class UserController {
-	@Autowired
-	private GetAllUserImpl getAllUserUseCase;
+    @Autowired
+    private GetAllUserImpl getAllUserUseCase;
 
-	@Autowired
-	private GetUserImpl getUserUseCase;
+    @Autowired
+    private GetUserImpl getUserUseCase;
 
-	@Autowired
-	private UpdateUserImpl updateUserUseCase;
+    @Autowired
+    private UpdateUserImpl updateUserUseCase;
 
-	@GetMapping ()
-	public List<UserDTO> getAllUsers () {
-		return getAllUserUseCase.getAllUsers();
-	}
+    @GetMapping()
+    public List<UserDTO> getAllUsers() {
+        return getAllUserUseCase.getAllUsers();
+    }
 
-	@GetMapping ("/{id}")
-	public Optional<UserDTO> getUserById (@PathVariable Long id) {
-		return getUserUseCase.getUserById(id);
-	}
+    @GetMapping("/{id}")
+    public UserDTO getUserById(@PathVariable Long id) {
+        return getUserUseCase.getUserById(id);
+    }
 
-	@PutMapping ("/update/{id}")
-	public Optional<UserDTO> updateUser (@PathVariable Long id, @RequestBody UserDTO userDTO) {
-		return updateUserUseCase.updateUser(id, userDTO);
-	}
+    @PutMapping("/update/{id}")
+    public Optional<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
+        return updateUserUseCase.updateUser(id, userDTO);
+    }
 }

@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InsertBookingDTO {
-    private LocalDate booking_date;
     private LocalDate check_in_date;
     private LocalDate check_out_date;
     private int num_of_guest;
