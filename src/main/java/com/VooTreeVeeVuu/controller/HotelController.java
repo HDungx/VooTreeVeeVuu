@@ -21,111 +21,111 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin ("*")
+@CrossOrigin("*")
 @RestController
-@RequestMapping ("/api/hotels")
+@RequestMapping("/api/hotels")
 public class HotelController {
-	@Autowired
-	private GetAllHotelImpl getAllHotelUseCase;
+    @Autowired
+    private GetAllHotelImpl getAllHotelUseCase;
 
-	@Autowired
-	private GetHotelImpl getHotelUseCase;
+    @Autowired
+    private GetHotelImpl getHotelUseCase;
 
-	@Autowired
-	private DeleteHotelImpl deleteHotelUseCase;
+    @Autowired
+    private DeleteHotelImpl deleteHotelUseCase;
 
-	@Autowired
-	private UpdateStatusHotelImpl updateStatusHotelUseCase;
+    @Autowired
+    private UpdateStatusHotelImpl updateStatusHotelUseCase;
 
-	@Autowired
-	private ImagesUploadImpl imagesUploadUseCase;
+    @Autowired
+    private ImagesUploadImpl imagesUploadUseCase;
 
-	@Autowired
-	private HotelService hotelService;
-	@Autowired
-	private HotelRepository hotelRepository;
+    @Autowired
+    private HotelService hotelService;
+    @Autowired
+    private HotelRepository hotelRepository;
 
-	@GetMapping ()
-	public List<GetAllHotelDTO> getAllHotel () {
-		return getAllHotelUseCase.getAllHotel();
-	}
+    @GetMapping()
+    public List<GetAllHotelDTO> getAllHotel() {
+        return getAllHotelUseCase.getAllHotel();
+    }
 
-	@GetMapping ("/{id}")
-	public ResponseEntity<GetAllHotelDTO> getHotelById (@PathVariable Long id,
-	                                                    @RequestParam @DateTimeFormat (iso = DateTimeFormat.ISO.DATE) LocalDate checkinDate,
-	                                                    @RequestParam @DateTimeFormat (iso = DateTimeFormat.ISO.DATE) LocalDate checkoutDate,
-	                                                    @RequestParam int rooms, @RequestParam int capacity) {
-		if (!hotelService.validateDates(checkinDate, checkoutDate))
-		{
-			return ResponseEntity.badRequest().body(null);
-		}
-		GetAllHotelDTO hotel = hotelService.getHotelByIdWithCriteria(id, checkinDate, checkoutDate, rooms, capacity);
-		return ResponseEntity.ok(hotel);
-	}
+    @GetMapping("/{id}")
+    public ResponseEntity<GetAllHotelDTO> getHotelById(@PathVariable Long id,
+                                                       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkinDate,
+                                                       @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkoutDate,
+                                                       @RequestParam int rooms, @RequestParam int capacity) {
+        if (!hotelService.validateDates(checkinDate, checkoutDate)) {
+            return ResponseEntity.badRequest().body(null);
+        }
+        GetAllHotelDTO hotel = hotelService.getHotelByIdWithCriteria(id, checkinDate, checkoutDate, rooms, capacity);
+        return ResponseEntity.ok(hotel);
+    }
 
-	@PostMapping
-	public ResponseEntity<HotelDTO> createHotel (@RequestBody @Valid HotelDTO hotelDTO) {
-		HotelDTO createdHotel = hotelService.createHotel(hotelDTO);
-		return new ResponseEntity<>(createdHotel, HttpStatus.CREATED);
-	}
+    @GetMapping("/partner/getAllHotel/{userId}")
+    public ResponseEntity<List<GetAllHotelDTO>> getAllHotelByUser(@PathVariable("userId") Long userId) {
+        List<GetAllHotelDTO> list = hotelService.getAllHotelByUser(userId);
+        return ResponseEntity.ok(list);
+    }
 
-	@PutMapping ("/partner/update/{id}")
-	public ResponseEntity<HotelDTO> updatePartnerHotel (@PathVariable Long id, @RequestBody @Valid HotelDTO hotelDTO) {
-		HotelDTO updatedHotel = hotelService.updateHotel(id, hotelDTO);
-		return new ResponseEntity<>(updatedHotel, HttpStatus.OK);
-	}
+    @PostMapping
+    public ResponseEntity<HotelDTO> createHotel(@RequestBody @Valid HotelDTO hotelDTO) {
+        HotelDTO createdHotel = hotelService.createHotel(hotelDTO);
+        return new ResponseEntity<>(createdHotel, HttpStatus.CREATED);
+    }
 
-	@PutMapping ("/staff/update/{id}")
-	public Optional<GetAllHotelDTO> updateHotel (@RequestBody GetAllHotelDTO dto, @PathVariable Long id) {
-		return updateStatusHotelUseCase.updateStatusHotel(id, dto);
-	}
+    @PutMapping("/partner/update/{id}")
+    public ResponseEntity<HotelDTO> updatePartnerHotel(@PathVariable Long id, @RequestBody @Valid HotelDTO hotelDTO) {
+        HotelDTO updatedHotel = hotelService.updateHotel(id, hotelDTO);
+        return new ResponseEntity<>(updatedHotel, HttpStatus.OK);
+    }
 
-	@DeleteMapping ("/{id}")
-	public ResponseEntity<Void> deleteHotel (@PathVariable Long id) {
-		hotelService.deleteHotel(id);
-		return ResponseEntity.noContent().build();
-	}
+    @PutMapping("/staff/update/{id}")
+    public Optional<GetAllHotelDTO> updateHotel(@RequestBody GetAllHotelDTO dto, @PathVariable Long id) {
+        return updateStatusHotelUseCase.updateStatusHotel(id, dto);
+    }
 
-	@PostMapping ("/{id}/images")
-	public ResponseEntity<HotelDTO> addImage (@PathVariable Long id, @RequestBody List<HotelImageDTO> imageDTO) {
-		Optional<HotelDTO> updated = imagesUploadUseCase.uploadImg(id, imageDTO);
-		return updated.map(ResponseEntity :: ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-	}
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteHotel(@PathVariable Long id) {
+        hotelService.deleteHotel(id);
+        return ResponseEntity.noContent().build();
+    }
 
-	@GetMapping ("/search")
-	public ResponseEntity<List<GetAllHotelDTO>> searchHotels (@RequestParam (required = false) String hotelName,
-	                                                          @RequestParam (required = false) String city,
-	                                                          @RequestParam @DateTimeFormat (iso = DateTimeFormat.ISO.DATE) LocalDate checkinDate,
-	                                                          @RequestParam @DateTimeFormat (iso = DateTimeFormat.ISO.DATE) LocalDate checkoutDate,
-	                                                          @RequestParam int rooms, @RequestParam int capacity) {
+    @PostMapping("/{id}/images")
+    public ResponseEntity<HotelDTO> addImage(@PathVariable Long id, @RequestBody List<HotelImageDTO> imageDTO) {
+        Optional<HotelDTO> updated = imagesUploadUseCase.uploadImg(id, imageDTO);
+        return updated.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
 
-		// Kiểm tra tính hợp lệ của ngày
-		if (!hotelService.validateDates(checkinDate, checkoutDate))
-		{
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-		}
+    @GetMapping("/search")
+    public ResponseEntity<List<GetAllHotelDTO>> searchHotels(@RequestParam(required = false) String hotelName,
+                                                             @RequestParam(required = false) String city,
+                                                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkinDate,
+                                                             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate checkoutDate,
+                                                             @RequestParam int rooms, @RequestParam int capacity) {
 
-		// Kiểm tra xem ít nhất một trong hai tham số hotelName hoặc city phải có giá trị
-		if ((hotelName == null || hotelName.isEmpty()) && (city == null || city.isEmpty()))
-		{
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-		}
+        // Kiểm tra tính hợp lệ của ngày
+        if (!hotelService.validateDates(checkinDate, checkoutDate)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
 
-		// Tìm kiếm các khách sạn
-		List<GetAllHotelDTO> hotels;
-		try
-		{
-			hotels = hotelService.searchHotels(hotelName, city, checkinDate, checkoutDate, rooms, capacity);
-		} catch (IllegalArgumentException e)
-		{
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-		}
+        // Kiểm tra xem ít nhất một trong hai tham số hotelName hoặc city phải có giá trị
+        if ((hotelName == null || hotelName.isEmpty()) && (city == null || city.isEmpty())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
 
-		if (hotels.isEmpty())
-		{
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
+        // Tìm kiếm các khách sạn
+        List<GetAllHotelDTO> hotels;
+        try {
+            hotels = hotelService.searchHotels(hotelName, city, checkinDate, checkoutDate, rooms, capacity);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
 
-		return ResponseEntity.ok(hotels);
-	}
+        if (hotels.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        return ResponseEntity.ok(hotels);
+    }
 }
