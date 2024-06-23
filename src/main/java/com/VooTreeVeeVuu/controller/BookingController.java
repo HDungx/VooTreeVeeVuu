@@ -1,10 +1,13 @@
 package com.VooTreeVeeVuu.controller;
 
 import com.VooTreeVeeVuu.dto.BookingDTO;
+import com.VooTreeVeeVuu.dto.InsertBookingDTO;
 import com.VooTreeVeeVuu.services.BookingService;
 import com.VooTreeVeeVuu.usecase.BookingUsecase.GetAllBooking.GetAllBookingImpl;
 import com.VooTreeVeeVuu.usecase.BookingUsecase.GetBooking.GetBookingImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +39,12 @@ public class BookingController {
     @GetMapping("/{userId}/booking-history")
     public List<BookingDTO> getUserBookingHistory(@PathVariable Long userId) {
         return bookingService.getUserBookingHistory(userId);
+    }
+
+    @PostMapping
+    public ResponseEntity<InsertBookingDTO> createBooking(@RequestBody InsertBookingDTO insertBookingDTO) {
+        InsertBookingDTO create = bookingService.createBooking(insertBookingDTO);
+        return new ResponseEntity<>(create, HttpStatus.CREATED);
     }
 
 }

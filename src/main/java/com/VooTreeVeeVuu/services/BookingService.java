@@ -27,22 +27,10 @@ public class BookingService {
     @Autowired
     private RoomRepository roomRepository;
 
-    public Booking createBooking(InsertBookingDTO bookingDTO) {
+    public InsertBookingDTO createBooking(InsertBookingDTO bookingDTO) {
         User customer = userRepository.findById(bookingDTO.getUserId()).orElseThrow(() -> new RuntimeException("Customer not found"));
 
         Room room = roomRepository.findById(bookingDTO.getUserId()).orElseThrow(() -> new RuntimeException("Room not found"));
-
-//        boolean isAvailable = true;
-//        List<Booking> list = bookingRepository.findAll();
-//
-//        for (Booking booking : list) {
-//            if (booking.getRoom().getId().equals(bookingDTO.getRoomId()) && booking.getRoom().getQuantity() > 0) {
-//
-//            }
-//        }
-//        if (!isAvailable) {
-//            throw new RuntimeException("Room is not available at given dates");
-//      }
 
         Booking booking = new Booking();
         booking.setUser(customer);
@@ -55,7 +43,8 @@ public class BookingService {
         booking.setNumOfRoom(bookingDTO.getNum_of_rooms());
         booking.setTotalPrice(bookingDTO.getTotal_price());
 
-        return bookingRepository.save(booking);
+        Booking saved = bookingRepository.save(booking);
+        return mapToDTO(saved);
     }
 
     public List<BookingDTO> getUserBookingHistory(Long userId) {
@@ -75,6 +64,20 @@ public class BookingService {
         dto.setStatus(booking.getStatus());
         dto.setNumOfRoom(booking.getNumOfRoom());
         dto.setNumOfGuest(booking.getNumOfGuest());
+        dto.setBookingDate(booking.getBookingDate());
+        return dto;
+    }
+
+    private InsertBookingDTO mapToDTO(Booking booking) {
+        InsertBookingDTO dto = new InsertBookingDTO();
+        dto.setCheck_in_date(booking.getCheckInDate());
+        dto.setCheck_out_date(booking.getCheckOutDate());
+        dto.setTotal_price(booking.getTotalPrice());
+        dto.setUserId(booking.getUser().getId());
+        dto.setRoomId(booking.getRoom().getId());
+        dto.setStatus(booking.getStatus());
+        dto.setNum_of_rooms(booking.getNumOfRoom());
+        dto.setNum_of_guest(booking.getNumOfGuest());
         dto.setBookingDate(booking.getBookingDate());
         return dto;
     }

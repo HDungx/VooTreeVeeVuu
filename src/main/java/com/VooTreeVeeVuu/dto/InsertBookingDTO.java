@@ -13,6 +13,7 @@ import java.time.LocalDate;
 public class InsertBookingDTO {
     private LocalDate check_in_date;
     private LocalDate check_out_date;
+    private LocalDate bookingDate;
     private int num_of_guest;
     private int num_of_rooms;
     private Booking_status status;

@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -13,13 +12,15 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class SignUpDTO {
-	private String username;
-	private String password;
-	private String email;
-	private String phone;
-	private LocalDate dob;
-	private Set<String> roles;
+    private String username;
+    private String password;
+    private String email;
+    private String phone;
+    //private LocalDate dob;
+    private String firstName;
+    private String lastName;
+    private Set<String> roles;
 
-	private boolean status = true;
+    private boolean status = true;
 
 }

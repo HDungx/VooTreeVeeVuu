@@ -24,6 +24,7 @@ public class GetAllBookingImpl implements GetAllBooking {
         dto.setCheckInDate(booking.getCheckInDate());
         dto.setCheckOutDate(booking.getCheckOutDate());
         dto.setTotalPrice(booking.getTotalPrice());
+        dto.setHotelOwnerId(booking.getRoom().getHotel().getUser().getId());
         dto.setUserName(booking.getUser().getAccount().getUsername());
         dto.setHotelName(booking.getRoom().getHotel().getHotelName());
         dto.setRoomType(booking.getRoom().getRoomType().getTypeName());
