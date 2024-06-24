@@ -42,7 +42,7 @@ public class BookingService {
         booking.setNumOfGuest(bookingDTO.getNum_of_guest());
         booking.setNumOfRoom(bookingDTO.getNum_of_rooms());
         booking.setTotalPrice(bookingDTO.getTotal_price());
-
+        
         Booking saved = bookingRepository.save(booking);
         return mapToDTO(saved);
     }
@@ -70,6 +70,7 @@ public class BookingService {
 
     private InsertBookingDTO mapToDTO(Booking booking) {
         InsertBookingDTO dto = new InsertBookingDTO();
+        dto.setId(booking.getId());
         dto.setCheck_in_date(booking.getCheckInDate());
         dto.setCheck_out_date(booking.getCheckOutDate());
         dto.setTotal_price(booking.getTotalPrice());

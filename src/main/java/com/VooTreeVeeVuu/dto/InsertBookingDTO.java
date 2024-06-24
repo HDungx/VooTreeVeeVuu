@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class InsertBookingDTO {
+    private Long id;
     private LocalDate check_in_date;
     private LocalDate check_out_date;
     private LocalDate bookingDate;

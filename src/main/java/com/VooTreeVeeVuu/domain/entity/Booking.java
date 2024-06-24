@@ -1,6 +1,7 @@
 package com.VooTreeVeeVuu.domain.entity;
 
 import com.VooTreeVeeVuu.domain.utils.Booking_status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -11,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -62,7 +64,11 @@ public class Booking {
     private Integer numOfRoom;
 
     @NotNull
-    @Min(2)
+    @Min(1)
     private Integer numOfGuest;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    private Set<Payment> payments;
 
 }

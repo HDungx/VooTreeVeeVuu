@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -17,25 +18,29 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "Users")
 public class User {
-	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column(name = "firstName", columnDefinition = "nvarchar(50)")
-	private String firstName;
-	@Column(name = "lastName", columnDefinition = "nvarchar(200)")
-	private String lastName;
-	@Enumerated (EnumType.STRING)
-	Gender gender;
-	@Temporal (TemporalType.DATE)
-	private LocalDate dob;
-	@JsonIgnore
-	@Setter
-	@OneToOne @JoinColumn(name = "account_id", referencedColumnName = "id")
-	private Account account;
+    @Column(name = "firstName", columnDefinition = "nvarchar(50)")
+    private String firstName;
+    @Column(name = "lastName", columnDefinition = "nvarchar(200)")
+    private String lastName;
+    @Enumerated(EnumType.STRING)
+    Gender gender;
+    @Temporal(TemporalType.DATE)
+    private LocalDate dob;
+    @JsonIgnore
+    @Setter
+    @OneToOne
+    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    private Account account;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Payment> payments;
 
-	public User (Long userId) {
-		this.id = userId;
-	}
+    public User(Long userId) {
+        this.id = userId;
+    }
 }
