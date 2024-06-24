@@ -40,4 +40,11 @@ public class Facility {
     public Facility(Long id) {
         this.facId = id;
     }
+
+    public Facility(Long facId, Fac_Type facType, String facName, String facIcon) {
+        this.facId = facId;
+        this.facType = facType;
+        this.facName = facName;
+        this.facIcon = facIcon;
+    }
 }

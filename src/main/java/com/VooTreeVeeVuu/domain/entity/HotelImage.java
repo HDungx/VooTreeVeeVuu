@@ -24,4 +24,10 @@ public class HotelImage {
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
 	Hotel hotel;
+
+
+	public HotelImage(Long id, String path) {
+		this.id = id;
+		this.path = path;
+	}
 }

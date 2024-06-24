@@ -30,4 +30,9 @@ public class RoomType {
 	public RoomType (Long roomTypeId) {
 	    this.id = roomTypeId;
 	}
+
+    public RoomType(Long id, String typeName) {
+        this.id = id;
+        this.typeName = typeName;
+    }
 }
