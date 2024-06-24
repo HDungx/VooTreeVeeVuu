@@ -31,4 +31,9 @@ public class AccommodationType {
 	public AccommodationType (Long accommodationTypeId) {
 	    this.id = accommodationTypeId;
 	}
+
+    public AccommodationType(Long id, String typeName) {
+        this.id = id;
+        this.typeName = typeName;
+    }
 }

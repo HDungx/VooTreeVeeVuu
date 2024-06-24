@@ -9,6 +9,8 @@ import com.VooTreeVeeVuu.usecase.RoleUseCases.GetAllRole.GetAllRoleImpl;
 import com.VooTreeVeeVuu.usecase.RoleUseCases.GetRole.GetRoleImpl;
 import com.VooTreeVeeVuu.usecase.RoleUseCases.UpdateRole.UpdateRoleImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -65,6 +67,11 @@ public class RoleController {
 	@DeleteMapping ("/{id}")
 	public void deleteRole (@PathVariable Long id) {
 		deleteRoleUseCase.deleteRole(id);
+	}
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+		return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 
 }

@@ -28,4 +28,9 @@ public class RoomFacility {
 	@ManyToOne
 	@JoinColumn (name = "facId")
 	Facility facility;
+
+	public RoomFacility(Long id, Facility facility) {
+		this.id = id;
+		this.facility = facility;
+	}
 }

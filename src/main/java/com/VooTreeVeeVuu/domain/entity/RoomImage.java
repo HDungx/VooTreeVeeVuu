@@ -24,4 +24,9 @@ public class RoomImage {
 	@ManyToOne
 	@JoinColumn (name = "roomId")
 	Room room;
+
+	public RoomImage(Long id, String path) {
+		this.id = id;
+		this.path = path;
+	}
 }

@@ -14,4 +14,9 @@ public class RoomTypeDTO {
 	private Long id;
 	private String typeName;
 	private List<Room> rooms;
+
+	public RoomTypeDTO(Long id, String typeName) {
+		this.id = id;
+		this.typeName = typeName;
+	}
 }
