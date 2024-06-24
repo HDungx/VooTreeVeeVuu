@@ -83,7 +83,7 @@ public class HotelService {
         Hotel updatedHotel = hotelRepository.save(existingHotel);
 
         updateHotelFacilities(updatedHotel, hotelDTO.getHotelFacilities());
-        updateRooms(updatedHotel, hotelDTO.getRooms());
+        // updateRooms(updatedHotel, hotelDTO.getRooms());
 
         return mapToHotelDTO(updatedHotel);
     }
@@ -274,5 +274,6 @@ public class HotelService {
         hotel.setCheckOutTime(hotelDTO.getCheckOutTime());
         hotel.setAccommodationType(new AccommodationType(hotelDTO.getAccommodationTypeId()));
         hotel.setUser(new User(hotelDTO.getUserId()));
+        hotel.setStatus(hotelDTO.getStatus());
     }
 }

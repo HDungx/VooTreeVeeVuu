@@ -1,20 +1,20 @@
 package com.VooTreeVeeVuu.usecase.BookingUsecase.GetBooking;
 
-import com.VooTreeVeeVuu.dto.BookingDTO;
 import com.VooTreeVeeVuu.domain.entity.Booking;
 import com.VooTreeVeeVuu.domain.repository.BookingRepository;
+import com.VooTreeVeeVuu.dto.BookingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class GetBookingImpl implements GetBooking{
+public class GetBookingImpl implements GetBooking {
     @Autowired
     private BookingRepository bookingRepository;
 
-    public Optional<BookingDTO> getBookingById(Long id){
-        return bookingRepository.findById(id).map(this :: toDTO);
+    public Optional<BookingDTO> getBookingById(Long id) {
+        return bookingRepository.findById(id).map(this::toDTO);
     }
 
     private BookingDTO toDTO(Booking booking) {
@@ -27,6 +27,7 @@ public class GetBookingImpl implements GetBooking{
         dto.setStatus(booking.getStatus());
         dto.setNumOfRoom(booking.getNumOfRoom());
         dto.setNumOfGuest(booking.getNumOfGuest());
+        dto.setCity(booking.getRoom().getHotel().getCity());
         return dto;
     }
 }
