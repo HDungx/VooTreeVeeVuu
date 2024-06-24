@@ -18,13 +18,13 @@ public class RoomFacility {
 	private Long id;
 
 	@JsonIgnore
-	@NotBlank
+	//@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "roomId")
 	Room room;
 
 	//@JsonIgnored
-	@NotBlank
+	//@NotBlank
 	@ManyToOne
 	@JoinColumn (name = "facId")
 	Facility facility;

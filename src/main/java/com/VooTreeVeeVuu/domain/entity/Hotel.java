@@ -23,19 +23,19 @@ public class Hotel {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotBlank
+	//@NotBlank
 	@Column(columnDefinition = "nvarchar(255)", name = "address")
 	private String address;
 
-	@NotBlank
+	//@NotBlank
 	@Column(columnDefinition = "nvarchar(255)", name = "hotelName")
 	private String hotelName;
 
-	@NotBlank
+	//@NotBlank
 	@Column(columnDefinition = "nvarchar(50)", name = "city")
 	private String city;
 
-	@NotBlank
+	//@NotBlank
 	@Size(min = 3, max = 10)
 	@Column(name = "hotelPhoneNum")
 	private String hotelPhoneNum;
@@ -44,7 +44,7 @@ public class Hotel {
 	@Min(1) @Max(5)
 	private int hotelStars;
 
-	@NotBlank
+	//@NotBlank
 	@Column(columnDefinition = "nvarchar(255)", name = "description")
 	private String hotelDescription;
 

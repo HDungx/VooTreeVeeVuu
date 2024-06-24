@@ -1,32 +1,19 @@
 package com.VooTreeVeeVuu.services;
 
-import com.VooTreeVeeVuu.adapters.dto.PassChangeDTO;
-import com.VooTreeVeeVuu.adapters.repository.JpaRoleRepository;
+import com.VooTreeVeeVuu.domain.repository.RoleRepository;
+import com.VooTreeVeeVuu.dto.PassChangeDTO;
 import com.VooTreeVeeVuu.domain.entity.Account;
 import com.VooTreeVeeVuu.domain.entity.OTP;
-import com.VooTreeVeeVuu.domain.entity.Role;
 import com.VooTreeVeeVuu.domain.repository.AccountRepository;
 import com.VooTreeVeeVuu.domain.repository.OTPRepository;
-import com.VooTreeVeeVuu.domain.repository.RoleRepository;
-import com.VooTreeVeeVuu.domain.utils.RoleName;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class AccountService {
@@ -47,7 +34,7 @@ public class AccountService {
 	private EmailService emailService;
 
 	@Autowired
-	private JpaRoleRepository roleRepository;
+	private RoleRepository roleRepository;
 
 	private String generateOTP () {
 		return String.valueOf((int) (Math.random() * 900000) + 100000);
