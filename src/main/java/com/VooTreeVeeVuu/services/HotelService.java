@@ -231,30 +231,30 @@ public class HotelService {
         hotelDTO.setAccommodationTypeId(hotel.getAccommodationType().getId());
         hotelDTO.setUserId(hotel.getUser().getId());
 
-        hotelDTO.setRooms(hotel.getRooms().stream().map(r -> {
-            RoomDTO roomDTO = new RoomDTO();
-            roomDTO.setId(r.getId());
-            roomDTO.setCapacity(r.getCapacity());
-            roomDTO.setPrice(r.getPrice());
-            roomDTO.setQuantity(r.getQuantity());
-            roomDTO.setRoomSize(r.getRoomSize());
-            roomDTO.setDescription(r.getDescription());
-            roomDTO.setServeBreakfast(r.isServeBreakfast());
-            roomDTO.setRoomTypeId(r.getRoomType().getId());
+//        hotelDTO.setRooms(hotel.getRooms().stream().map(r -> {
+//            RoomDTO roomDTO = new RoomDTO();
+//            roomDTO.setId(r.getId());
+//            roomDTO.setCapacity(r.getCapacity());
+//            roomDTO.setPrice(r.getPrice());
+//            roomDTO.setQuantity(r.getQuantity());
+//            roomDTO.setRoomSize(r.getRoomSize());
+//            roomDTO.setDescription(r.getDescription());
+//            roomDTO.setServeBreakfast(r.isServeBreakfast());
+//            roomDTO.setRoomTypeId(r.getRoomType().getId());
+//
+//            roomDTO.setRoomFacilities(r.getRoomFacilities().stream().map(rf -> {
+//                RoomFacilityDTO roomFacilityDTO = new RoomFacilityDTO();
+//                roomFacilityDTO.setFacilityId(rf.getFacility().getFacId());
+//                return roomFacilityDTO;
+//            }).collect(Collectors.toList()));
+//            return roomDTO;
+//        }).collect(Collectors.toList()));
 
-            roomDTO.setRoomFacilities(r.getRoomFacilities().stream().map(rf -> {
-                RoomFacilityDTO roomFacilityDTO = new RoomFacilityDTO();
-                roomFacilityDTO.setFacilityId(rf.getFacility().getFacId());
-                return roomFacilityDTO;
-            }).collect(Collectors.toList()));
-            return roomDTO;
-        }).collect(Collectors.toList()));
-
-        hotelDTO.setHotelFacilities(hotel.getHotelFacilities().stream().map(hf -> {
-            HotelFacilityDTO facilityDTO = new HotelFacilityDTO();
-            facilityDTO.setFacilityId(hf.getFacility().getFacId());
-            return facilityDTO;
-        }).collect(Collectors.toList()));
+//        hotelDTO.setHotelFacilities(hotel.getHotelFacilities().stream().map(hf -> {
+//            HotelFacilityDTO facilityDTO = new HotelFacilityDTO();
+//            facilityDTO.setFacilityId(hf.getFacility().getFacId());
+//            return facilityDTO;
+//        }).collect(Collectors.toList()));
 
         return hotelDTO;
     }
