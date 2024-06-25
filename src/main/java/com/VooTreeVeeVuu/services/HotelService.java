@@ -89,7 +89,7 @@ public class HotelService {
 		Hotel updatedHotel = hotelRepository.save(existingHotel);
 
 		updateHotelFacilities(updatedHotel, hotelDTO.getHotelFacilities());
-		updateRooms(updatedHotel, hotelDTO.getRooms());
+		//updateRooms(updatedHotel, hotelDTO.getRooms());
 
 		return mapToHotelDTO(updatedHotel);
 	}
@@ -181,132 +181,22 @@ public class HotelService {
 		return hotelDTO;
 	}
 
-//    private void updateHotelFacilities(Hotel hotel, List<HotelFacilityDTO> facilityDTOs) {
-//        List<HotelFacility> existingFacilities = hotelFacilityRepository.findByHotel(hotel);
-//        hotelFacilityRepository.deleteAll(existingFacilities);
-//
-//        if (facilityDTOs != null) {
-//            for (HotelFacilityDTO facilityDTO : facilityDTOs) {
-//                Facility facility = facilityRepository.findById(facilityDTO.getFacilityId()).orElseThrow(
-//                        () -> new RuntimeException("Facility not found with id: " + facilityDTO.getFacilityId()));
-//                HotelFacility hotelFacility = new HotelFacility();
-//                hotelFacility.setHotel(hotel);
-//                hotelFacility.setFacility(facility);
-//                hotelFacilityRepository.save(hotelFacility);
-//            }
-//        }
-//    }
+	private void updateHotelFacilities (Hotel hotel, List<HotelFacilityDTO> facilityDTOs) {
+		List<HotelFacility> existingFacilities = hotelFacilityRepository.findByHotel(hotel);
+		hotelFacilityRepository.deleteAll(existingFacilities);
 
-	private void updateHotelFacilities (Hotel hotel, List<HotelFacilityDTO> hotelFacilityDTOs) {
-		Map<Long, HotelFacility> existingFacilitiesMap = hotel.getHotelFacilities().stream().collect(
-				Collectors.toMap(hf -> hf.getFacility().getFacId(), Function.identity()));
-
-		Set<Long> updatedFacilityIds = new HashSet<>();
-
-		for (HotelFacilityDTO facilityDTO : hotelFacilityDTOs)
+		if (facilityDTOs != null)
 		{
-			HotelFacility hotelFacility;
-			if (existingFacilitiesMap.containsKey(facilityDTO.getFacilityId()))
-			{
-				hotelFacility = existingFacilitiesMap.get(facilityDTO.getFacilityId());
-				updatedFacilityIds.add(facilityDTO.getFacilityId());
-			} else
+			for (HotelFacilityDTO facilityDTO : facilityDTOs)
 			{
 				Facility facility = facilityRepository.findById(facilityDTO.getFacilityId()).orElseThrow(
 						() -> new RuntimeException("Facility not found with id: " + facilityDTO.getFacilityId()));
-				hotelFacility = new HotelFacility();
+				HotelFacility hotelFacility = new HotelFacility();
 				hotelFacility.setHotel(hotel);
 				hotelFacility.setFacility(facility);
-				hotel.getHotelFacilities().add(hotelFacility);
-			}
-			hotelFacilityRepository.save(hotelFacility);
-		}
-
-		hotel.getHotelFacilities().removeIf(hf -> !updatedFacilityIds.contains(hf.getFacility().getFacId()));
-//        hotelFacilityRepository.deleteAll(hotel.getHotelFacilities().stream()
-//                .filter(hf -> !updatedFacilityIds.contains(hf.getFacility().getFacId()))
-//                .collect(Collectors.toList()));
-	}
-
-	private void updateRooms (Hotel hotel, List<RoomDTO> roomDTOs) {
-		Map<Long, Room> existingRoomsMap = hotel.getRooms().stream().collect(
-				Collectors.toMap(Room :: getId, Function.identity()));
-
-		Set<Long> updatedRoomIds = new HashSet<>();
-
-		if (roomDTOs != null)
-		{
-			for (RoomDTO roomDTO : roomDTOs)
-			{
-				Room room;
-				if (roomDTO.getId() != null && existingRoomsMap.containsKey(roomDTO.getId()))
-				{
-					// Update existing room
-					room = existingRoomsMap.get(roomDTO.getId());
-					mapToRoomEntity(roomDTO, room);
-					updatedRoomIds.add(roomDTO.getId());
-				} else
-				{
-					// Add new room
-					RoomType roomType = roomTypeRepository.findById(roomDTO.getRoomTypeId()).orElseThrow(
-							() -> new RuntimeException("RoomType not found with id: " + roomDTO.getRoomTypeId()));
-					room = new Room();
-					mapToRoomEntity(roomDTO, room);
-					room.setHotel(hotel);
-					room.setRoomType(roomType);
-					roomRepository.save(room);
-				}
-
-				// Handle room facilities
-				updateRoomFacilities(room, roomDTO.getRoomFacilities());
+				hotelFacilityRepository.save(hotelFacility);
 			}
 		}
-
-		// Remove rooms that were not included in the update
-		for (Long existingRoomId : existingRoomsMap.keySet())
-		{
-			if (!updatedRoomIds.contains(existingRoomId))
-			{
-				Room roomToDelete = existingRoomsMap.get(existingRoomId);
-				if (roomToDelete.getListBooking().isEmpty())
-				{
-					roomRepository.delete(roomToDelete);
-					hotel.getRooms().remove(roomToDelete);
-				}
-			}
-		}
-	}
-
-	private void updateRoomFacilities (Room room, List<RoomFacilityDTO> roomFacilityDTOs) {
-		Map<Long, RoomFacility> existingFacilitiesMap = room.getRoomFacilities().stream().collect(
-				Collectors.toMap(rf -> rf.getFacility().getFacId(), Function.identity()));
-
-		Set<Long> updatedFacilityIds = new HashSet<>();
-
-		if (roomFacilityDTOs != null)
-		{
-			for (RoomFacilityDTO roomFacilityDTO : roomFacilityDTOs)
-			{
-				RoomFacility roomFacility;
-				if (existingFacilitiesMap.containsKey(roomFacilityDTO.getFacilityId()))
-				{
-					roomFacility = existingFacilitiesMap.get(roomFacilityDTO.getFacilityId());
-					updatedFacilityIds.add(roomFacilityDTO.getFacilityId());
-				} else
-				{
-					Facility facility = facilityRepository.findById(roomFacilityDTO.getFacilityId()).orElseThrow(
-							() -> new RuntimeException(
-									"Facility not found with id: " + roomFacilityDTO.getFacilityId()));
-					roomFacility = new RoomFacility();
-					roomFacility.setRoom(room);
-					roomFacility.setFacility(facility);
-					room.getRoomFacilities().add(roomFacility);
-				}
-				roomFacilityRepository.save(roomFacility);
-			}
-		}
-
-		room.getRoomFacilities().removeIf(rf -> !updatedFacilityIds.contains(rf.getFacility().getFacId()));
 	}
 
 	private Hotel mapToHotelEntity (HotelDTO hotelDTO) {
@@ -325,14 +215,6 @@ public class HotelService {
 		return hotel;
 	}
 
-	private void mapToRoomEntity (RoomDTO roomDTO, Room room) {
-		room.setCapacity(roomDTO.getCapacity());
-		room.setPrice(roomDTO.getPrice());
-		room.setQuantity(roomDTO.getQuantity());
-		room.setRoomSize(roomDTO.getRoomSize());
-		room.setDescription(roomDTO.getDescription());
-		room.setServeBreakfast(roomDTO.isServeBreakfast());
-	}
 
 	private Room mapToRoomEntity (RoomDTO roomDTO, Hotel hotel, RoomType roomType) {
 		Room room = new Room();
