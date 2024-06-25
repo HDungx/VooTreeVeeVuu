@@ -29,7 +29,7 @@ public class PaymentService {
     private UserRepository userRepository;
 
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "https://www.google.com/";
+    public static String vnp_ReturnUrl = "http://localhost:3000/payment/payment-complete";
     public static String vnp_TmnCode = "HEBHXO7Q";
     public static String vnp_HashSecret = "4DH3NWFTQRZWT9ZZDC9R17RLN31A74E5";
 
