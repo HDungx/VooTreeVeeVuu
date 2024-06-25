@@ -23,6 +23,7 @@ public class CreateRoleImpl implements CreateRole {
 			throw new IllegalArgumentException("Role already existed");
 		}
 		Role role = new Role();
+		role.setName(roleName);
 		Role saved = roleRepository.save(role);
 		return toDTO(saved);
 	}
