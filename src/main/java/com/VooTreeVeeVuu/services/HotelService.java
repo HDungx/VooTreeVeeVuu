@@ -187,6 +187,19 @@ public class HotelService {
         }
     }
 
+    private Room mapToRoomEntity(RoomDTO roomDTO, Hotel hotel, RoomType roomType) {
+        Room room = new Room();
+        room.setCapacity(roomDTO.getCapacity());
+        room.setPrice(roomDTO.getPrice());
+        room.setQuantity(roomDTO.getQuantity());
+        room.setRoomSize(roomDTO.getRoomSize());
+        room.setDescription(roomDTO.getDescription());
+        room.setServeBreakfast(roomDTO.isServeBreakfast());
+        room.setHotel(hotel);
+        room.setRoomType(roomType);
+        return room;
+    }
+
     private Hotel mapToHotelEntity(HotelDTO hotelDTO) {
         Hotel hotel = new Hotel();
         hotel.setAddress(hotelDTO.getAddress());
@@ -203,20 +216,6 @@ public class HotelService {
         return hotel;
     }
 
-
-    private Room mapToRoomEntity(RoomDTO roomDTO, Hotel hotel, RoomType roomType) {
-        Room room = new Room();
-        room.setCapacity(roomDTO.getCapacity());
-        room.setPrice(roomDTO.getPrice());
-        room.setQuantity(roomDTO.getQuantity());
-        room.setRoomSize(roomDTO.getRoomSize());
-        room.setDescription(roomDTO.getDescription());
-        room.setServeBreakfast(roomDTO.isServeBreakfast());
-        room.setHotel(hotel);
-        room.setRoomType(roomType);
-        return room;
-    }
-
     private HotelDTO mapToHotelDTO(Hotel hotel) {
         HotelDTO hotelDTO = new HotelDTO();
         hotelDTO.setAddress(hotel.getAddress());
@@ -230,32 +229,6 @@ public class HotelService {
         hotelDTO.setCheckOutTime(hotel.getCheckOutTime());
         hotelDTO.setAccommodationTypeId(hotel.getAccommodationType().getId());
         hotelDTO.setUserId(hotel.getUser().getId());
-
-//        hotelDTO.setRooms(hotel.getRooms().stream().map(r -> {
-//            RoomDTO roomDTO = new RoomDTO();
-//            roomDTO.setId(r.getId());
-//            roomDTO.setCapacity(r.getCapacity());
-//            roomDTO.setPrice(r.getPrice());
-//            roomDTO.setQuantity(r.getQuantity());
-//            roomDTO.setRoomSize(r.getRoomSize());
-//            roomDTO.setDescription(r.getDescription());
-//            roomDTO.setServeBreakfast(r.isServeBreakfast());
-//            roomDTO.setRoomTypeId(r.getRoomType().getId());
-//
-//            roomDTO.setRoomFacilities(r.getRoomFacilities().stream().map(rf -> {
-//                RoomFacilityDTO roomFacilityDTO = new RoomFacilityDTO();
-//                roomFacilityDTO.setFacilityId(rf.getFacility().getFacId());
-//                return roomFacilityDTO;
-//            }).collect(Collectors.toList()));
-//            return roomDTO;
-//        }).collect(Collectors.toList()));
-
-//        hotelDTO.setHotelFacilities(hotel.getHotelFacilities().stream().map(hf -> {
-//            HotelFacilityDTO facilityDTO = new HotelFacilityDTO();
-//            facilityDTO.setFacilityId(hf.getFacility().getFacId());
-//            return facilityDTO;
-//        }).collect(Collectors.toList()));
-
         return hotelDTO;
     }
 

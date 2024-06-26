@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.domain.entity;
 
+import com.VooTreeVeeVuu.domain.utils.Room_status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -66,4 +67,7 @@ public class Room {
     //@JsonIgnored
     @OneToMany(mappedBy = "room")
     List<RoomImage> room_images;
+
+    @Enumerated(EnumType.STRING)
+    private Room_status status;
 }
