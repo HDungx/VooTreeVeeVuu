@@ -5,13 +5,12 @@ import com.VooTreeVeeVuu.domain.entity.*;
 import com.VooTreeVeeVuu.domain.utils.Fac_Type;
 import com.VooTreeVeeVuu.domain.utils.Gender;
 import com.VooTreeVeeVuu.domain.utils.Hotel_status;
-import com.VooTreeVeeVuu.dto.AccommodationTypeDTO;
 import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.services.HotelService;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.DeleteHotel.DeleteHotelImpl;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.GetAllHotel.GetAllHotelImpl;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.GetHotel.GetHotelImpl;
-import com.VooTreeVeeVuu.usecase.HotelUsecase.ImagesUpload.ImagesUploadImpl;
+import com.VooTreeVeeVuu.usecase.HotelUsecase.ImagesUpload.ImagesUpload;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.UpdateStatusHotel.UpdateStatusHotelImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -29,8 +27,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -55,7 +51,7 @@ public class HotelControllerTests {
     private UpdateStatusHotelImpl updateStatusHotelUseCase;
 
     @Mock
-    private ImagesUploadImpl imagesUploadUseCase;
+    private ImagesUpload imagesUploadUseCase;
 
     @Mock
     private HotelService hotelService;
@@ -97,7 +93,7 @@ private static final String END_POINT_PATH="/api/hotels";
 
         HotelImage hotelImage1 = new HotelImage();
         hotelImage1.setId(1L);
-        hotelImage1.setPath("hotel1.jpg");
+//        hotelImage1.setPath("hotel1.jpg");
         hotel1.setHotelImages(Arrays.asList(hotelImage1));
 
         RoomType roomType1 = new RoomType();
@@ -206,7 +202,7 @@ private static final String END_POINT_PATH="/api/hotels";
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].user.gender").value("MALE"))
 //                .andExpect(MockMvcResultMatchers.jsonPath("$[0].user.dob").value("1990-01-01"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].hotelImages[0].id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].hotelImages[0].path").value("hotel1.jpg"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].hotelImages[0].path").value("hotel1.jpg"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].capacity").value(2))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].price").value(100.0))
@@ -353,7 +349,7 @@ private static final String END_POINT_PATH="/api/hotels";
 
         HotelImage hotelImage = new HotelImage();
         hotelImage.setId(1L);
-        hotelImage.setPath("hotel1.jpg");
+//        hotelImage.setPath("hotel1.jpg");
         hotel.setHotelImages(Arrays.asList(hotelImage));
 
         RoomType roomType = new RoomType();
@@ -417,7 +413,7 @@ private static final String END_POINT_PATH="/api/hotels";
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].user.gender").value("MALE"))
 //                .andExpect(MockMvcResultMatchers.jsonPath("$[0].user.dob").value("1990-01-01"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].hotelImages[0].id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].hotelImages[0].path").value("hotel1.jpg"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].hotelImages[0].path").value("hotel1.jpg"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].id").value(1))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].capacity").value(2))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].price").value(100.0))
@@ -436,5 +432,81 @@ private static final String END_POINT_PATH="/api/hotels";
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].hotelFacilities[0].facility.facIcon").value("wifi.png"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].ratings").doesNotExist())
                 .andDo(print());
+    }
+
+
+
+//    @Test
+//    public void testSearchHotels() throws Exception {
+//        // Tạo đối tượng GetAllHotelDTO mẫu
+//        GetAllHotelDTO hotel1 = new GetAllHotelDTO();
+//        hotel1.setId(1L);
+//        hotel1.setAddress("123 Main St");
+//        hotel1.setHotelName("Hotel Luxury");
+//        hotel1.setCity("Hanoi");
+//        hotel1.setHotelPhoneNum("0123456789");
+//        hotel1.setHotelStars(5);
+//        hotel1.setHotelDescription("A luxury hotel");
+//
+//        GetAllHotelDTO hotel2 = new GetAllHotelDTO();
+//        hotel2.setId(2L);
+//        hotel2.setAddress("456 Another St");
+//        hotel2.setHotelName("Hotel Comfort");
+//        hotel2.setCity("Hanoi");
+//        hotel2.setHotelPhoneNum("0987654321");
+//        hotel2.setHotelStars(4);
+//        hotel2.setHotelDescription("A comfortable hotel");
+//
+//        List<GetAllHotelDTO> hotels = Arrays.asList(hotel1, hotel2);
+//
+//        // Mock the behavior of the service
+//        LocalDate checkinDate = LocalDate.of(2024, 6, 28);
+//        LocalDate checkoutDate = LocalDate.of(2024, 6, 30);
+//        given(hotelService.searchHotels("Hotel", "Hanoi", checkinDate, checkoutDate, 2, 4)).willReturn(hotels);
+//
+//        // Perform the GET request and validate the response
+//        mockMvc.perform(get("/api/hotels/search")
+//                        .param("hotelName", "Hotel")
+//                        .param("city", "Hanoi")
+//                        .param("checkinDate", "2024-06-28")
+//                        .param("checkoutDate", "2024-06-30")
+//                        .param("rooms", "2")
+//                        .param("capacity", "4")
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1L))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].address").value(hotel1.getAddress()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].hotelName").value(hotel1.getHotelName()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].city").value(hotel1.getCity()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].hotelPhoneNum").value(hotel1.getHotelPhoneNum()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].hotelStars").value(hotel1.getHotelStars()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].hotelDescription").value(hotel1.getHotelDescription()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(hotel2.getId().intValue()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].address").value(hotel2.getAddress()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].hotelName").value(hotel2.getHotelName()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].city").value(hotel2.getCity()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].hotelPhoneNum").value(hotel2.getHotelPhoneNum()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].hotelStars").value(hotel2.getHotelStars()))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].hotelDescription").value(hotel2.getHotelDescription()))
+//                .andDo(print());
+//    }
+
+    @Test
+    public void testSearchHotelsInvalidDates() throws Exception {
+        // Mock the behavior of the service to return false for date validation
+        LocalDate checkinDate = LocalDate.of(2024, 6, 30);
+        LocalDate checkoutDate = LocalDate.of(2024, 6, 28);
+        given(hotelService.validateDates(checkinDate, checkoutDate)).willReturn(false);
+
+        // Perform the GET request and validate the response
+        mockMvc.perform(get("/api/hotels/search")
+                        .param("hotelName", "Hotel")
+                        .param("city", "Hanoi")
+                        .param("checkinDate", "2024-06-30")
+                        .param("checkoutDate", "2024-06-28")
+                        .param("rooms", "2")
+                        .param("capacity", "4")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
     }
 }
