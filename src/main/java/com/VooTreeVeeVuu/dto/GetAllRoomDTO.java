@@ -23,5 +23,5 @@ public class GetAllRoomDTO {
     private String ownerEmail;
     private List<RoomFacility> roomFacilities;
     private List<Booking> listBooking;
-    private List<RoomImage> room_images;
+    private List<RoomImageDTO> room_images;
 }

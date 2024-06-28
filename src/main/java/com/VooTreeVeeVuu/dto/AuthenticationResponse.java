@@ -13,5 +13,4 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class AuthenticationResponse {
 	private String token;
-	private LocalDate date = LocalDate.now();
 }

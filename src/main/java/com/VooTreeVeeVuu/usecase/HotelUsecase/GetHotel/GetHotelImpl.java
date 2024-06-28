@@ -1,12 +1,15 @@
 package com.VooTreeVeeVuu.usecase.HotelUsecase.GetHotel;
 
+import com.VooTreeVeeVuu.domain.entity.HotelImage;
 import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.domain.entity.Hotel;
 import com.VooTreeVeeVuu.domain.repository.HotelRepository;
+import com.VooTreeVeeVuu.dto.HotelImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GetHotelImpl implements GetHotel {
@@ -33,9 +36,19 @@ public class GetHotelImpl implements GetHotel {
 		hotelDTO.setAccommodationType(hotel.getAccommodationType());
 		hotelDTO.setHotelFacilities(hotel.getHotelFacilities());
 		hotelDTO.setUser(hotel.getUser());
-		hotelDTO.setHotelImages(hotel.getHotelImages());
+		hotelDTO.setHotelImages(
+				hotel.getHotelImages().stream().map(this :: convertToImageDTO).collect(Collectors.toList()));
 		hotelDTO.setRooms(hotel.getRooms());
-		hotelDTO.setRatings(hotel.getListRating());
+		hotel.setListRating(hotel.getListRating());
 		return hotelDTO;
+	}
+
+	private HotelImageDTO convertToImageDTO(HotelImage image) {
+		HotelImageDTO dto = new HotelImageDTO();
+		dto.setId(image.getId());
+		dto.setImageName(image.getImageName());
+		dto.setImageType(image.getImageType());
+		dto.setImageUrl("/api/hotel-images/" + image.getId()); // Set URL
+		return dto;
 	}
 }

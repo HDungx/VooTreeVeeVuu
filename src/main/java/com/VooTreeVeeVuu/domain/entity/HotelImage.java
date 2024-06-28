@@ -1,10 +1,13 @@
 package com.VooTreeVeeVuu.domain.entity;
 
+import com.VooTreeVeeVuu.dto.HotelImageDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Base64;
 
 @Data
 @AllArgsConstructor
@@ -18,6 +21,7 @@ public class HotelImage {
 
     private String imageName;
 
+    @Lob
     private byte[] imageBase64;
 
     private String imageType;
@@ -27,4 +31,12 @@ public class HotelImage {
     @JoinColumn(name = "hotelId")
     Hotel hotel;
 
+    public HotelImageDTO toDTO() {
+        HotelImageDTO dto = new HotelImageDTO();
+        dto.setId(this.id);
+        dto.setImageName(this.imageName);
+        dto.setImageBase64(Base64.getEncoder().encodeToString(this.imageBase64));
+        dto.setImageType(this.imageType);
+        return dto;
+    }
 }

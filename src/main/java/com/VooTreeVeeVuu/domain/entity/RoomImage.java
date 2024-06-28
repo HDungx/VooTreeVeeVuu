@@ -1,11 +1,14 @@
 package com.VooTreeVeeVuu.domain.entity;
 
+import com.VooTreeVeeVuu.dto.RoomImageDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Base64;
 
 @Data
 @AllArgsConstructor
@@ -17,16 +20,24 @@ public class RoomImage {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Pattern (regexp = ".*\\.(jpg|png)$")
-	private String path;
+	private String imageName;
+
+	@Lob
+	private byte[] imageBase64;
+
+	private String imageType;
 
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn (name = "roomId")
 	Room room;
 
-	public RoomImage(Long id, String path) {
-		this.id = id;
-		this.path = path;
+	public RoomImageDTO toDTO () {
+		RoomImageDTO dto = new RoomImageDTO();
+		dto.setId(this.id);
+		dto.setImageName(this.imageName);
+		dto.setImageBase64(Base64.getEncoder().encodeToString(this.imageBase64));
+		dto.setImageType(this.imageType);
+		return dto;
 	}
 }

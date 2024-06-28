@@ -16,6 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -92,10 +93,15 @@ public class HotelController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/images")
-    public ResponseEntity<Hotel> uploadHotelImage(@PathVariable Long hotelId, @RequestBody HotelImageDTO imageDTO) throws IOException {
-        Hotel updatedHotel = hotelService.uploadImage(hotelId, imageDTO);
-        return ResponseEntity.ok(updatedHotel);
+    @PostMapping("/{hotelId}/images")
+    public ResponseEntity<GetAllHotelDTO> uploadImages(@PathVariable Long hotelId,
+     @RequestParam("files") List<MultipartFile> files) {
+        try {
+            GetAllHotelDTO updatedHotel = hotelService.saveHotelImages(hotelId, files);
+            return ResponseEntity.ok(updatedHotel);
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body(null);
+        }
     }
 
     @GetMapping("/search")

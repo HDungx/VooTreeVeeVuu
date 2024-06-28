@@ -25,7 +25,7 @@ public class GetAllHotelDTO {
 	private LocalTime checkOutTime;
 	private AccommodationType accommodationType;
 	private User user;
-	private List<HotelImage> hotelImages;
+	private List<HotelImageDTO> hotelImages;
 	private List<Room> rooms;
 	private List<HotelFacility> hotelFacilities;
 	private List<Rating> ratings;

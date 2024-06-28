@@ -10,6 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RoomImageDTO {
 	private Long id;
-	private String path;
-	private Room room;
+	private String imageName;
+	private String imageBase64; // Base64 encoded string
+	private String imageType;
+	private String imageUrl;
+
+	public String getImageUrl() {
+		return "/api/hotel-images/" + this.id; // Construct URL
+	}
 }

@@ -70,7 +70,6 @@ public class AuthenticationService {
         //link user to acc
         user.setAccount(account);
 
-
         accountRepository.save(account);
         var jwtToken = JwtUtils.generateToken(account);
         return AuthenticationResponse.builder().token(jwtToken).build();
@@ -101,7 +100,7 @@ public class AuthenticationService {
 //			throw new RuntimeException("Password incorrect");
 //		}
         var jwtToken = JwtUtils.generateToken(account);
-        return AuthenticationResponse.builder().token(jwtToken).date(request.getDate()).build();
+        return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
     // Utility methods to identify email and phone number

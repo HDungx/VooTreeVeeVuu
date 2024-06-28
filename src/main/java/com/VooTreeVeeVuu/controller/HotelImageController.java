@@ -1,59 +1,42 @@
 package com.VooTreeVeeVuu.controller;
 
+import com.VooTreeVeeVuu.domain.entity.HotelImage;
+import com.VooTreeVeeVuu.domain.repository.HotelImageRepository;
 import com.VooTreeVeeVuu.dto.HotelImageDTO;
-import com.VooTreeVeeVuu.usecase.HotelImageUsecase.DeleteHotelImage.DeleteHotelImageImpl;
-import com.VooTreeVeeVuu.usecase.HotelImageUsecase.GetAllHotelImage.GetAllHotelImageImpl;
-import com.VooTreeVeeVuu.usecase.HotelImageUsecase.GetHotelImage.GetHotelImageUseCase;
+import com.VooTreeVeeVuu.usecase.HotelImageUsecase.GetAllHotelImage.GetAllHotelImage;
+import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
-@CrossOrigin("*")
+@CrossOrigin ("*")
 @RestController
-@RequestMapping("/api/hotelImages")
+@RequestMapping ("/api/hotel-images")
 public class HotelImageController {
-//    @Autowired
-//    private CreateHotelImageUseCase createHotelImageUseCase;
 
-//    @Autowired
-//    private UpdateHotelImageUseCase updateHotelImageUseCase;
+	@Autowired
+	private HotelImageRepository hotelImageRepository;
 
-    @Autowired
-    private DeleteHotelImageImpl deleteHotelImageUseCase;
+	@Autowired
+	private GetAllHotelImage getAllHotelImage;
 
-    @Autowired
-    private GetAllHotelImageImpl getAllHotelImageUseCase;
+	@GetMapping ()
+	public ResponseEntity<List<HotelImageDTO>> getAllImages () {
+		List<HotelImageDTO> list = getAllHotelImage.getAllHotelImage();
+		return ResponseEntity.ok(list);
+	}
 
-    @Autowired
-    private GetHotelImageUseCase getHotelImageUseCase;
+	@GetMapping ("/{imageId}")
+	public ResponseEntity<ByteArrayResource> getImage (@PathVariable Long imageId) {
+		HotelImage image = hotelImageRepository.findById(imageId).orElseThrow(
+				() -> new RuntimeException("Image not found"));
 
-    @GetMapping()
-    public List<HotelImageDTO> getAllHotelImage(){
-        return getAllHotelImageUseCase.getAllHotelImage();
-    }
-
-    @GetMapping ("/{id}")
-    public Optional<HotelImageDTO> getHotelImageById (@PathVariable Long id){
-        return getHotelImageUseCase.getHotelImageById(id);
-    }
-
-//    @PostMapping
-//    public HotelImageDTO createHotelImage (@RequestBody HotelImageDTO dto) {
-//        return createHotelImageUseCase.createHotelImage(dto);
-//    }
-//
-//    @PutMapping ("/update/{id}")
-//    public Optional<HotelImageDTO> updateHotelImage (@RequestBody HotelImageDTO dto, @PathVariable Long id) {
-//        return updateHotelImageUseCase.updateHotelImage(id,dto);
-//    }
-
-    @DeleteMapping ("/delete/{id}")
-    public void deleteHotelImage (@PathVariable Long id) {
-        deleteHotelImageUseCase.deleteHotelImage(id);
-    }
-
-
-
+		return ResponseEntity.ok().contentType(MediaType.parseMediaType(image.getImageType())).header(
+				HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getImageName() + "\"").body(
+				new ByteArrayResource(image.getImageBase64()));
+	}
 }

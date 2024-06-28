@@ -75,7 +75,7 @@ public class Hotel {
     User user;
 
     //@JsonIgnored
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<HotelImage> hotelImages;
 
     //@JsonIgnore

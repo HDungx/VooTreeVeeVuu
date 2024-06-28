@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,14 +17,16 @@ public class GetAllHotelImageImpl implements GetAllHotelImage {
     private HotelImageRepository hotelImageRepository;
 
     public List<HotelImageDTO> getAllHotelImage() {
-        return hotelImageRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+        return hotelImageRepository.findAll().stream().map(this::convertToImageDTO).collect(Collectors.toList());
     }
 
-    private HotelImageDTO toDTO(HotelImage hotelImage) {
+    private HotelImageDTO convertToImageDTO (HotelImage image) {
         HotelImageDTO dto = new HotelImageDTO();
-        dto.setImageName(hotelImage.getImageName());
-        dto.setImageType(hotelImage.getImageType());
-        dto.setImageBase64(Arrays.toString(hotelImage.getImageBase64()));
+        dto.setId(image.getId());
+        dto.setImageName(image.getImageName());
+        dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
+        dto.setImageType(image.getImageType());
+        dto.setImageUrl("/api/hotel-images/" + image.getId()); // Set URL
         return dto;
     }
 }

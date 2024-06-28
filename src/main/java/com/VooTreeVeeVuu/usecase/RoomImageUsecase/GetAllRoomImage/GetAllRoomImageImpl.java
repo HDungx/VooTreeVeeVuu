@@ -1,11 +1,14 @@
 package com.VooTreeVeeVuu.usecase.RoomImageUsecase.GetAllRoomImage;
 
+import com.VooTreeVeeVuu.domain.entity.Room;
+import com.VooTreeVeeVuu.dto.GetAllRoomDTO;
 import com.VooTreeVeeVuu.dto.RoomImageDTO;
 import com.VooTreeVeeVuu.domain.entity.RoomImage;
 import com.VooTreeVeeVuu.domain.repository.RoomImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,14 +18,16 @@ public class GetAllRoomImageImpl implements GetAllRoomImage {
 	private RoomImageRepository roomImageRepository;
 
 	public List<RoomImageDTO> getAllRoomImage () {
-		return roomImageRepository.findAll().stream().map(this :: toDTO).collect(Collectors.toList());
+		return roomImageRepository.findAll().stream().map(this :: convertToImageDTO).collect(Collectors.toList());
 	}
 
-	private RoomImageDTO toDTO (RoomImage roomImage) {
+	private RoomImageDTO convertToImageDTO (RoomImage image) {
 		RoomImageDTO dto = new RoomImageDTO();
-		dto.setId(roomImage.getId());
-		dto.setPath(roomImage.getPath());
-		dto.setRoom(roomImage.getRoom());
+		dto.setId(image.getId());
+		dto.setImageName(image.getImageName());
+		dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
+		dto.setImageType(image.getImageType());
+		dto.setImageUrl("/api/hotel-images/" + image.getId()); // Set URL
 		return dto;
 	}
 }
