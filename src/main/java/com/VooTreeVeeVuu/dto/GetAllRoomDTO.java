@@ -20,6 +20,7 @@ public class GetAllRoomDTO {
     private RoomType roomType;
     private boolean serveBreakfast;
     private Hotel hotel;
+    private String ownerEmail;
     private List<RoomFacility> roomFacilities;
     private List<Booking> listBooking;
     private List<RoomImage> room_images;

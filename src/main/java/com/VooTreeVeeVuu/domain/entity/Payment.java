@@ -25,29 +25,10 @@ public class Payment {
     @Column(name = "amount", nullable = false)
     private long amount;
 
-//    @Column(name = "bank_code")
-//    private String bankCode;
-//
-//    @Column(name = "language")
-//    private String language;
-
-//    @Column(name = "order_info")
-//    private String orderInfo;
-
     @Column(name = "create_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-
-//    @Column(name = "expire_date")
-//    @Temporal(TemporalType.TIMESTAMP)
-//    private Date expireDate;
-
-//    @Column(name = "ip_addr", nullable = false)
-//    private String ipAddr;
-
-//    @Column(name = "payment_url", nullable = false, columnDefinition = "varchar(500)")
-//    private String paymentUrl;
-
+    
     // Linking Payment to Booking and User
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

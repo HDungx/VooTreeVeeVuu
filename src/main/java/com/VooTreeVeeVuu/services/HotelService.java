@@ -6,8 +6,12 @@ import com.VooTreeVeeVuu.dto.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +37,50 @@ public class HotelService {
 
     @Autowired
     private UserRepository userRepository;
+
+    public Hotel uploadImage(Long hotelId, HotelImageDTO imageDTO) throws IOException {
+        Hotel hotel = hotelRepository.findById(hotelId)
+                .orElseThrow(() -> new RuntimeException("Hotel not found with id: " + hotelId));
+
+        // Validate image data (optional)
+        // ... (e.g., check for empty name, invalid base64 format, etc.)
+
+        HotelImage hotelImage = new HotelImage();
+        hotelImage.setImageName(imageDTO.getImageName());
+        hotelImage.setImageType(imageDTO.getImageType());
+
+        // Decode Base64 image data
+        byte[] decodedImageBytes = Base64.getDecoder().decode(imageDTO.getImageBase64());
+
+        // Handle potential invalid Base64 data gracefully
+        try {
+            hotelImage.setImageBase64(decodedImageBytes); // Assuming you have a setter for a byte array representing the image
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid image data (Base64 encoding may be corrupt)", e);
+        }
+
+        hotelImage.setHotel(hotel);
+
+        hotel.getHotelImages().add(hotelImage);
+        hotelRepository.save(hotel);
+
+        return hotel;
+    }
+
+    private String convertFileToBase64(MultipartFile file) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = file.getInputStream().read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+
+        outputStream.close();
+        byte[] fileBytes = outputStream.toByteArray();
+
+        return Base64.getEncoder().encodeToString(fileBytes);
+    }
+
 
     public List<GetAllHotelDTO> getAllHotelByUser(Long id) {
         //User partner = userRepository.findById(user.getId()).orElseThrow(() -> new RuntimeException("Partner not found"));

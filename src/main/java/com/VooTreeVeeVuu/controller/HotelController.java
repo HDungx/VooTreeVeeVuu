@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.controller;
 
+import com.VooTreeVeeVuu.domain.entity.Hotel;
 import com.VooTreeVeeVuu.domain.repository.HotelRepository;
 import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.dto.HotelDTO;
@@ -8,7 +9,6 @@ import com.VooTreeVeeVuu.services.HotelService;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.DeleteHotel.DeleteHotelImpl;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.GetAllHotel.GetAllHotelImpl;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.GetHotel.GetHotelImpl;
-import com.VooTreeVeeVuu.usecase.HotelUsecase.ImagesUpload.ImagesUploadImpl;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.UpdateStatusHotel.UpdateStatusHotelImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -37,8 +38,8 @@ public class HotelController {
     @Autowired
     private UpdateStatusHotelImpl updateStatusHotelUseCase;
 
-    @Autowired
-    private ImagesUploadImpl imagesUploadUseCase;
+//    @Autowired
+//    private ImagesUploadImpl imagesUploadUseCase;
 
     @Autowired
     private HotelService hotelService;
@@ -91,10 +92,10 @@ public class HotelController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/{id}/images")
-    public ResponseEntity<HotelDTO> addImage(@PathVariable Long id, @RequestBody List<HotelImageDTO> imageDTO) {
-        Optional<HotelDTO> updated = imagesUploadUseCase.uploadImg(id, imageDTO);
-        return updated.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    @PostMapping("/images")
+    public ResponseEntity<Hotel> uploadHotelImage(@PathVariable Long hotelId, @RequestBody HotelImageDTO imageDTO) throws IOException {
+        Hotel updatedHotel = hotelService.uploadImage(hotelId, imageDTO);
+        return ResponseEntity.ok(updatedHotel);
     }
 
     @GetMapping("/search")

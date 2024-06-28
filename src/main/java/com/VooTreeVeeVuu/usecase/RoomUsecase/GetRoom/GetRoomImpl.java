@@ -25,6 +25,7 @@ public class GetRoomImpl implements GetRoom {
         dto.setDescription(room.getDescription());
         dto.setRoomType(room.getRoomType());
         dto.setHotel(room.getHotel());
+        dto.setOwnerEmail(room.getHotel().getUser().getAccount().getEmail());
         dto.setRoomFacilities(room.getRoomFacilities());
         dto.setRoom_images(room.getRoom_images());
         //dto.setListBooking(room.getListBooking());

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Data
@@ -16,13 +15,16 @@ public class EmailReceiptDTO {
     private String roomType;
     private String address;
     private String cusEmail;
+    private String checkInDate;
     private String hotelPhoneNum;
-    private LocalDate checkInDate;
-    private LocalDate checkOutDate;
+    private String checkOutDate;
     private LocalTime checkInTime;
     private LocalTime checkOutTime;
     private Integer num_of_rooms;
     private Integer num_of_guests;
     private Long totalPrice;
+    private String cusFullName;
+    private String cusPhoneNum;
+    private String ownerEmail;
 
 }

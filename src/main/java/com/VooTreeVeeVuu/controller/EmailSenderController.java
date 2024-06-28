@@ -17,4 +17,9 @@ public class EmailSenderController {
     public void sendReceipt(@RequestBody EmailReceiptDTO emailReceiptDTO) {
         emailService.sendEmailReceipt(emailReceiptDTO);
     }
+
+    @PostMapping("/send-info")
+    public void sendInfo(@RequestBody EmailReceiptDTO emailReceiptDTO) {
+        emailService.sendEmailToOwner(emailReceiptDTO);
+    }
 }
