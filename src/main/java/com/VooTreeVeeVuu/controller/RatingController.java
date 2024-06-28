@@ -1,12 +1,12 @@
 package com.VooTreeVeeVuu.controller;
 
+import com.VooTreeVeeVuu.dto.CreateRatingDTO;
 import com.VooTreeVeeVuu.dto.RatingDTO;
-import com.VooTreeVeeVuu.usecase.RatingUsecase.CreateRating.CreateRatingImpl;
-import com.VooTreeVeeVuu.usecase.RatingUsecase.DeleteRating.DeleteRatingImpl;
-import com.VooTreeVeeVuu.usecase.RatingUsecase.GetAllRating.GetAllRatingImpl;
-import com.VooTreeVeeVuu.usecase.RatingUsecase.GetRating.GetRatingImpl;
-import com.VooTreeVeeVuu.usecase.RatingUsecase.UpdateRating.UpdateRatingImpl;
+import com.VooTreeVeeVuu.usecase.RatingUsecase.CreateRating.CreateRating;
+import com.VooTreeVeeVuu.usecase.RatingUsecase.GetAllRating.GetAllRating;
+import com.VooTreeVeeVuu.usecase.RatingUsecase.GetRatingForHotel.GetRatingForHotel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,46 +17,28 @@ import java.util.Optional;
 @RequestMapping ("/api/ratings")
 public class RatingController {
 	@Autowired
-	private CreateRatingImpl createRatingUseCase;
+	private CreateRating createRatingUseCase;
+
 	@Autowired
-	private UpdateRatingImpl updateRatingUseCase;
+	private GetAllRating getAllRatingUseCase;
+
 	@Autowired
-	private DeleteRatingImpl deleteRatingUseCase;
-	@Autowired
-	private GetAllRatingImpl getAllRatingUseCase;
-	@Autowired
-	private GetRatingImpl getRatingUseCase;
+	private GetRatingForHotel getRatingsForHotel;
 
 	@GetMapping ()
 	public List<RatingDTO> getAllRating(){
 		return getAllRatingUseCase.getAllRatings();
 	}
 
-	@GetMapping ("/{id}")
-	public Optional<RatingDTO> getRatingById (@PathVariable Long id){
-		return getRatingUseCase.getRatingById(id);
-	}
-
 	@PostMapping
-	public RatingDTO createRating(@RequestBody RatingDTO dto) {
-		return createRatingUseCase.createRating(dto);
+	public ResponseEntity<RatingDTO> createRating(@RequestBody CreateRatingDTO createRatingDTO) {
+		RatingDTO ratingDTO = createRatingUseCase.createRating(createRatingDTO);
+		return ResponseEntity.ok(ratingDTO);
 	}
 
-	@PutMapping ("/update/{id}")
-	public Optional<RatingDTO> updateRating (@RequestBody RatingDTO dto, @PathVariable Long id) {
-		return updateRatingUseCase.updateRatings(id,dto);
+	@GetMapping("/hotel/{hotelId}")
+	public ResponseEntity<List<RatingDTO>> getRatingsForHotel(@PathVariable Long hotelId) {
+		List<RatingDTO> ratings = getRatingsForHotel.getRatingsForHotel(hotelId);
+		return ResponseEntity.ok(ratings);
 	}
-
-	@DeleteMapping ("/delete/{id}")
-	public void deleteRating (@PathVariable Long id) {
-		deleteRatingUseCase.deleteRating(id);
-	}
-
-
-//	@GetMapping ("/search/{keyword}")
-//	public ResponseEntity<Page<Rating>> getRatingByCusIDorHotelID (@PathVariable String keyword, Pageable pageable) {
-//		return ratingServImp.getByCusIDorHotelID(keyword, pageable).map(
-//				r -> new ResponseEntity<>(r, HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-//	}
-
 }
