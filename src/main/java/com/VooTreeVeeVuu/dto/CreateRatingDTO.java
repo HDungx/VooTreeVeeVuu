@@ -8,8 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateRatingDTO {
-	private int rate;
-	private String comment;
-	private Long userId;
-	private Long hotelId;
+    private int rate;
+    private String comment;
+    private Long userId;
+    private Long hotelId;
+    private Long bookingId;
 }

@@ -20,8 +20,10 @@ public class BookingDTO {
     private String roomType; // Loại phòng
     private String address; // Địa chỉ khách sạn
     private String city;
+    private Long hotelId;
     private Long hotelOwnerId;
     private Booking_status status;
+    private boolean reviewStatus;
     private Integer numOfRoom;
     private Integer numOfGuest;
     private LocalDate bookingDate;

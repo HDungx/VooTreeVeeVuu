@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.domain.entity;
 
+import com.VooTreeVeeVuu.domain.utils.Edit_status;
 import com.VooTreeVeeVuu.domain.utils.Hotel_status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -54,6 +55,9 @@ public class Hotel {
     @Enumerated(EnumType.STRING)
     private Hotel_status status;
 
+    @Enumerated(EnumType.STRING)
+    private Edit_status edit_status;
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     @Temporal(TemporalType.TIME)
     @Column(name = "checkInTime")
@@ -93,6 +97,7 @@ public class Hotel {
     @JsonIgnore
     @OneToMany(mappedBy = "hotel")
     List<Logs> logs;
+
 
     public Hotel(Long hotelId) {
         this.id = hotelId;

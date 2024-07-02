@@ -20,24 +20,24 @@ public class GetRoomImpl implements GetRoom {
         return roomRepository.findById(id).map(this::toDTO).orElseThrow(() -> new RuntimeException("Room not found"));
     }
 
-    private GetAllRoomDTO toDTO (Room room) {
+    private GetAllRoomDTO toDTO(Room room) {
         GetAllRoomDTO dto = new GetAllRoomDTO();
         dto.setId(room.getId());
         dto.setCapacity(room.getCapacity());
         dto.setPrice(room.getPrice());
         dto.setQuantity(room.getQuantity());
         dto.setRoomSize(room.getRoomSize());
-        dto.setDescription(room.getDescription());
+        //dto.setDescription(room.getDescription());
         dto.setRoomType(room.getRoomType());
         dto.setServeBreakfast(room.isServeBreakfast());
         dto.setHotel(room.getHotel());
         dto.setRoomFacilities(room.getRoomFacilities());
-        dto.setRoom_images(room.getRoom_images().stream().map(this :: convertToImageDTO).collect(Collectors.toList()));
+        dto.setRoom_images(room.getRoom_images().stream().map(this::convertToImageDTO).collect(Collectors.toList()));
         dto.setListBooking(room.getListBooking());
         return dto;
     }
 
-    private RoomImageDTO convertToImageDTO (RoomImage image) {
+    private RoomImageDTO convertToImageDTO(RoomImage image) {
         RoomImageDTO dto = new RoomImageDTO();
         dto.setId(image.getId());
         dto.setImageName(image.getImageName());

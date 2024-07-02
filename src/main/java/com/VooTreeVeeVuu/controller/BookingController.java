@@ -1,10 +1,12 @@
 package com.VooTreeVeeVuu.controller;
 
+import com.VooTreeVeeVuu.domain.entity.Booking;
 import com.VooTreeVeeVuu.dto.BookingDTO;
 import com.VooTreeVeeVuu.dto.InsertBookingDTO;
 import com.VooTreeVeeVuu.services.BookingService;
 import com.VooTreeVeeVuu.usecase.BookingUsecase.GetAllBooking.GetAllBookingImpl;
 import com.VooTreeVeeVuu.usecase.BookingUsecase.GetBooking.GetBookingImpl;
+import com.VooTreeVeeVuu.usecase.BookingUsecase.UpdateReviewStatus.UpdateReviewStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,9 @@ public class BookingController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private UpdateReviewStatus updateReviewStatus;
 
     @GetMapping()
     public List<BookingDTO> getAllBooking() {
@@ -47,4 +52,8 @@ public class BookingController {
         return new ResponseEntity<>(create, HttpStatus.CREATED);
     }
 
+    @PutMapping("/update/review-status/{id}")
+    public Optional<Booking> updateReviewStatus(@PathVariable("id") Long id) {
+        return updateReviewStatus.updateReviewStatus(id);
+    }
 }

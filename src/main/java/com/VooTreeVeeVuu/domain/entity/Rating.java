@@ -17,34 +17,39 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table (name = "rating")
+@Table(name = "rating")
 public class Rating {
-	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NotNull
-	@Min (1)
-	@Max (10)
-	private int rate;
+    @NotNull
+    @Min(1)
+    @Max(10)
+    private int rate;
 
-	@NotBlank
-	@Column (columnDefinition = "nvarchar(255)")
-	private String comment;
+    @NotBlank
+    @Column(columnDefinition = "nvarchar(255)")
+    private String comment;
 
-	@DateTimeFormat (iso = DateTimeFormat.ISO.DATE)
-	@Temporal(TemporalType.DATE)
-	@Column(name = "rate_date")
-	private LocalDate date;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @Temporal(TemporalType.DATE)
+    @Column(name = "rate_date")
+    private LocalDate date;
 
-	//@JsonIgnored
-	@ManyToOne
-	@JoinColumn (name = "userId")
-	User user;
+    //@JsonIgnored
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    User user;
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn (name = "hotelId")
-	Hotel hotel;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "hotelId")
+    Hotel hotel;
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "bookingId")
+    Booking booking;
 
 }

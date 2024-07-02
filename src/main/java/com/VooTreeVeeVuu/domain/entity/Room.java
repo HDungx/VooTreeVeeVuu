@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.domain.entity;
 
+import com.VooTreeVeeVuu.domain.utils.Edit_status;
 import com.VooTreeVeeVuu.domain.utils.Room_status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -40,8 +41,8 @@ public class Room {
     private double roomSize;
 
     //@NotBlank
-    @Column(columnDefinition = "nvarchar(255)", name = "description")
-    private String description;
+//    @Column(columnDefinition = "nvarchar(255)", name = "description")
+//    private String description;
 
     @Column(name = "serveBreakfast")
     private boolean serveBreakfast;
@@ -70,4 +71,7 @@ public class Room {
 
     @Enumerated(EnumType.STRING)
     private Room_status status;
+
+    @Enumerated(EnumType.STRING)
+    private Edit_status edit_status;
 }

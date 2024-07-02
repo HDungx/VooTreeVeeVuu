@@ -1,25 +1,26 @@
 package com.VooTreeVeeVuu.usecase.HotelUsecase.GetAllHotel;
 
-import com.VooTreeVeeVuu.domain.entity.HotelImage;
-import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.domain.entity.Hotel;
+import com.VooTreeVeeVuu.domain.entity.HotelImage;
 import com.VooTreeVeeVuu.domain.repository.HotelRepository;
+import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.dto.HotelImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
-public class GetAllHotelImpl implements GetAllHotel{
+public class GetAllHotelImpl implements GetAllHotel {
     @Autowired
     private HotelRepository hotelRepository;
 
-    public List<GetAllHotelDTO> getAllHotel(){
-        return hotelRepository.findAll().stream().map(this :: toDTO).collect(Collectors.toList());
+    public List<GetAllHotelDTO> getAllHotel() {
+        return hotelRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
     }
 
-    private GetAllHotelDTO toDTO (Hotel hotel) {
+    private GetAllHotelDTO toDTO(Hotel hotel) {
         GetAllHotelDTO hotelDTO = new GetAllHotelDTO();
         hotelDTO.setId(hotel.getId());
         hotelDTO.setAddress(hotel.getAddress());
@@ -35,9 +36,9 @@ public class GetAllHotelImpl implements GetAllHotel{
         hotelDTO.setHotelFacilities(hotel.getHotelFacilities());
         hotelDTO.setUser(hotel.getUser());
         hotelDTO.setHotelImages(
-                hotel.getHotelImages().stream().map(this :: convertToImageDTO).collect(Collectors.toList()));
+                hotel.getHotelImages().stream().map(this::convertToImageDTO).collect(Collectors.toList()));
         hotelDTO.setRooms(hotel.getRooms());
-        hotel.setListRating(hotel.getListRating());
+        hotelDTO.setRatings(hotel.getListRating());
         return hotelDTO;
     }
 

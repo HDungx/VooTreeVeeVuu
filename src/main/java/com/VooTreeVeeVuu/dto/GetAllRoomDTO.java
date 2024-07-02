@@ -1,6 +1,11 @@
 package com.VooTreeVeeVuu.dto;
 
-import com.VooTreeVeeVuu.domain.entity.*;
+import com.VooTreeVeeVuu.domain.entity.Booking;
+import com.VooTreeVeeVuu.domain.entity.Hotel;
+import com.VooTreeVeeVuu.domain.entity.RoomFacility;
+import com.VooTreeVeeVuu.domain.entity.RoomType;
+import com.VooTreeVeeVuu.domain.utils.Edit_status;
+import com.VooTreeVeeVuu.domain.utils.Room_status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +26,8 @@ public class GetAllRoomDTO {
     private boolean serveBreakfast;
     private Hotel hotel;
     private String ownerEmail;
+    private Room_status status;
+    private Edit_status edit_status;
     private List<RoomFacility> roomFacilities;
     private List<Booking> listBooking;
     private List<RoomImageDTO> room_images;
