@@ -47,4 +47,11 @@ public class Rating {
 	@JoinColumn (name = "hotelId")
 	Hotel hotel;
 
+	public Rating(Long id, int rate, String comment, LocalDate date, User user) {
+		this.id = id;
+		this.rate = rate;
+		this.comment = comment;
+		this.date = date;
+		this.user = user;
+	}
 }

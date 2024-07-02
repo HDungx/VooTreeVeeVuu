@@ -97,4 +97,18 @@ public class Hotel {
     public Hotel(Long hotelId) {
         this.id = hotelId;
     }
+
+    public Hotel(Long id, String address, String hotelName, String city, String hotelPhoneNum, int hotelStars, String hotelDescription, Hotel_status status, LocalTime checkInTime, LocalTime checkOutTime, AccommodationType accommodationType) {
+        this.id = id;
+        this.address = address;
+        this.hotelName = hotelName;
+        this.city = city;
+        this.hotelPhoneNum = hotelPhoneNum;
+        this.hotelStars = hotelStars;
+        this.hotelDescription = hotelDescription;
+        this.status = status;
+        this.checkInTime = checkInTime;
+        this.checkOutTime = checkOutTime;
+        this.accommodationType = accommodationType;
+    }
 }

@@ -94,7 +94,7 @@ private static final String END_POINT_PATH="/api/hotels";
         HotelImage hotelImage1 = new HotelImage();
         hotelImage1.setId(1L);
 //        hotelImage1.setPath("hotel1.jpg");
-        hotel1.setHotelImages(Arrays.asList(hotelImage1));
+//        hotel1.setHotelImages(Arrays.asList(hotelImage1));
 
         RoomType roomType1 = new RoomType();
         roomType1.setId(1L);
@@ -112,7 +112,7 @@ private static final String END_POINT_PATH="/api/hotels";
 
         RoomImage roomImage1 = new RoomImage();
         roomImage1.setId(1L);
-        roomImage1.setPath("room1.jpg");
+//        roomImage1.setPath("room1.jpg");
         room1.setRoom_images(Arrays.asList(roomImage1));
         hotel1.setRooms(Arrays.asList(room1));
 
@@ -350,7 +350,7 @@ private static final String END_POINT_PATH="/api/hotels";
         HotelImage hotelImage = new HotelImage();
         hotelImage.setId(1L);
 //        hotelImage.setPath("hotel1.jpg");
-        hotel.setHotelImages(Arrays.asList(hotelImage));
+//        hotel.setHotelImages(Arrays.asList(hotelImage));
 
         RoomType roomType = new RoomType();
         roomType.setId(1L);
@@ -368,7 +368,7 @@ private static final String END_POINT_PATH="/api/hotels";
 
         RoomImage roomImage = new RoomImage();
         roomImage.setId(1L);
-        roomImage.setPath("room1.jpg");
+//        roomImage.setPath("room1.jpg");
         room.setRoom_images(Arrays.asList(roomImage));
 
         hotel.setRooms(Arrays.asList(room));

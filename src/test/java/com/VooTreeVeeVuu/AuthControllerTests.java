@@ -59,7 +59,7 @@ public class AuthControllerTests {
         String authJson ="{\"username\":\"String1\",\"password\":\"String21\",\"email\":\"String21@gmail.com\",\"phone\":\"0346112265\",\"firstName\":\"String\",\"lastName\":\"String\",\"roles\":[\"CUSTOMER\"],\"status\":true}";
         AuthenticationResponse authResponse = AuthenticationResponse.builder()
                 .token("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTdHJpbmcxIiwiaWF0IjoxNzE5MTk3ODU3LCJleHAiOjE3MTkxOTg0NTcsImlkIjo5LCJwaG9uZU51bSI6IjAzNDYxMTIyNjUiLCJyb2xlcyI6WyJDVVNUT01FUiJdLCJlbWFpbCI6IlN0cmluZzIxQGdtYWlsLmNvbSIsInVzZXJfaWQiOjI3fQ.1UynlVu6yWlI8F0NIIydyILP_tAKc6bWWgbIKkS9XXs")
-                .date(null)
+//                .date(null)
                 .build();
 
         when(authService.register(any(SignUpDTO.class))).thenReturn(authResponse);
@@ -82,7 +82,7 @@ public class AuthControllerTests {
 
         AuthenticationResponse authResponse = AuthenticationResponse.builder()
                 .token("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJTdHJpbmcxIiwiaWF0IjoxNzE5MTk4ODcyLCJleHAiOjE3MTkxOTk0NzIsImlkIjo5LCJwaG9uZU51bSI6IjAzNDYxMTIyNjUiLCJyb2xlcyI6WyJDVVNUT01FUiJdLCJlbWFpbCI6IlN0cmluZzIxQGdtYWlsLmNvbSIsInVzZXJfaWQiOjI3fQ.AvAbJZicljAy-XWe2WDZh-tZ9ima3C6Kd5LBrzFFhvE")
-                .date(LocalDate.now())
+//                .date(LocalDate.now())
                 .build();
 
         when(authService.login(any(LoginDTO.class))).thenReturn(authResponse);
