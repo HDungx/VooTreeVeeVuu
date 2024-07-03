@@ -51,7 +51,6 @@ public class Booking {
     @JoinColumn(name = "roomId")
     Room room;
 
-
     @Enumerated(EnumType.STRING)
     private Booking_status status;
 
@@ -71,4 +70,8 @@ public class Booking {
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
     private Set<Payment> payments;
 
+    @OneToOne(mappedBy = "booking")
+    private Rating rating;
+
+    private boolean reviewStatus;
 }

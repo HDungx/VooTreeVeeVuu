@@ -1,4 +1,5 @@
 package com.VooTreeVeeVuu;
+
 import com.VooTreeVeeVuu.controller.FacilityController;
 import com.VooTreeVeeVuu.domain.utils.Fac_Type;
 import com.VooTreeVeeVuu.dto.FacilityDTO;
@@ -13,21 +14,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 public class FacilityControllerTests {
     @Mock
     private MockMvc mockMvc;
@@ -48,7 +47,7 @@ public class FacilityControllerTests {
 
     @Mock
     private GetFacilityImpl getFacilityUseCase;
-    private static final String END_POINT_PATH="/api/facilities";
+    private static final String END_POINT_PATH = "/api/facilities";
 
     @BeforeEach
     public void setUp() {
@@ -61,7 +60,7 @@ public class FacilityControllerTests {
     public void getAllFacilityTest() throws Exception {
         // Arrange
         FacilityDTO facility1 = new FacilityDTO(1L, Fac_Type.HOTEL, "WiFi", "icon1.png", null, null);
-        FacilityDTO facility2 = new FacilityDTO(2L,  Fac_Type.ROOM, "Air Conditioning", "icon2.png", null, null);
+        FacilityDTO facility2 = new FacilityDTO(2L, Fac_Type.ROOM, "Air Conditioning", "icon2.png", null, null);
         List<FacilityDTO> facilities = Arrays.asList(facility1, facility2);
 
         Mockito.when(getAllFacilityUseCase.getAllFacility()).thenReturn(facilities);
@@ -85,9 +84,6 @@ public class FacilityControllerTests {
                 .andDo(print());
     }
 
-
-
-
     @Test
     public void getFacilityByIdTest() throws Exception {
         // Arrange
@@ -95,7 +91,7 @@ public class FacilityControllerTests {
         Mockito.when(getFacilityUseCase.getFacilityById(1L)).thenReturn(Optional.of(facility));
 
         // Act & Assert
-        mockMvc.perform(MockMvcRequestBuilders.get(END_POINT_PATH+"/1")
+        mockMvc.perform(MockMvcRequestBuilders.get(END_POINT_PATH + "/1")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.facId").value(1L))

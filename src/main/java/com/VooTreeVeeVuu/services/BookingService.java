@@ -30,7 +30,7 @@ public class BookingService {
     public InsertBookingDTO createBooking(InsertBookingDTO bookingDTO) {
         User customer = userRepository.findById(bookingDTO.getUserId()).orElseThrow(() -> new RuntimeException("Customer not found"));
 
-        Room room = roomRepository.findById(bookingDTO.getUserId()).orElseThrow(() -> new RuntimeException("Room not found"));
+        Room room = roomRepository.findById(bookingDTO.getRoomId()).orElseThrow(() -> new RuntimeException("Room not found"));
 
         Booking booking = new Booking();
         booking.setUser(customer);
@@ -42,7 +42,8 @@ public class BookingService {
         booking.setNumOfGuest(bookingDTO.getNum_of_guest());
         booking.setNumOfRoom(bookingDTO.getNum_of_rooms());
         booking.setTotalPrice(bookingDTO.getTotal_price());
-        
+        booking.setReviewStatus(false);
+
         Booking saved = bookingRepository.save(booking);
         return mapToDTO(saved);
     }
@@ -62,9 +63,12 @@ public class BookingService {
         dto.setRoomType(booking.getRoom().getRoomType().getTypeName());
         dto.setAddress(booking.getRoom().getHotel().getAddress());
         dto.setStatus(booking.getStatus());
+        dto.setHotelId(booking.getRoom().getHotel().getId());
+        dto.setCity(booking.getRoom().getHotel().getCity());
         dto.setNumOfRoom(booking.getNumOfRoom());
         dto.setNumOfGuest(booking.getNumOfGuest());
         dto.setBookingDate(booking.getBookingDate());
+        dto.setReviewStatus(booking.isReviewStatus());
         return dto;
     }
 
