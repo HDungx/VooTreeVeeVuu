@@ -362,7 +362,7 @@ private static final String END_POINT_PATH="/api/hotels";
         room.setPrice(100.0);
         room.setQuantity(10);
         room.setRoomSize(25.0);
-        room.setDescription("A comfortable room");
+//        room.setDescription("A comfortable room");
         room.setServeBreakfast(true);
         room.setRoomType(roomType);
 
