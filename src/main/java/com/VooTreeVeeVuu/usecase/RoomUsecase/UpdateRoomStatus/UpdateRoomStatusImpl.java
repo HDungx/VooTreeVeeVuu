@@ -19,7 +19,7 @@ public class UpdateRoomStatusImpl implements UpdateRoomStatus {
     public Optional<GetAllRoomDTO> updateRoomStatus(Long id, GetAllRoomDTO roomDTO) {
         return roomRepository.findById(id).map(room -> {
             room.setStatus(roomDTO.getStatus());
-            room.setEdit_status(Edit_status.UPDATE);
+            room.setEdit_status(Edit_status.ACTIVE);
             Room updated = roomRepository.save(room);
             return toDTO(updated);
         });

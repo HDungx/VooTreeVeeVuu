@@ -36,6 +36,8 @@ public class GetAllRoomImpl implements GetAllRoom {
         dto.setRoomFacilities(room.getRoomFacilities());
         dto.setRoom_images(room.getRoom_images().stream().map(this::convertToImageDTO).collect(Collectors.toList()));
         dto.setListBooking(room.getListBooking());
+        dto.setStatus(room.getStatus());
+        dto.setEdit_status(room.getEdit_status());
         return dto;
     }
 
