@@ -39,4 +39,11 @@ public class HotelImage {
         dto.setImageType(this.imageType);
         return dto;
     }
+
+    public HotelImage(Long id, String imageName, byte[] imageBase64, String imageType) {
+        this.id = id;
+        this.imageName = imageName;
+        this.imageBase64 = imageBase64;
+        this.imageType = imageType;
+    }
 }

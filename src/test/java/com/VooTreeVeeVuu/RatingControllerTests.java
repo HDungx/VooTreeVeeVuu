@@ -67,7 +67,7 @@ public class RatingControllerTests {
         RoomFacility roomFacility = new RoomFacility(1L,facility);
         RoomImage roomImage = new RoomImage(1L,null,null,null);
         RoomType roomType = new RoomType(1l,"DELUX");
-        Room room = new Room(1L,2,100.0,10,25.0,"A comfortable room",true,
+        Room room = new Room(1L,2,100.0,10,25.0,true,
                 roomType,Arrays.asList(roomFacility),null,Arrays.asList(roomImage));
         facility = new Facility(1L, Fac_Type.HOTEL,"WiFi","icon1.png");
         HotelFacility hotelFacility = new HotelFacility(1L,facility);
@@ -114,7 +114,7 @@ public class RatingControllerTests {
         RoomFacility roomFacility = new RoomFacility(1L,facility);
         RoomImage roomImage = new RoomImage(1L,null,null,null);
         RoomType roomType = new RoomType(1l,"DELUX");
-        Room room = new Room(1L,2,100.0,10,25.0,"A comfortable room",true,
+        Room room = new Room(1L,2,100.0,10,25.0,true,
                 roomType,Arrays.asList(roomFacility),null,Arrays.asList(roomImage));
         facility = new Facility(1L, Fac_Type.HOTEL,"WiFi","icon1.png");
         HotelFacility hotelFacility = new HotelFacility(1L,facility);
@@ -164,7 +164,7 @@ public class RatingControllerTests {
         RoomFacility roomFacility = new RoomFacility(1L,facility);
         RoomImage roomImage = new RoomImage(1L,null,null,null);
         RoomType roomType = new RoomType(1l,"DELUX");
-        Room room = new Room(1L,2,100.0,10,25.0,"A comfortable room",true,
+        Room room = new Room(1L,2,100.0,10,25.0,true,
                 roomType,Arrays.asList(roomFacility),null,Arrays.asList(roomImage));
         facility = new Facility(1L, Fac_Type.HOTEL,"WiFi","icon1.png");
         HotelFacility hotelFacility = new HotelFacility(1L,facility);

@@ -106,7 +106,7 @@ private static final String END_POINT_PATH="/api/hotels";
         room1.setPrice(100.0);
         room1.setQuantity(10);
         room1.setRoomSize(25.0);
-        room1.setDescription("A comfortable room");
+//        room1.setDescription("A comfortable room");
         room1.setServeBreakfast(true);
         room1.setRoomType(roomType1);
 
@@ -158,7 +158,7 @@ private static final String END_POINT_PATH="/api/hotels";
         room2.setPrice(80000.0);
         room2.setQuantity(1);
         room2.setRoomSize(1.0);
-        room2.setDescription("aaaa");
+//        room2.setDescription("aaaa");
         room2.setServeBreakfast(true);
         room2.setRoomType(roomType2);
         room2.setRoomFacilities(Arrays.asList(new RoomFacility(2L, null)));

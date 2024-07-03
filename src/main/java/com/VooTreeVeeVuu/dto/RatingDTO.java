@@ -21,4 +21,13 @@ public class RatingDTO {
     private User user;
     private Hotel hotel;
     private Booking booking;
+
+    public RatingDTO(Long id, int rate, String comment, LocalDate date, User user, Hotel hotel) {
+        this.id = id;
+        this.rate = rate;
+        this.comment = comment;
+        this.date = date;
+        this.user = user;
+        this.hotel = hotel;
+    }
 }
