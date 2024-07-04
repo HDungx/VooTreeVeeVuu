@@ -28,4 +28,21 @@ public class BookingDTO {
     private Integer numOfGuest;
     private LocalDate bookingDate;
 
+
+    public BookingDTO(Long id, LocalDate checkInDate, LocalDate checkOutDate, double totalPrice, String userName, String hotelName, String roomType, String address, String city, Long hotelId, Booking_status status, Integer numOfRoom, Integer numOfGuest, LocalDate bookingDate) {
+        this.id = id;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.totalPrice = totalPrice;
+        this.userName = userName;
+        this.hotelName = hotelName;
+        this.roomType = roomType;
+        this.address = address;
+        this.city = city;
+        this.hotelId = hotelId;
+        this.status = status;
+        this.numOfRoom = numOfRoom;
+        this.numOfGuest = numOfGuest;
+        this.bookingDate = bookingDate;
+    }
 }
