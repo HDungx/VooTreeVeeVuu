@@ -4,6 +4,7 @@ import com.VooTreeVeeVuu.domain.entity.*;
 import com.VooTreeVeeVuu.domain.repository.*;
 import com.VooTreeVeeVuu.domain.utils.Edit_status;
 import com.VooTreeVeeVuu.domain.utils.Hotel_status;
+import com.VooTreeVeeVuu.domain.utils.Room_status;
 import com.VooTreeVeeVuu.dto.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,8 @@ public class HotelService {
                 RoomType roomType = roomTypeRepository.findById(roomDTO.getRoomTypeId()).orElseThrow(
                         () -> new RuntimeException("RoomType not found with id: " + roomDTO.getRoomTypeId()));
                 Room room = mapToRoomEntity(roomDTO, savedHotel, roomType);
+                room.setEdit_status(Edit_status.CREATE);
+                room.setStatus(Room_status.PENDING);
                 roomRepository.save(room);
                 if (roomDTO.getRoomFacilities() != null) {
                     for (RoomFacilityDTO roomFacilityDTO : roomDTO.getRoomFacilities()) {
@@ -132,25 +135,6 @@ public class HotelService {
         hotelRepository.delete(existed);
     }
 
-    public List<GetAllHotelDTO> searchHotels(String hotelName, String city, LocalDate checkinDate,
-                                             LocalDate checkoutDate, int rooms, int capacity) {
-        List<Hotel> hotels;
-
-
-        if (hotelName != null && !hotelName.isEmpty() && city != null && !city.isEmpty()) {
-            hotels = hotelRepository.findByHotelNameOrCity(hotelName, city);
-        } else {
-            throw new IllegalArgumentException("Either hotelName or city must be provided.");
-        }
-
-        // Lọc các khách sạn dựa trên số lượng phòng trống, sức chứa và ngày, sau đó chuyển đổi thành DTO
-        return hotels.stream().map(hotel -> {
-                    hotel.setRooms(filterRooms(hotel.getRooms(), checkinDate, checkoutDate, rooms, capacity));
-                    return hotel;
-                }).filter(hotel -> !hotel.getRooms().isEmpty()) // Chỉ giữ khách sạn có phòng thỏa mãn điều kiện
-                .map(this::toDTO).collect(Collectors.toList());
-    }
-
     // Lấy chi tiết khách sạn và lọc theo tiêu chí tìm kiếm
     public GetAllHotelDTO getHotelByIdWithCriteria(Long id, LocalDate checkinDate, LocalDate checkoutDate, int rooms,
                                                    int capacity) {
@@ -163,23 +147,52 @@ public class HotelService {
         return toDTO(hotel);
     }
 
-    private List<Room> filterRooms(List<Room> rooms, LocalDate checkinDate, LocalDate checkoutDate, int requiredRooms,
-                                   int capacity) {
-        return rooms.stream().filter(room -> room.getCapacity() >= capacity).filter(
-                room -> getAvailableRooms(room, checkinDate, checkoutDate) >= requiredRooms).collect(
-                Collectors.toList());
+    public List<GetAllHotelDTO> searchHotels(String hotelName, String city, LocalDate checkinDate,
+                                             LocalDate checkoutDate, int rooms, int capacity) {
+        if (!validateDates(checkinDate, checkoutDate)) {
+            throw new IllegalArgumentException("Check-in date must be before check-out date.");
+        }
+
+        List<Hotel> hotels;
+        if (hotelName != null && !hotelName.isEmpty() && city != null && !city.isEmpty()) {
+            hotels = hotelRepository.findByHotelNameOrCity(hotelName, city);
+        } else {
+            throw new IllegalArgumentException("Either hotelName or city must be provided.");
+        }
+
+        // Lọc các khách sạn dựa trên số lượng phòng trống, sức chứa và ngày, sau đó chuyển đổi thành DTO
+        return hotels.stream()
+                .map(hotel -> {
+                    hotel.setRooms(filterRooms(hotel.getRooms(), checkinDate, checkoutDate, rooms, capacity));
+                    return hotel;
+                })
+                .filter(hotel -> !hotel.getRooms().isEmpty()) // Chỉ giữ khách sạn có phòng thỏa mãn điều kiện
+                .map(this::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    private List<Room> filterRooms(List<Room> rooms, LocalDate checkinDate, LocalDate checkoutDate, int requiredRooms, int capacity) {
+        return rooms.stream()
+                .filter(room -> room.getCapacity() >= capacity)
+                .filter(room -> {
+                    int availableRooms = getAvailableRooms(room, checkinDate, checkoutDate);
+                    return availableRooms >= requiredRooms;
+                })
+                .collect(Collectors.toList());
     }
 
     private int getAvailableRooms(Room room, LocalDate checkinDate, LocalDate checkoutDate) {
-        long bookedRooms = room.getListBooking().stream().filter(
-                booking -> booking.getCheckInDate().isBefore(checkoutDate) && booking.getCheckOutDate().isAfter(
-                        checkinDate)).count();
+        long bookedRooms = room.getListBooking().stream()
+                .filter(booking -> booking.getCheckInDate().isBefore(checkoutDate) && booking.getCheckOutDate().isAfter(checkinDate))
+                .mapToInt(Booking::getNumOfRoom) // Lấy số lượng phòng đã đặt trong mỗi booking
+                .sum();
         return room.getQuantity() - (int) bookedRooms;
     }
 
     public boolean validateDates(LocalDate checkinDate, LocalDate checkoutDate) {
-        return checkinDate.isBefore(checkoutDate);
+        return checkinDate != null && checkoutDate != null && checkinDate.isBefore(checkoutDate);
     }
+
 
     private GetAllHotelDTO toDTO(Hotel hotel) {
         GetAllHotelDTO hotelDTO = new GetAllHotelDTO();
@@ -202,6 +215,7 @@ public class HotelService {
         hotelDTO.setRatings(hotel.getListRating());
         return hotelDTO;
     }
+
 
     private void updateHotelFacilities(Hotel hotel, List<HotelFacilityDTO> facilityDTOs) {
         List<HotelFacility> existingFacilities = hotelFacilityRepository.findByHotel(hotel);
