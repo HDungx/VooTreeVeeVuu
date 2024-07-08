@@ -43,4 +43,13 @@ public class User {
     public User(Long userId) {
         this.id = userId;
     }
+
+
+    public User(Long id, String firstName, String lastName, Gender gender, LocalDate dob) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.dob = dob;
+    }
 }

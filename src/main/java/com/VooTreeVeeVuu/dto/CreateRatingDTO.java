@@ -13,4 +13,12 @@ public class CreateRatingDTO {
     private Long userId;
     private Long hotelId;
     private Long bookingId;
+
+
+    public CreateRatingDTO(int rate, String comment, Long userId, Long hotelId) {
+        this.rate = rate;
+        this.comment = comment;
+        this.userId = userId;
+        this.hotelId = hotelId;
+    }
 }

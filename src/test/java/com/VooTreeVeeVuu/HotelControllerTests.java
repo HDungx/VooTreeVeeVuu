@@ -94,7 +94,7 @@ private static final String END_POINT_PATH="/api/hotels";
         HotelImage hotelImage1 = new HotelImage();
         hotelImage1.setId(1L);
 //        hotelImage1.setPath("hotel1.jpg");
-        hotel1.setHotelImages(Arrays.asList(hotelImage1));
+//        hotel1.setHotelImages(Arrays.asList(hotelImage1));
 
         RoomType roomType1 = new RoomType();
         roomType1.setId(1L);
@@ -106,13 +106,13 @@ private static final String END_POINT_PATH="/api/hotels";
         room1.setPrice(100.0);
         room1.setQuantity(10);
         room1.setRoomSize(25.0);
-        room1.setDescription("A comfortable room");
+//        room1.setDescription("A comfortable room");
         room1.setServeBreakfast(true);
         room1.setRoomType(roomType1);
 
         RoomImage roomImage1 = new RoomImage();
         roomImage1.setId(1L);
-        roomImage1.setPath("room1.jpg");
+//        roomImage1.setPath("room1.jpg");
         room1.setRoom_images(Arrays.asList(roomImage1));
         hotel1.setRooms(Arrays.asList(room1));
 
@@ -158,7 +158,7 @@ private static final String END_POINT_PATH="/api/hotels";
         room2.setPrice(80000.0);
         room2.setQuantity(1);
         room2.setRoomSize(1.0);
-        room2.setDescription("aaaa");
+//        room2.setDescription("aaaa");
         room2.setServeBreakfast(true);
         room2.setRoomType(roomType2);
         room2.setRoomFacilities(Arrays.asList(new RoomFacility(2L, null)));
@@ -350,7 +350,7 @@ private static final String END_POINT_PATH="/api/hotels";
         HotelImage hotelImage = new HotelImage();
         hotelImage.setId(1L);
 //        hotelImage.setPath("hotel1.jpg");
-        hotel.setHotelImages(Arrays.asList(hotelImage));
+//        hotel.setHotelImages(Arrays.asList(hotelImage));
 
         RoomType roomType = new RoomType();
         roomType.setId(1L);
@@ -362,13 +362,13 @@ private static final String END_POINT_PATH="/api/hotels";
         room.setPrice(100.0);
         room.setQuantity(10);
         room.setRoomSize(25.0);
-        room.setDescription("A comfortable room");
+//        room.setDescription("A comfortable room");
         room.setServeBreakfast(true);
         room.setRoomType(roomType);
 
         RoomImage roomImage = new RoomImage();
         roomImage.setId(1L);
-        roomImage.setPath("room1.jpg");
+//        roomImage.setPath("room1.jpg");
         room.setRoom_images(Arrays.asList(roomImage));
 
         hotel.setRooms(Arrays.asList(room));

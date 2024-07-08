@@ -74,4 +74,19 @@ public class Room {
 
     @Enumerated(EnumType.STRING)
     private Edit_status edit_status;
+
+
+    public Room(Long id, int capacity, double price, Integer quantity, double roomSize/*, String description*/, boolean serveBreakfast, RoomType roomType, List<RoomFacility> roomFacilities, Room_status status, List<RoomImage> room_images) {
+        this.id = id;
+        this.capacity = capacity;
+        this.price = price;
+        this.quantity = quantity;
+        this.roomSize = roomSize;
+//        this.description = description;
+        this.serveBreakfast = serveBreakfast;
+        this.roomType = roomType;
+        this.roomFacilities = roomFacilities;
+        this.status = status;
+        this.room_images = room_images;
+    }
 }
