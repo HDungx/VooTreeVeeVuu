@@ -11,9 +11,13 @@ import com.VooTreeVeeVuu.dto.BookingDTO;
 import com.VooTreeVeeVuu.dto.InsertBookingDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +30,9 @@ public class BookingService {
 
     @Autowired
     private RoomRepository roomRepository;
+
+
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public InsertBookingDTO createBooking(InsertBookingDTO bookingDTO) {
         User customer = userRepository.findById(bookingDTO.getUserId()).orElseThrow(() -> new RuntimeException("Customer not found"));
@@ -43,8 +50,12 @@ public class BookingService {
         booking.setNumOfRoom(bookingDTO.getNum_of_rooms());
         booking.setTotalPrice(bookingDTO.getTotal_price());
         booking.setReviewStatus(false);
-
         Booking saved = bookingRepository.save(booking);
+
+        scheduler.schedule(() -> {
+            deleteBookingIfPending(saved.getId());
+        }, 1, TimeUnit.MINUTES);
+
         return mapToDTO(saved);
     }
 
@@ -86,4 +97,14 @@ public class BookingService {
         dto.setBookingDate(booking.getBookingDate());
         return dto;
     }
+
+    @Transactional
+    public void deleteBookingIfPending(Long bookingId) {
+        Booking booking = bookingRepository.findById(bookingId).orElse(null);
+        if (booking != null && booking.getStatus() == Booking_status.PENDING) {
+            bookingRepository.delete(booking);
+        }
+    }
+
+
 }
