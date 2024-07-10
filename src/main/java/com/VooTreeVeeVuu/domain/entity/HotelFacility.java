@@ -28,4 +28,9 @@ public class HotelFacility {
 	@ManyToOne
 	@JoinColumn (name = "hotelId")
 	private Hotel hotel;
+
+	public HotelFacility(Long id, Facility facility) {
+		this.id = id;
+		this.facility = facility;
+	}
 }

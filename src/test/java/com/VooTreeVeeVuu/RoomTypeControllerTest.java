@@ -63,7 +63,7 @@ public class RoomTypeControllerTest {
     public void testGetAllRoomTypes() throws Exception {
         // Mock data
         RoomTypeDTO deluxRoomType = new RoomTypeDTO(1L, "DELUX", Arrays.asList(
-                new Room(1L, 2, 100.0, 10, 25.0, "A comfortable room", true, new RoomType(1L, "DELUX"), null, null, null)
+                new Room(1L, 2, 100.0, 10, 25.0, true, new RoomType(1L, "DELUX"), null, null, null)
         ));
         RoomTypeDTO premiumRoomType = new RoomTypeDTO(2L, "PREMIUM", null);
         RoomTypeDTO vipRoomType = new RoomTypeDTO(3L, "VIP", null);
@@ -85,7 +85,6 @@ public class RoomTypeControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].price").value(100.0))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].quantity").value(10))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].roomSize").value(25.0))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].description").value("A comfortable room"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].serveBreakfast").value(true))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].roomType.id").value(1L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].rooms[0].roomType.typeName").value("DELUX"))
@@ -106,7 +105,7 @@ public class RoomTypeControllerTest {
         // Mock data
         Long roomTypeId = 1L;
         RoomTypeDTO deluxRoomType = new RoomTypeDTO(roomTypeId, "DELUX", Arrays.asList(
-                new Room(1L, 2, 100.0, 10, 25.0, "A comfortable room", true, new RoomType(roomTypeId, "DELUX"), null, null, null)
+                new Room(1L, 2, 100.0, 10, 25.0,  true, new RoomType(roomTypeId, "DELUX"), null, null, null)
         ));
 
         // Mock service response
@@ -123,7 +122,6 @@ public class RoomTypeControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.rooms[0].price").value(100.0))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.rooms[0].quantity").value(10))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.rooms[0].roomSize").value(25.0))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.rooms[0].description").value("A comfortable room"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.rooms[0].serveBreakfast").value(true))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.rooms[0].roomType.id").value(1L))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.rooms[0].roomType.typeName").value("DELUX"))
