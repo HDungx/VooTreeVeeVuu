@@ -16,7 +16,6 @@ public class RoomDTO {
     private double price;
     private Integer quantity;
     private double roomSize;
-    private String description;
     private Long roomTypeId;
     private boolean serveBreakfast;
     private Long hotelId;
