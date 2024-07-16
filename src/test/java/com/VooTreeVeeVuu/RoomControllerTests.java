@@ -86,7 +86,6 @@ public class RoomControllerTests {
                 .andExpect(jsonPath("$[0].price").value(100.0))
                 .andExpect(jsonPath("$[0].quantity").value(10))
                 .andExpect(jsonPath("$[0].roomSize").value(25.0))
-                .andExpect(jsonPath("$[0].description").value("A comfortable room"))
                 .andExpect(jsonPath("$[0].roomType.typeName").value("DELUX"))
                 .andExpect(jsonPath("$[0].serveBreakfast").value(true))
                 .andExpect(jsonPath("$[0].hotel.id").value(1))
@@ -115,7 +114,6 @@ public class RoomControllerTests {
                 .andExpect(jsonPath("$.price").value(100.0))
                 .andExpect(jsonPath("$.quantity").value(10))
                 .andExpect(jsonPath("$.roomSize").value(25.0))
-                .andExpect(jsonPath("$.description").value("A comfortable room"))
                 .andExpect(jsonPath("$.roomType.typeName").value("DELUX"))
                 .andExpect(jsonPath("$.serveBreakfast").value(true))
                 .andExpect(jsonPath("$.hotel.id").value(1))
@@ -145,7 +143,6 @@ public class RoomControllerTests {
                 .andExpect(jsonPath("$.price").value(roomDTO.getPrice()))
                 .andExpect(jsonPath("$.quantity").value(roomDTO.getQuantity()))
                 .andExpect(jsonPath("$.roomSize").value(roomDTO.getRoomSize()))
-                .andExpect(jsonPath("$.description").value(roomDTO.getDescription()))
                 .andExpect(jsonPath("$.roomTypeId").value(roomDTO.getRoomTypeId()))
                 .andExpect(jsonPath("$.serveBreakfast").value(roomDTO.isServeBreakfast()))
                 .andExpect(jsonPath("$.hotelId").value(roomDTO.getHotelId()));
@@ -172,7 +169,6 @@ public class RoomControllerTests {
                 .andExpect(jsonPath("$.price").value(roomDTO.getPrice()))
                 .andExpect(jsonPath("$.quantity").value(roomDTO.getQuantity()))
                 .andExpect(jsonPath("$.roomSize").value(roomDTO.getRoomSize()))
-                .andExpect(jsonPath("$.description").value(roomDTO.getDescription()))
                 .andExpect(jsonPath("$.roomTypeId").value(roomDTO.getRoomTypeId()))
                 .andExpect(jsonPath("$.serveBreakfast").value(roomDTO.isServeBreakfast()))
                 .andExpect(jsonPath("$.hotelId").value(roomDTO.getHotelId()));
@@ -230,7 +226,6 @@ public class RoomControllerTests {
         roomDTO.setPrice(100.0);
         roomDTO.setQuantity(10);
         roomDTO.setRoomSize(25.0);
-        roomDTO.setDescription("A comfortable room");
         roomDTO.setRoomTypeId(1L);
         roomDTO.setServeBreakfast(true);
         roomDTO.setHotelId(1L);
