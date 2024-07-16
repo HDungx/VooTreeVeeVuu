@@ -1,7 +1,6 @@
 package com.VooTreeVeeVuu.dto;
 
 import com.VooTreeVeeVuu.domain.entity.Booking;
-import com.VooTreeVeeVuu.domain.entity.Hotel;
 import com.VooTreeVeeVuu.domain.entity.RoomFacility;
 import com.VooTreeVeeVuu.domain.entity.RoomType;
 import com.VooTreeVeeVuu.domain.utils.Edit_status;
@@ -24,7 +23,8 @@ public class GetAllRoomDTO {
     private String description;
     private RoomType roomType;
     private boolean serveBreakfast;
-    private Hotel hotel;
+    private Long hotelId;
+    private String hotelName;
     private String ownerEmail;
     private Room_status status;
     private Edit_status edit_status;

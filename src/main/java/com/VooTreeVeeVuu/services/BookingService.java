@@ -54,7 +54,7 @@ public class BookingService {
 
         scheduler.schedule(() -> {
             deleteBookingIfPending(saved.getId());
-        }, 1, TimeUnit.MINUTES);
+        }, 45, TimeUnit.MINUTES);
 
         return mapToDTO(saved);
     }

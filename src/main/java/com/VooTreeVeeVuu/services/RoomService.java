@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,13 +34,36 @@ public class RoomService {
 
     @Autowired
     private HotelRepository hotelRepository;
+
     @Autowired
     private RoomImageRepository roomImageRepository;
 
     @Transactional
-    public RoomDTO updateRooms(Long roomId, RoomDTO roomDTO) {
+    public void removeAllRoomImages(Long hotelId, Long roomId) {
+        roomRepository.findByIdAndHotelId(roomId, hotelId)
+                .orElseThrow(() -> new RuntimeException("Room not found in specified hotel"));
+
+        List<RoomImage> imagesToRemove = roomImageRepository.findByRoomId(roomId);
+        roomImageRepository.deleteAll(imagesToRemove);
+    }
+
+    @Transactional
+    public void removeRoomImages(Long hotelId, Long roomId, List<Long> imageIds) {
+        roomRepository.findByIdAndHotelId(roomId, hotelId)
+                .orElseThrow(() -> new RuntimeException("Room not found in specified hotel"));
+
+        List<RoomImage> imagesToRemove = roomImageRepository.findAllById(imageIds);
+        roomImageRepository.deleteAll(imagesToRemove);
+    }
+
+    @Transactional
+    public RoomDTO updateRooms(Long roomId, RoomDTO roomDTO
+                               //, List<MultipartFile> files
+    ) throws IOException {
         Room existedRoom = roomRepository.findById(roomId).orElseThrow(
                 () -> new RuntimeException("Room not found with id: " + roomId));
+
+        // Update Room Entity
         updateRoomEntity(existedRoom, roomDTO);
         existedRoom.setStatus(Room_status.PENDING);
         existedRoom.setEdit_status(Edit_status.UPDATE);
@@ -54,7 +76,95 @@ public class RoomService {
 
         updateRoomFacilities(updatedRoom, roomDTO.getRoomFacilities());
 
+        // Update Room Images
+        //updateRoomImages(updatedRoom, files);
+
         return mapToRoomDTO(updatedRoom);
+    }
+
+
+    private void updateRoomFacilities(Room room, List<RoomFacilityDTO> roomFacilityDTOs) {
+//        List<RoomFacility> existedList = roomFacilityRepository.findByRoom(room);
+//
+//        roomFacilityRepository.deleteAll(existedList);
+
+        room.getRoomFacilities().clear();
+
+        if (roomFacilityDTOs != null) {
+            for (RoomFacilityDTO roomFacilityDTO : roomFacilityDTOs) {
+                Facility facility = facilityRepository.findById(roomFacilityDTO.getFacilityId()).orElseThrow(
+                        () -> new RuntimeException("Facility not found with id: " + roomFacilityDTO.getFacilityId()));
+                RoomFacility roomFacility = new RoomFacility();
+                roomFacility.setRoom(room);
+                roomFacility.setFacility(facility);
+                roomFacilityRepository.save(roomFacility);
+            }
+        }
+    }
+
+
+    //  @Transactional
+//    public void updateRoomImages(Long roomId, List<MultipartFile> files) throws IOException {
+    // Clear existing images
+//        Room findRoom = roomRepository.findById(id)
+////                .orElseThrow(() -> new RuntimeException("Room not found"));
+////
+////        findRoom.getRoom_images().clear();
+////        roomImageRepository.deleteByRoom(findRoom);
+////        // Add new images
+////        List<RoomImage> images = new ArrayList<>();
+////        for (MultipartFile file : files) {
+////            RoomImage roomImage = new RoomImage();
+////            roomImage.setImageName(file.getOriginalFilename());
+////            roomImage.setImageBase64(file.getBytes());
+////            roomImage.setImageType(file.getContentType());
+////            roomImage.setRoom(findRoom);
+////            images.add(roomImage);
+////        }
+////
+////        findRoom.getRoom_images().addAll(images);
+////        roomImageRepository.saveAll(images);
+////        roomRepository.save(findRoom);
+//
+//    }
+
+
+    public GetAllRoomDTO updateRoomImages(Long roomId, List<MultipartFile> files) throws IOException {
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new RuntimeException("Room not found"));
+        room.getRoom_images().clear();
+        //roomImageRepository.deleteByRoom(room);
+        List<RoomImage> images = new ArrayList<>();
+        for (MultipartFile file : files) {
+            RoomImage roomImage = new RoomImage();
+            roomImage.setImageName(file.getOriginalFilename());
+            roomImage.setImageBase64(file.getBytes());
+            roomImage.setImageType(file.getContentType());
+            roomImage.setRoom(room);
+            images.add(roomImage);
+        }
+        room.getRoom_images().addAll(images);
+        roomImageRepository.saveAll(images);
+        Room saved = roomRepository.save(room);
+        return toDTO(saved);
+    }
+
+
+    public GetAllRoomDTO saveRoomImages(Long roomId, List<MultipartFile> files) throws IOException {
+        Room room = roomRepository.findById(roomId).orElseThrow(() -> new RuntimeException("Room not found"));
+
+        List<RoomImage> images = new ArrayList<>();
+        for (MultipartFile file : files) {
+            RoomImage roomImage = new RoomImage();
+            roomImage.setImageName(file.getOriginalFilename());
+            roomImage.setImageBase64(file.getBytes());
+            roomImage.setImageType(file.getContentType());
+            roomImage.setRoom(room);
+            images.add(roomImage);
+        }
+        room.getRoom_images().addAll(images);
+        roomImageRepository.saveAll(images);
+        Room saved = roomRepository.save(room);
+        return toDTO(saved);
     }
 
     private void updateRoomEntity(Room room, RoomDTO roomDTO) {
@@ -77,46 +187,6 @@ public class RoomService {
                     () -> new RuntimeException("Hotel not found with id: " + roomDTO.getHotelId()));
             room.setHotel(hotel);
         }
-
-        // Update Room Facilities
-        //updateRoomFacilities(room, roomDTO.getRoomFacilities());
-    }
-
-    private void updateRoomFacilities(Room room, List<RoomFacilityDTO> roomFacilityDTOs) {
-//        List<RoomFacility> existedList = roomFacilityRepository.findByRoom(room);
-//
-//        roomFacilityRepository.deleteAll(existedList);
-
-        room.getRoomFacilities().clear();
-
-        if (roomFacilityDTOs != null) {
-            for (RoomFacilityDTO roomFacilityDTO : roomFacilityDTOs) {
-                Facility facility = facilityRepository.findById(roomFacilityDTO.getFacilityId()).orElseThrow(
-                        () -> new RuntimeException("Facility not found with id: " + roomFacilityDTO.getFacilityId()));
-                RoomFacility roomFacility = new RoomFacility();
-                roomFacility.setRoom(room);
-                roomFacility.setFacility(facility);
-                roomFacilityRepository.save(roomFacility);
-            }
-        }
-    }
-
-    public GetAllRoomDTO saveRoomImages(Long roomId, List<MultipartFile> files) throws IOException {
-        Room room = roomRepository.findById(roomId).orElseThrow(() -> new RuntimeException("Room not found"));
-
-        List<RoomImage> images = new ArrayList<>();
-        for (MultipartFile file : files) {
-            RoomImage roomImage = new RoomImage();
-            roomImage.setImageName(file.getOriginalFilename());
-            roomImage.setImageBase64(file.getBytes());
-            roomImage.setImageType(file.getContentType());
-            roomImage.setRoom(room);
-            images.add(roomImage);
-        }
-        room.getRoom_images().addAll(images);
-        roomImageRepository.saveAll(images);
-        Room saved = roomRepository.save(room);
-        return toDTO(saved);
     }
 
     private void mapToRoomEntity(RoomDTO roomDTO, Room room) {
@@ -139,7 +209,7 @@ public class RoomService {
         roomDTO.setRoomTypeId(room.getRoomType().getId());
         roomDTO.setServeBreakfast(room.isServeBreakfast());
         roomDTO.setHotelId(room.getHotel().getId());
-
+        roomDTO.setRoom_images(room.getRoom_images().stream().map(this::convertToImageDTO).collect(Collectors.toList()));
         roomDTO.setRoomFacilities(room.getRoomFacilities().stream().map(rf -> {
             RoomFacilityDTO facilityDTO = new RoomFacilityDTO();
             facilityDTO.setFacilityId(rf.getFacility().getFacId());
@@ -159,7 +229,8 @@ public class RoomService {
         //   dto.setDescription(room.getDescription());
         dto.setRoomType(room.getRoomType());
         dto.setServeBreakfast(room.isServeBreakfast());
-        dto.setHotel(room.getHotel());
+        dto.setHotelId(room.getHotel().getId());
+        dto.setHotelName(room.getHotel().getHotelName());
         dto.setRoomFacilities(room.getRoomFacilities());
         dto.setRoom_images(room.getRoom_images().stream().map(this::convertToImageDTO).collect(Collectors.toList()));
         dto.setListBooking(room.getListBooking());
@@ -170,7 +241,7 @@ public class RoomService {
         RoomImageDTO dto = new RoomImageDTO();
         dto.setId(image.getId());
         dto.setImageName(image.getImageName());
-        dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
+        //dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
         dto.setImageType(image.getImageType());
         dto.setImageUrl("/api/room-images/" + image.getId()); // Set URL
         return dto;

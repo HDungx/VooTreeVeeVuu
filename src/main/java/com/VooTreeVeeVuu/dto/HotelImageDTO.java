@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class HotelImageDTO {
     private Long id;
     private String imageName;
-    private String imageBase64; // Base64 encoded string
+    // private String imageBase64; // Base64 encoded string
     private String imageType;
     private String imageUrl;
 

@@ -9,7 +9,6 @@ import com.VooTreeVeeVuu.dto.RoomImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,8 @@ public class GetAllRoomImpl implements GetAllRoom {
         //dto.setDescription(room.getDescription());
         dto.setRoomType(room.getRoomType());
         dto.setServeBreakfast(room.isServeBreakfast());
-        dto.setHotel(room.getHotel());
+        dto.setHotelId(room.getHotel().getId());
+        dto.setHotelName(room.getHotel().getHotelName());
         dto.setRoomFacilities(room.getRoomFacilities());
         dto.setRoom_images(room.getRoom_images().stream().map(this::convertToImageDTO).collect(Collectors.toList()));
         dto.setListBooking(room.getListBooking());
@@ -45,9 +45,9 @@ public class GetAllRoomImpl implements GetAllRoom {
         RoomImageDTO dto = new RoomImageDTO();
         dto.setId(image.getId());
         dto.setImageName(image.getImageName());
-        dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
+        //dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
         dto.setImageType(image.getImageType());
-        dto.setImageUrl("/api/hotel-images/" + image.getId()); // Set URL
+        dto.setImageUrl("/api/room-images/" + image.getId()); // Set URL
         return dto;
     }
 }

@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,6 +48,27 @@ public class HotelService {
         Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(()-> new RuntimeException("Hotel not found"));
         List<HotelImage> list = hotel.getHotelImages();
 	    hotelImageRepository.deleteAll(list);
+    }
+
+    @Transactional
+    public void removeHotelImage(Long hotelId, Long imageId) {
+        Hotel hotel = hotelRepository.findById(hotelId)
+                .orElseThrow(() -> new RuntimeException("Hotel not found"));
+
+        HotelImage image = hotel.getHotelImages().stream()
+                .filter(img -> img.getId().equals(imageId))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Image not found in hotel"));
+
+        hotel.getHotelImages().remove(image);
+        hotelImageRepository.delete(image);
+    }
+
+    @Transactional
+    public void removeAllHotelImages(Long hotelId) {
+        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new RuntimeException("Hotel not found"));
+        List<HotelImage> list = hotel.getHotelImages();
+        hotelImageRepository.deleteAll(list);
     }
 
     @Transactional
@@ -232,11 +252,11 @@ public class HotelService {
         hotelDTO.setUser(hotel.getUser());
         hotelDTO.setHotelImages(
                 hotel.getHotelImages().stream().map(this::convertToImageDTO).collect(Collectors.toList()));
-        hotelDTO.setRooms(hotel.getRooms());
+        hotelDTO.setRooms(
+                hotel.getRooms().stream().map(this::toRoomDTO).collect(Collectors.toList()));
         hotelDTO.setRatings(hotel.getListRating());
         return hotelDTO;
     }
-
 
     private void updateHotelFacilities(Hotel hotel, List<HotelFacilityDTO> facilityDTOs) {
         List<HotelFacility> existingFacilities = hotelFacilityRepository.findByHotel(hotel);
@@ -317,9 +337,39 @@ public class HotelService {
         HotelImageDTO dto = new HotelImageDTO();
         dto.setId(image.getId());
         dto.setImageName(image.getImageName());
-        dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
+        //dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
         dto.setImageType(image.getImageType());
         dto.setImageUrl("/api/hotel-images/" + image.getId()); // Set URL
+        return dto;
+    }
+
+    private GetAllRoomDTO toRoomDTO(Room room) {
+        GetAllRoomDTO dto = new GetAllRoomDTO();
+        dto.setId(room.getId());
+        dto.setCapacity(room.getCapacity());
+        dto.setPrice(room.getPrice());
+        dto.setQuantity(room.getQuantity());
+        dto.setRoomSize(room.getRoomSize());
+        //dto.setDescription(room.getDescription());
+        dto.setRoomType(room.getRoomType());
+        dto.setServeBreakfast(room.isServeBreakfast());
+        dto.setHotelId(room.getHotel().getId());
+        dto.setHotelName(room.getHotel().getHotelName());
+        dto.setRoomFacilities(room.getRoomFacilities());
+        dto.setRoom_images(room.getRoom_images().stream().map(this::convertToImageDTO).collect(Collectors.toList()));
+        dto.setListBooking(room.getListBooking());
+        dto.setStatus(room.getStatus());
+        dto.setEdit_status(room.getEdit_status());
+        return dto;
+    }
+
+    private RoomImageDTO convertToImageDTO(RoomImage image) {
+        RoomImageDTO dto = new RoomImageDTO();
+        dto.setId(image.getId());
+        dto.setImageName(image.getImageName());
+        //dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
+        dto.setImageType(image.getImageType());
+        dto.setImageUrl("/api/room-images/" + image.getId()); // Set URL
         return dto;
     }
 }

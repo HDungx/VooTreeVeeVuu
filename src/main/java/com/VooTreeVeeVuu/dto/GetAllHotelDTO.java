@@ -1,6 +1,9 @@
 package com.VooTreeVeeVuu.dto;
 
-import com.VooTreeVeeVuu.domain.entity.*;
+import com.VooTreeVeeVuu.domain.entity.AccommodationType;
+import com.VooTreeVeeVuu.domain.entity.HotelFacility;
+import com.VooTreeVeeVuu.domain.entity.Rating;
+import com.VooTreeVeeVuu.domain.entity.User;
 import com.VooTreeVeeVuu.domain.utils.Edit_status;
 import com.VooTreeVeeVuu.domain.utils.Hotel_status;
 import lombok.AllArgsConstructor;
@@ -27,7 +30,7 @@ public class GetAllHotelDTO {
     private AccommodationType accommodationType;
     private User user;
     private List<HotelImageDTO> hotelImages;
-    private List<Room> rooms;
+    private List<GetAllRoomDTO> rooms;
     private List<HotelFacility> hotelFacilities;
     private List<Rating> ratings;
 }

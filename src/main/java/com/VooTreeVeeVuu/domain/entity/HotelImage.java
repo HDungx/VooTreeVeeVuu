@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Base64;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,7 +33,7 @@ public class HotelImage {
         HotelImageDTO dto = new HotelImageDTO();
         dto.setId(this.id);
         dto.setImageName(this.imageName);
-        dto.setImageBase64(Base64.getEncoder().encodeToString(this.imageBase64));
+        //dto.setImageBase64(Base64.getEncoder().encodeToString(this.imageBase64));
         dto.setImageType(this.imageType);
         return dto;
     }

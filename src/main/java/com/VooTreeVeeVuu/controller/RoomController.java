@@ -58,8 +58,19 @@ public class RoomController {
     }
 
     @PutMapping("/partner/update/{id}")
-    public ResponseEntity<RoomDTO> updateRoom(@PathVariable Long id, @RequestBody RoomDTO roomDTO) {
+    public ResponseEntity<RoomDTO> updateRoom(@PathVariable Long id, @RequestBody RoomDTO roomDTO
+                                              //        , @RequestPart("files") List<MultipartFile> files
+    ) throws IOException {
         RoomDTO updatedRoom = roomService.updateRooms(id, roomDTO);
+        return ResponseEntity.ok(updatedRoom);
+    }
+
+    @PutMapping("/partner/update/{roomId}/images")
+    public ResponseEntity<GetAllRoomDTO> updateRoomImages(
+            @PathVariable Long roomId,
+            @RequestParam("files") List<MultipartFile> files) throws IOException {
+
+        GetAllRoomDTO updatedRoom = roomService.updateRoomImages(roomId, files);
         return ResponseEntity.ok(updatedRoom);
     }
 

@@ -8,7 +8,6 @@ import com.VooTreeVeeVuu.dto.RoomImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Base64;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,10 +29,12 @@ public class GetRoomImpl implements GetRoom {
         //dto.setDescription(room.getDescription());
         dto.setRoomType(room.getRoomType());
         dto.setServeBreakfast(room.isServeBreakfast());
-        dto.setHotel(room.getHotel());
+        dto.setHotelId(room.getHotel().getId());
+        dto.setHotelName(room.getHotel().getHotelName());
         dto.setRoomFacilities(room.getRoomFacilities());
         dto.setRoom_images(room.getRoom_images().stream().map(this::convertToImageDTO).collect(Collectors.toList()));
         dto.setListBooking(room.getListBooking());
+        dto.setOwnerEmail(room.getHotel().getUser().getAccount().getEmail());
         return dto;
     }
 

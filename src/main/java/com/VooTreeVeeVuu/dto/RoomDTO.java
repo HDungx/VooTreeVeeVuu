@@ -22,5 +22,5 @@ public class RoomDTO {
     private List<RoomFacilityDTO> roomFacilities;
     private Room_status status;
     //private List<Booking> listBooking;
-    //private List<RoomImage> room_images;
+    private List<RoomImageDTO> room_images;
 }
