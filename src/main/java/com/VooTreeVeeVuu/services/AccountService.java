@@ -7,12 +7,17 @@ import com.VooTreeVeeVuu.domain.entity.OTP;
 import com.VooTreeVeeVuu.domain.repository.AccountRepository;
 import com.VooTreeVeeVuu.domain.repository.OTPRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -35,6 +40,9 @@ public class AccountService {
 
 	@Autowired
 	private RoleRepository roleRepository;
+
+	@Autowired
+	private JwtUtils jwtUtils;
 
 	private String generateOTP () {
 		return String.valueOf((int) (Math.random() * 900000) + 100000);
@@ -256,4 +264,6 @@ public class AccountService {
 			throw new RuntimeException("Avatar not found");
 		}
 	}
+
+
 }

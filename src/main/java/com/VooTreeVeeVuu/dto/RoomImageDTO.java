@@ -16,6 +16,6 @@ public class RoomImageDTO {
 	private String imageUrl;
 
 	public String getImageUrl() {
-		return "/api/hotel-images/" + this.id; // Construct URL
+		return "/api/room-images/" + this.id; // Construct URL
 	}
 }

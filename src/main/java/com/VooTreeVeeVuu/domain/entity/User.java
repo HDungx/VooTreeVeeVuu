@@ -52,4 +52,8 @@ public class User {
         this.gender = gender;
         this.dob = dob;
     }
+
+    public User (String name) {
+        this.lastName = name;
+    }
 }

@@ -22,7 +22,6 @@ public class GetAllHotelDTO {
     private int hotelStars;
     private String hotelDescription;
     private Hotel_status status;
-    private Edit_status edit_status;
     private LocalTime checkInTime;
     private LocalTime checkOutTime;
     private AccommodationType accommodationType;

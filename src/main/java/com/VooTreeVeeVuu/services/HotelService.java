@@ -44,6 +44,27 @@ public class HotelService {
     @Autowired
     private HotelImageRepository hotelImageRepository;
 
+    @Transactional
+    public void removeAllHotelImages(Long hotelId){
+        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(()-> new RuntimeException("Hotel not found"));
+        List<HotelImage> list = hotel.getHotelImages();
+	    hotelImageRepository.deleteAll(list);
+    }
+
+    @Transactional
+    public void removeHotelImage(Long hotelId, Long imageId) {
+        Hotel hotel = hotelRepository.findById(hotelId)
+                .orElseThrow(() -> new RuntimeException("Hotel not found"));
+
+        HotelImage image = hotel.getHotelImages().stream()
+                .filter(img -> img.getId().equals(imageId))
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("Image not found in hotel"));
+
+        hotel.getHotelImages().remove(image);
+        hotelImageRepository.delete(image);
+    }
+
     public GetAllHotelDTO saveHotelImages(Long hotelId, List<MultipartFile> files) throws IOException {
         Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new RuntimeException("Hotel not found"));
 
@@ -69,7 +90,7 @@ public class HotelService {
 
     public HotelDTO createHotel(HotelDTO hotelDTO) {
         Hotel hotel = mapToHotelEntity(hotelDTO);
-        hotel.setEdit_status(Edit_status.CREATE);
+       // hotel.setEdit_status(Edit_status.CREATE);
         hotel.setStatus(Hotel_status.PENDING);
         Hotel savedHotel = hotelRepository.save(hotel);
 
@@ -111,7 +132,7 @@ public class HotelService {
         Hotel existingHotel = hotelRepository.findById(hotelId).orElseThrow(
                 () -> new RuntimeException("Hotel not found with id: " + hotelId));
         existingHotel.setStatus(Hotel_status.PENDING);
-        existingHotel.setEdit_status(Edit_status.UPDATE);
+        //existingHotel.setEdit_status(Edit_status.UPDATE);
         updateHotelEntity(existingHotel, hotelDTO);
         Hotel updatedHotel = hotelRepository.save(existingHotel);
 

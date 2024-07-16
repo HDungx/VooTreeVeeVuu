@@ -18,4 +18,8 @@ public class Role {
 
 	@Enumerated (EnumType.STRING)
 	private RoleName name;
+
+	public Role (RoleName roleName) {
+		this.name = roleName;
+	}
 }

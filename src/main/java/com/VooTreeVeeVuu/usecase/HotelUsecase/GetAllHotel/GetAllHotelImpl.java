@@ -40,14 +40,14 @@ public class GetAllHotelImpl implements GetAllHotel {
                 hotel.getHotelImages().stream().map(this::convertToImageDTO).collect(Collectors.toList()));
         hotelDTO.setRooms(hotel.getRooms());
         hotelDTO.setRatings(hotel.getListRating());
-        hotelDTO.setEdit_status(hotel.getEdit_status());
+       // hotelDTO.setEdit_status(hotel.getEdit_status());
         return hotelDTO;
     }
 
     private HotelImageDTO convertToImageDTO(HotelImage image) {
         HotelImageDTO dto = new HotelImageDTO();
         dto.setId(image.getId());
-        dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
+        //dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
         dto.setImageName(image.getImageName());
         dto.setImageType(image.getImageType());
         dto.setImageUrl("/api/hotel-images/" + image.getId()); // Set URL

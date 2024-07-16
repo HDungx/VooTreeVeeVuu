@@ -34,7 +34,6 @@ public class Account implements UserDetails {
 	@Column (unique = true, nullable = false)
 	private String username;
 
-	@NotBlank
 	private String password;
 
 	@Email
@@ -54,7 +53,7 @@ public class Account implements UserDetails {
 	@JoinColumn (name = "user_id", referencedColumnName = "id")
 	private User user;
 
-	@ManyToMany (fetch = FetchType.EAGER)
+	@ManyToMany (fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable (name = "account_roles", joinColumns = @JoinColumn (name = "account_id"), inverseJoinColumns = @JoinColumn (name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 

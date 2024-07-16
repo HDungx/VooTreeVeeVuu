@@ -4,9 +4,17 @@ import com.VooTreeVeeVuu.dto.AuthenticationResponse;
 import com.VooTreeVeeVuu.dto.LoginDTO;
 import com.VooTreeVeeVuu.dto.SignUpDTO;
 import com.VooTreeVeeVuu.services.AuthenticationService;
+import com.VooTreeVeeVuu.services.CustomOAuth2AuthenticationSuccessHandler;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.Map;
 
 @CrossOrigin ("*")
 @RestController
@@ -14,6 +22,8 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthenticationController {
 	private final AuthenticationService service;
+
+	private final CustomOAuth2AuthenticationSuccessHandler authenticationSuccessHandler;
 
 	@PostMapping ("/register")
 	public ResponseEntity<AuthenticationResponse> register (@RequestBody SignUpDTO request) {
@@ -26,4 +36,10 @@ public class AuthenticationController {
 
 	}
 
+	@PostMapping ("/oauth2/token")
+	public ResponseEntity<?> authenticateOAuth2User (HttpServletRequest request, HttpServletResponse response,
+	                                                 Authentication authentication) throws IOException, ServletException {
+		authenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);
+		return ResponseEntity.ok().build();
+	}
 }

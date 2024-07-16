@@ -41,9 +41,9 @@ public class GetRoomImpl implements GetRoom {
         RoomImageDTO dto = new RoomImageDTO();
         dto.setId(image.getId());
         dto.setImageName(image.getImageName());
-        dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
+        //dto.setImageBase64(Base64.getEncoder().encodeToString(image.getImageBase64()));
         dto.setImageType(image.getImageType());
-        dto.setImageUrl("/api/hotel-images/" + image.getId()); // Set URL
+        dto.setImageUrl("/api/room-images/" + image.getId()); // Set URL
         return dto;
     }
 }
