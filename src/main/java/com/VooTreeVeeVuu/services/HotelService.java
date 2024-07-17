@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,27 +45,6 @@ public class HotelService {
     private HotelImageRepository hotelImageRepository;
 
     @Transactional
-    public void removeAllHotelImages(Long hotelId){
-        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(()-> new RuntimeException("Hotel not found"));
-        List<HotelImage> list = hotel.getHotelImages();
-	    hotelImageRepository.deleteAll(list);
-    }
-
-    @Transactional
-    public void removeHotelImage(Long hotelId, Long imageId) {
-        Hotel hotel = hotelRepository.findById(hotelId)
-                .orElseThrow(() -> new RuntimeException("Hotel not found"));
-
-        HotelImage image = hotel.getHotelImages().stream()
-                .filter(img -> img.getId().equals(imageId))
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Image not found in hotel"));
-
-        hotel.getHotelImages().remove(image);
-        hotelImageRepository.delete(image);
-    }
-
-    @Transactional
     public void removeAllHotelImages(Long hotelId) {
         Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new RuntimeException("Hotel not found"));
         List<HotelImage> list = hotel.getHotelImages();
@@ -84,6 +64,27 @@ public class HotelService {
         hotel.getHotelImages().remove(image);
         hotelImageRepository.delete(image);
     }
+
+//    @Transactional
+//    public void removeAllHotelImages(Long hotelId) {
+//        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new RuntimeException("Hotel not found"));
+//        List<HotelImage> list = hotel.getHotelImages();
+//        hotelImageRepository.deleteAll(list);
+//    }
+//
+//    @Transactional
+//    public void removeHotelImage(Long hotelId, Long imageId) {
+//        Hotel hotel = hotelRepository.findById(hotelId)
+//                .orElseThrow(() -> new RuntimeException("Hotel not found"));
+//
+//        HotelImage image = hotel.getHotelImages().stream()
+//                .filter(img -> img.getId().equals(imageId))
+//                .findFirst()
+//                .orElseThrow(() -> new RuntimeException("Image not found in hotel"));
+//
+//        hotel.getHotelImages().remove(image);
+//        hotelImageRepository.delete(image);
+//    }
 
     public GetAllHotelDTO saveHotelImages(Long hotelId, List<MultipartFile> files) throws IOException {
         Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new RuntimeException("Hotel not found"));
@@ -110,7 +111,7 @@ public class HotelService {
 
     public HotelDTO createHotel(HotelDTO hotelDTO) {
         Hotel hotel = mapToHotelEntity(hotelDTO);
-       // hotel.setEdit_status(Edit_status.CREATE);
+        // hotel.setEdit_status(Edit_status.CREATE);
         hotel.setStatus(Hotel_status.PENDING);
         Hotel savedHotel = hotelRepository.save(hotel);
 
@@ -183,9 +184,9 @@ public class HotelService {
                 () -> new IllegalArgumentException("Hotel not found with id: " + id));
 
         // Lọc các phòng dựa trên tiêu chí tìm kiếm
-        hotel.setRooms(filterRooms(hotel.getRooms(), checkinDate, checkoutDate, rooms, capacity));
-
-        return toDTO(hotel);
+        //hotel.setRooms(filterRooms(hotel.getRooms(), checkinDate, checkoutDate, rooms, capacity));
+        List<GetAllRoomDTO> filteredRoom = filterRooms(hotel.getRooms(), checkinDate, checkoutDate, rooms, capacity);
+        return searchtoDTO(hotel, filteredRoom);
     }
 
     public List<GetAllHotelDTO> searchHotels(String hotelName, String city, LocalDate checkinDate,
@@ -204,21 +205,43 @@ public class HotelService {
         // Lọc các khách sạn dựa trên số lượng phòng trống, sức chứa và ngày, sau đó chuyển đổi thành DTO
         return hotels.stream()
                 .map(hotel -> {
-                    hotel.setRooms(filterRooms(hotel.getRooms(), checkinDate, checkoutDate, rooms, capacity));
-                    return hotel;
+                    List<GetAllRoomDTO> filteredRooms = filterRooms(hotel.getRooms(), checkinDate, checkoutDate, rooms, capacity);
+                    if (!filteredRooms.isEmpty()) {
+                        return searchtoDTO(hotel, filteredRooms);
+                    }
+                    return null;
                 })
-                .filter(hotel -> !hotel.getRooms().isEmpty()) // Chỉ giữ khách sạn có phòng thỏa mãn điều kiện
-                .map(this::toDTO)
+                .filter(Objects::nonNull) // Chỉ giữ khách sạn có phòng thỏa mãn điều kiện
                 .collect(Collectors.toList());
     }
 
-    private List<Room> filterRooms(List<Room> rooms, LocalDate checkinDate, LocalDate checkoutDate, int requiredRooms, int capacity) {
+    private List<GetAllRoomDTO> filterRooms(List<Room> rooms, LocalDate checkinDate, LocalDate checkoutDate, int requiredRooms, int capacity) {
         return rooms.stream()
                 .filter(room -> room.getCapacity() >= capacity)
-                .filter(room -> {
+//                .filter(room -> {
+//                    int availableRooms = getAvailableRooms(room, checkinDate, checkoutDate);
+//                    return availableRooms >= requiredRooms;
+//                })
+//                .map(room -> {
+//                    int availableRooms = getAvailableRooms(room, checkinDate, checkoutDate);
+//                    if (availableRooms >= requiredRooms) {
+//                        GetAllRoomDTO roomDTO = toRoomDTO(room);
+//                        roomDTO.setAvailableRooms(availableRooms);
+//                        return roomDTO;
+//                    }
+//                    return null;
+//                })
+//                .collect(Collectors.toList());
+                .map(room -> {
                     int availableRooms = getAvailableRooms(room, checkinDate, checkoutDate);
-                    return availableRooms >= requiredRooms;
+                    if (availableRooms >= requiredRooms) {
+                        GetAllRoomDTO roomDTO = toRoomDTO(room);
+                        roomDTO.setAvailableRooms(availableRooms);
+                        return roomDTO;
+                    }
+                    return null;
                 })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
@@ -234,6 +257,28 @@ public class HotelService {
         return checkinDate != null && checkoutDate != null && checkinDate.isBefore(checkoutDate);
     }
 
+
+    private GetAllHotelDTO searchtoDTO(Hotel hotel, List<GetAllRoomDTO> filteredRoom) {
+        GetAllHotelDTO hotelDTO = new GetAllHotelDTO();
+        hotelDTO.setId(hotel.getId());
+        hotelDTO.setAddress(hotel.getAddress());
+        hotelDTO.setHotelName(hotel.getHotelName());
+        hotelDTO.setCity(hotel.getCity());
+        hotelDTO.setHotelPhoneNum(hotel.getHotelPhoneNum());
+        hotelDTO.setHotelStars(hotel.getHotelStars());
+        hotelDTO.setHotelDescription(hotel.getHotelDescription());
+        hotelDTO.setCheckInTime(hotel.getCheckInTime());
+        hotelDTO.setCheckOutTime(hotel.getCheckOutTime());
+        hotelDTO.setStatus(hotel.getStatus());
+        hotelDTO.setAccommodationType(hotel.getAccommodationType());
+        hotelDTO.setHotelFacilities(hotel.getHotelFacilities());
+        hotelDTO.setUser(hotel.getUser());
+        hotelDTO.setHotelImages(
+                hotel.getHotelImages().stream().map(this::convertToImageDTO).collect(Collectors.toList()));
+        hotelDTO.setRooms(filteredRoom);
+        hotelDTO.setRatings(hotel.getListRating());
+        return hotelDTO;
+    }
 
     private GetAllHotelDTO toDTO(Hotel hotel) {
         GetAllHotelDTO hotelDTO = new GetAllHotelDTO();
@@ -360,6 +405,7 @@ public class HotelService {
         dto.setListBooking(room.getListBooking());
         dto.setStatus(room.getStatus());
         dto.setEdit_status(room.getEdit_status());
+        //dto.setAvailableRooms(getAvailableRooms());
         return dto;
     }
 

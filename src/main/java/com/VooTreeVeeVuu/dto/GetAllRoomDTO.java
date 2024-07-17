@@ -31,4 +31,5 @@ public class GetAllRoomDTO {
     private List<RoomFacility> roomFacilities;
     private List<Booking> listBooking;
     private List<RoomImageDTO> room_images;
+    private int availableRooms;
 }

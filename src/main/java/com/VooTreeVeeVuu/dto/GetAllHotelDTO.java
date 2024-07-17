@@ -4,7 +4,6 @@ import com.VooTreeVeeVuu.domain.entity.AccommodationType;
 import com.VooTreeVeeVuu.domain.entity.HotelFacility;
 import com.VooTreeVeeVuu.domain.entity.Rating;
 import com.VooTreeVeeVuu.domain.entity.User;
-import com.VooTreeVeeVuu.domain.utils.Edit_status;
 import com.VooTreeVeeVuu.domain.utils.Hotel_status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,4 +32,5 @@ public class GetAllHotelDTO {
     private List<GetAllRoomDTO> rooms;
     private List<HotelFacility> hotelFacilities;
     private List<Rating> ratings;
+
 }
