@@ -36,10 +36,14 @@ public class AuthenticationController {
 
 	}
 
-	@PostMapping ("/oauth2/token")
-	public ResponseEntity<?> authenticateOAuth2User (HttpServletRequest request, HttpServletResponse response,
-	                                                 Authentication authentication) throws IOException, ServletException {
+	@GetMapping("/success")
+	public ResponseEntity<String> handleSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
 		authenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.ok("Authentication successful. Token generated and sent.");
+	}
+
+	@GetMapping("/failure")
+	public ResponseEntity<String> handleFailure() {
+		return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body("Authentication failed.");
 	}
 }

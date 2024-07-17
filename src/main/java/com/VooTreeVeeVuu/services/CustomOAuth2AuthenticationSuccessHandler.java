@@ -66,6 +66,7 @@ public class CustomOAuth2AuthenticationSuccessHandler implements AuthenticationS
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write("{\"token\": \"" + token + "\"}");
+		response.getWriter().flush(); // Flush the writer to ensure all data is written
 	}
 
 	@Transactional

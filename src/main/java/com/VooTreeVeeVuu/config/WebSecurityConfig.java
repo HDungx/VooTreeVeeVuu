@@ -41,12 +41,14 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
                 .oauth2Login(oauth2Login -> oauth2Login
                         .userInfoEndpoint(userInfoEndpoint ->
                                 userInfoEndpoint.oidcUserService(customOAuth2UserService)
                         )
-                        .successHandler(oAuth2AuthenticationSuccessHandler()))
+                        .defaultSuccessUrl("/api/auth/success")
+                        .failureUrl("/api/auth/failure")
+                        )
                 .logout(logout ->
                         logout
                                 .logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository()))
