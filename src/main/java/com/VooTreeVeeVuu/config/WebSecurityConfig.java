@@ -1,7 +1,5 @@
 package com.VooTreeVeeVuu.config;
 
-import com.VooTreeVeeVuu.domain.entity.Account;
-import com.VooTreeVeeVuu.domain.entity.User;
 import com.VooTreeVeeVuu.domain.repository.AccountRepository;
 import com.VooTreeVeeVuu.services.CustomOAuth2AuthenticationSuccessHandler;
 import com.VooTreeVeeVuu.services.CustomOAuth2UserService;
@@ -21,7 +19,6 @@ import org.springframework.security.oauth2.client.registration.InMemoryClientReg
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
 import org.springframework.security.oauth2.core.oidc.IdTokenClaimNames;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -41,14 +38,14 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize.requestMatchers("/api/auth/**").permitAll()
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
                 .oauth2Login(oauth2Login -> oauth2Login
                         .userInfoEndpoint(userInfoEndpoint ->
                                 userInfoEndpoint.oidcUserService(customOAuth2UserService)
                         )
                         .defaultSuccessUrl("/api/auth/success")
                         .failureUrl("/api/auth/failure")
-                        )
+                )
                 .logout(logout ->
                         logout
                                 .logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository()))

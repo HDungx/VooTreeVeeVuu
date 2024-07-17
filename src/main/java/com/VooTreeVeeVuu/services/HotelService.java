@@ -218,20 +218,7 @@ public class HotelService {
     private List<GetAllRoomDTO> filterRooms(List<Room> rooms, LocalDate checkinDate, LocalDate checkoutDate, int requiredRooms, int capacity) {
         return rooms.stream()
                 .filter(room -> room.getCapacity() >= capacity)
-//                .filter(room -> {
-//                    int availableRooms = getAvailableRooms(room, checkinDate, checkoutDate);
-//                    return availableRooms >= requiredRooms;
-//                })
-//                .map(room -> {
-//                    int availableRooms = getAvailableRooms(room, checkinDate, checkoutDate);
-//                    if (availableRooms >= requiredRooms) {
-//                        GetAllRoomDTO roomDTO = toRoomDTO(room);
-//                        roomDTO.setAvailableRooms(availableRooms);
-//                        return roomDTO;
-//                    }
-//                    return null;
-//                })
-//                .collect(Collectors.toList());
+
                 .map(room -> {
                     int availableRooms = getAvailableRooms(room, checkinDate, checkoutDate);
                     if (availableRooms >= requiredRooms) {
