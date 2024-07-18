@@ -16,6 +16,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,6 +47,30 @@ public class HotelService {
 
     @Autowired
     private HotelImageRepository hotelImageRepository;
+
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    @Autowired
+    private RoomImageRepository roomImageRepository;
+
+    public Optional<GetAllHotelDTO> rejectHotel(Long id) {
+        return hotelRepository.findById(id).map(hotel -> {
+            hotel.setStatus(Hotel_status.REJECTED);
+            Hotel updated = hotelRepository.save(hotel);
+
+            scheduler.schedule(() -> {
+                deleteIfReject(updated.getId());
+            }, 30, TimeUnit.SECONDS);
+
+            return toDTO(updated);
+        });
+    }
+
+    public void deleteIfReject(Long hotelId) {
+        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow(() -> new RuntimeException("Not found"));
+        if (hotel.getStatus() == Hotel_status.REJECTED) {
+            deleteHotel(hotelId);
+        }
+    }
 
     @Transactional
     public void removeAllHotelImages(Long hotelId) {
@@ -168,12 +196,15 @@ public class HotelService {
 
         existed.getRooms().forEach(room -> {
             roomFacilityRepository.deleteAll(room.getRoomFacilities());
+            roomImageRepository.deleteAll(room.getRoom_images());
         });
 
         roomRepository.deleteAll(existed.getRooms());
 
         hotelFacilityRepository.deleteAll(existed.getHotelFacilities());
 
+        hotelImageRepository.deleteAll(existed.getHotelImages());
+ 
         hotelRepository.delete(existed);
     }
 

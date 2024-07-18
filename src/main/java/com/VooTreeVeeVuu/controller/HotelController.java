@@ -1,10 +1,8 @@
 package com.VooTreeVeeVuu.controller;
 
-import com.VooTreeVeeVuu.domain.entity.Hotel;
 import com.VooTreeVeeVuu.domain.repository.HotelRepository;
 import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.dto.HotelDTO;
-import com.VooTreeVeeVuu.dto.HotelImageDTO;
 import com.VooTreeVeeVuu.services.HotelService;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.DeleteHotel.DeleteHotelImpl;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.GetAllHotel.GetAllHotelImpl;
@@ -46,6 +44,11 @@ public class HotelController {
     private HotelService hotelService;
     @Autowired
     private HotelRepository hotelRepository;
+
+    @PutMapping("/staff/reject/{id}")
+    public Optional<GetAllHotelDTO> rejectHotel(@PathVariable Long id) {
+        return hotelService.rejectHotel(id);
+    }
 
     @GetMapping()
     public List<GetAllHotelDTO> getAllHotel() {
@@ -95,7 +98,7 @@ public class HotelController {
 
     @PostMapping("/{hotelId}/images")
     public ResponseEntity<GetAllHotelDTO> uploadImages(@PathVariable Long hotelId,
-     @RequestParam("files") List<MultipartFile> files) {
+                                                       @RequestParam("files") List<MultipartFile> files) {
         try {
             GetAllHotelDTO updatedHotel = hotelService.saveHotelImages(hotelId, files);
             return ResponseEntity.ok(updatedHotel);
