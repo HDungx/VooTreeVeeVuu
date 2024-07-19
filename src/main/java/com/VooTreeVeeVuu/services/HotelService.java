@@ -139,7 +139,7 @@ public class HotelService {
 
     public HotelDTO createHotel(HotelDTO hotelDTO) {
         Hotel hotel = mapToHotelEntity(hotelDTO);
-        // hotel.setEdit_status(Edit_status.CREATE);
+        hotel.setEdit_status(Edit_status.CREATE);
         hotel.setStatus(Hotel_status.PENDING);
         Hotel savedHotel = hotelRepository.save(hotel);
 
@@ -181,7 +181,7 @@ public class HotelService {
         Hotel existingHotel = hotelRepository.findById(hotelId).orElseThrow(
                 () -> new RuntimeException("Hotel not found with id: " + hotelId));
         existingHotel.setStatus(Hotel_status.PENDING);
-        //existingHotel.setEdit_status(Edit_status.UPDATE);
+        existingHotel.setEdit_status(Edit_status.UPDATE);
         updateHotelEntity(existingHotel, hotelDTO);
         Hotel updatedHotel = hotelRepository.save(existingHotel);
 
@@ -204,7 +204,7 @@ public class HotelService {
         hotelFacilityRepository.deleteAll(existed.getHotelFacilities());
 
         hotelImageRepository.deleteAll(existed.getHotelImages());
- 
+
         hotelRepository.delete(existed);
     }
 
@@ -318,6 +318,7 @@ public class HotelService {
         hotelDTO.setRooms(
                 hotel.getRooms().stream().map(this::toRoomDTO).collect(Collectors.toList()));
         hotelDTO.setRatings(hotel.getListRating());
+        hotelDTO.setEdit_status(hotel.getEdit_status());
         return hotelDTO;
     }
 
@@ -363,6 +364,7 @@ public class HotelService {
         hotel.setCheckOutTime(hotelDTO.getCheckOutTime());
         hotel.setAccommodationType(new AccommodationType(hotelDTO.getAccommodationTypeId()));
         hotel.setUser(new User(hotelDTO.getUserId()));
+        hotel.setEdit_status(hotelDTO.getEdit_status());
         return hotel;
     }
 
@@ -379,6 +381,7 @@ public class HotelService {
         hotelDTO.setCheckOutTime(hotel.getCheckOutTime());
         hotelDTO.setAccommodationTypeId(hotel.getAccommodationType().getId());
         hotelDTO.setUserId(hotel.getUser().getId());
+        hotelDTO.setEdit_status(hotel.getEdit_status());
         return hotelDTO;
     }
 

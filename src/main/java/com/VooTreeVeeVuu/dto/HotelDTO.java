@@ -1,5 +1,6 @@
 package com.VooTreeVeeVuu.dto;
 
+import com.VooTreeVeeVuu.domain.utils.Edit_status;
 import com.VooTreeVeeVuu.domain.utils.Hotel_status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class HotelDTO {
     private LocalTime checkOutTime;
     private Long userId;
     private Long accommodationTypeId;
+    private Edit_status edit_status;
     //private List<Rating> ratings;
     private List<RoomDTO> rooms;
     //private List<HotelImage> hotelImages;

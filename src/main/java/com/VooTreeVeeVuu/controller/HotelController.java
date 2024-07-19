@@ -4,6 +4,7 @@ import com.VooTreeVeeVuu.domain.repository.HotelRepository;
 import com.VooTreeVeeVuu.dto.GetAllHotelDTO;
 import com.VooTreeVeeVuu.dto.HotelDTO;
 import com.VooTreeVeeVuu.services.HotelService;
+import com.VooTreeVeeVuu.usecase.HotelUsecase.AcceptHotel.AcceptHotelRequest;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.DeleteHotel.DeleteHotelImpl;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.GetAllHotel.GetAllHotelImpl;
 import com.VooTreeVeeVuu.usecase.HotelUsecase.GetHotel.GetHotelImpl;
@@ -44,6 +45,14 @@ public class HotelController {
     private HotelService hotelService;
     @Autowired
     private HotelRepository hotelRepository;
+    @Autowired
+    private AcceptHotelRequest acceptHotelRequest;
+
+
+    @PutMapping("/staff/accept/{id}")
+    public Optional<GetAllHotelDTO> acceptHotel(@PathVariable Long id) {
+        return acceptHotelRequest.acceptHotel(id);
+    }
 
     @PutMapping("/staff/reject/{id}")
     public Optional<GetAllHotelDTO> rejectHotel(@PathVariable Long id) {

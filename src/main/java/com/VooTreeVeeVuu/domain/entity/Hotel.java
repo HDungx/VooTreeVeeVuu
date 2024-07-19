@@ -55,6 +55,9 @@ public class Hotel {
     @Enumerated(EnumType.STRING)
     private Hotel_status status;
 
+    @Enumerated(EnumType.STRING)
+    private Edit_status edit_status;
+
     @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
     @Temporal(TemporalType.TIME)
     @Column(name = "checkInTime")
