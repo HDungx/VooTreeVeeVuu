@@ -44,7 +44,7 @@ public class GetAllHotelImpl implements GetAllHotel {
         hotelDTO.setRooms(
                 hotel.getRooms().stream().map(this::toRoomDTO).collect(Collectors.toList()));
         hotelDTO.setRatings(hotel.getListRating());
-        // hotelDTO.setEdit_status(hotel.getEdit_status());
+        hotelDTO.setEdit_status(hotel.getEdit_status());
         return hotelDTO;
     }
 
