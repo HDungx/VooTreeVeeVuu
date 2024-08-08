@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -44,6 +45,6 @@ public class AuthenticationController {
 
 	@GetMapping("/failure")
 	public ResponseEntity<String> handleFailure() {
-		return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body("Authentication failed.");
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Authentication failed.");
 	}
 }

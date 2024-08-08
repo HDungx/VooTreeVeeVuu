@@ -41,10 +41,11 @@ public class PaymentController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
-        long amountValue = Integer.parseInt(amount) * 100L;
+        double amountValue = Double.parseDouble(amount) * 100;
+        long amountLongValue = (long) amountValue;
         Date createDate = new Date(); // or fetch from your specific logic
 
-        paymentService.savePayment(vnp_TxnRef, amountValue, createDate, booking, user);
+        paymentService.savePayment(vnp_TxnRef, amountLongValue, createDate, booking, user);
 
         // Build and return response as needed
         // Example response map

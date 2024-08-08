@@ -1,6 +1,8 @@
 package com.VooTreeVeeVuu.services;
 
 import com.VooTreeVeeVuu.dto.EmailReceiptDTO;
+import jakarta.activation.DataSource;
+import jakarta.activation.FileDataSource;
 import jakarta.mail.Message;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
@@ -9,10 +11,16 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.nio.file.Path;
+
 @Service
 public class EmailService {
     @Autowired
-    private final JavaMailSender mailSender;
+    private JavaMailSender mailSender;
+
+    @Autowired
+    private BookingPdfService bookingPdfService;
 
     public EmailService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
@@ -21,7 +29,7 @@ public class EmailService {
     public void sendOTP(String email, String otp) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
-            message.setFrom("dhuyclone2001@gmail.com");
+            message.setFrom("vootreeveevuu@gmail.com");
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             message.setSubject("OTP VERIFICATION CODE");
             message.setText("Your OTP code: " + otp);
@@ -34,6 +42,9 @@ public class EmailService {
     public void sendEmailReceipt(EmailReceiptDTO dto) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
+            Path filePath = Path.of("src/main/resources/BookingInfo.pdf"); // Define the file path where the PDF will be saved
+            File pdfFile = bookingPdfService.generateBookingPdf(dto, filePath);
+
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom("vootreeveevuu@gmail.com");
             helper.setTo(dto.getCusEmail());
@@ -60,6 +71,10 @@ public class EmailService {
                             " <p style=\"width: 30%\"><strong>From - To:</strong></p>" +
                             " <p style=\"font-weight: bold; color: red\">" + dto.getCheckInDate() + " - " + dto.getCheckOutDate() + "</p></div></div>";
             helper.setText(emailContent, true);
+
+            DataSource source = new FileDataSource(pdfFile);
+            helper.addAttachment("BookingInfo.pdf", source);
+
             mailSender.send(message);
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,6 +84,9 @@ public class EmailService {
     public void sendEmailToOwner(EmailReceiptDTO dto) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
+            Path filePath = Path.of("src/main/resources/BookingInfo.pdf"); // Define the file path where the PDF will be saved
+            File pdfFile = bookingPdfService.generateBookingPdf(dto, filePath);
+
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
             helper.setFrom("vootreeveevuu@gmail.com");
             helper.setTo(dto.getOwnerEmail());
@@ -96,6 +114,8 @@ public class EmailService {
                             " <div style=\"display: flex; padding: 5px; margin-bottom: -25px\">" +
                             "<p style=\"width: 30%\"><strong>Customer Email:</strong></p><p>" + dto.getCusEmail() + "</p></div>";
             helper.setText(emailContent, true);
+            DataSource source = new FileDataSource(pdfFile);
+            helper.addAttachment("BookingInfo.pdf", source);
             mailSender.send(message);
         } catch (Exception e) {
             e.printStackTrace();
