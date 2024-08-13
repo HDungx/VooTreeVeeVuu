@@ -44,7 +44,7 @@ public class JwtUtils {
         Long id = account.getId();
         String phone = account.getPhoneNum();
         Long user_id = account.getUser().getId();
-        System.out.println(phone);
+        //System.out.println(phone);
 
         return Jwts.builder().setClaims(extraClaims).setSubject(account.getUsername()).setIssuedAt(
                         new Date(System.currentTimeMillis())).setExpiration(
