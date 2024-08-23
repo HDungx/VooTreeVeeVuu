@@ -38,7 +38,7 @@ public class AuthenticationController {
 	}
 
 	@GetMapping("/success")
-	public ResponseEntity<String> handleSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+	public ResponseEntity<String> handleSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 		authenticationSuccessHandler.onAuthenticationSuccess(request, response, authentication);
 		return ResponseEntity.ok("Authentication successful. Token generated and sent.");
 	}
