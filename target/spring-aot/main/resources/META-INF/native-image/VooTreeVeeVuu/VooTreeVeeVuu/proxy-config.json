@@ -1,0 +1,343 @@
+[
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.AccommodationTypeRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.AccommodationTypeRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.AccountRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.AccountRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.BookingRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.BookingRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.FacilityRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.FacilityRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.HotelFacilityRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.HotelFacilityRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.HotelImageRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.HotelImageRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.HotelRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.HotelRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.LogsRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.LogsRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.OTPRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.OTPRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.PaymentRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.PaymentRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.RatingRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.RatingRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.RoleRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.RoleRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.RoomFacilityRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.RoomFacilityRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.RoomImageRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.RoomImageRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.RoomRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.RoomRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.RoomTypeRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.RoomTypeRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.UserRepository",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "com.VooTreeVeeVuu.domain.repository.UserRepository",
+      "org.springframework.data.repository.Repository",
+      "org.springframework.transaction.interceptor.TransactionalProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "org.hibernate.Session",
+      "org.springframework.orm.jpa.EntityManagerProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "org.hibernate.SessionFactory",
+      "org.springframework.orm.jpa.EntityManagerFactoryInfo"
+    ]
+  },
+  {
+    "interfaces": [
+      "org.hibernate.query.hql.spi.SqmQueryImplementor",
+      "org.hibernate.query.sqm.internal.SqmInterpretationsKey$InterpretationsKeySource",
+      "org.hibernate.query.spi.DomainQueryExecutionContext",
+      "org.hibernate.query.SelectionQuery",
+      "org.hibernate.query.CommonQueryContract"
+    ]
+  },
+  {
+    "interfaces": [
+      "org.hibernate.query.sql.spi.NativeQueryImplementor",
+      "org.hibernate.query.spi.DomainQueryExecutionContext",
+      "org.hibernate.query.internal.ResultSetMappingResolutionContext",
+      "org.hibernate.query.spi.QueryImplementor",
+      "org.hibernate.query.SelectionQuery",
+      "org.hibernate.query.CommonQueryContract"
+    ]
+  },
+  {
+    "interfaces": [
+      "org.springframework.data.annotation.QueryAnnotation"
+    ]
+  },
+  {
+    "interfaces": [
+      "org.springframework.data.jpa.repository.support.CrudMethodMetadata",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  },
+  {
+    "interfaces": [
+      "org.springframework.security.authentication.AuthenticationManager",
+      "org.springframework.aop.SpringProxy",
+      "org.springframework.aop.framework.Advised",
+      "org.springframework.core.DecoratingProxy"
+    ]
+  }
+]
