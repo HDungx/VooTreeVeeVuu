@@ -69,7 +69,7 @@ public class Hotel {
     private LocalTime checkOutTime;
 
     //@JsonIgnored
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "typeId")
     AccommodationType accommodationType;
 
