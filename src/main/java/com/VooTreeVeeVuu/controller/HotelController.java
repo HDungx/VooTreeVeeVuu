@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -106,16 +105,32 @@ public class HotelController {
         return ResponseEntity.noContent().build();
     }
 
+    //    @PostMapping("/{hotelId}/images")
+//    public ResponseEntity<GetAllHotelDTO> uploadImages(@PathVariable Long hotelId,
+//                                                       @RequestParam("files") List<MultipartFile> files) {
+//        try {
+//            GetAllHotelDTO updatedHotel = hotelService.saveHotelImages(hotelId, files);
+//            return ResponseEntity.ok(updatedHotel);
+//        } catch (IOException e) {
+//            return ResponseEntity.status(500).body(null);
+//
+//        }
+//    }
     @PostMapping("/{hotelId}/images")
-    public ResponseEntity<GetAllHotelDTO> uploadImages(@PathVariable Long hotelId,
-                                                       @RequestParam("files") List<MultipartFile> files) {
+    public ResponseEntity<String> uploadImages(@PathVariable Long hotelId,
+                                               @RequestParam("files") List<MultipartFile> files) {
         try {
             GetAllHotelDTO updatedHotel = hotelService.saveHotelImages(hotelId, files);
-            return ResponseEntity.ok(updatedHotel);
+            return ResponseEntity.ok("Images uploaded successfully");
         } catch (IOException e) {
-            return ResponseEntity.status(500).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error occurred: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Unexpected error occurred: " + e.getMessage());
         }
     }
+
 
     @GetMapping("/search")
     public ResponseEntity<List<GetAllHotelDTO>> searchHotels(@RequestParam(required = false) String hotelName,
